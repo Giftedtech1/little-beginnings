@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-size: 110%;
+    scroll-padding-top: 72px; /* matches new h-16 navbar */
+  }
+
+  @media (max-width: 360px) {
+    html {
+      font-size: 100%;
+    }
+  }
+
+  body {
+    @apply font-sans text-dark bg-white antialiased transition-colors duration-300 dark:bg-[#061D1D] dark:text-gray-100;
+    overscroll-behavior-y: none;    /* prevents iOS rubber-band bounce affecting layout */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  #root {
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+
+  /* Keyboard focus ring — only shows on keyboard navigation, not mouse clicks */
+  :focus-visible {
+    outline: 2px solid #14B0B0;
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  /* Text selection brand color */
+  ::selection {
+    background: #14B0B0;
+    color: #fff;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-semibold font-display
+           transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary-dark hover:shadow-card-hover
+           active:scale-[0.96] active:translate-y-0 active:shadow-none;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 border-2 border-primary text-primary px-6 py-3 rounded-full font-semibold font-display
+           transition-all duration-200 hover:bg-primary hover:text-white
+           active:scale-[0.96] active:shadow-none;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center gap-2 bg-accent text-dark px-6 py-3 rounded-full font-semibold font-display
+           transition-all duration-200 hover:-translate-y-0.5 hover:bg-accent-dark hover:shadow-card-hover
+           active:scale-[0.96] active:translate-y-0 active:shadow-none;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-extrabold font-display text-dark leading-tight;
+  }
+
+  .section-subtitle {
+    @apply text-muted text-lg mt-3 leading-relaxed;
+  }
+
+  .card {
+    @apply bg-white dark:bg-slate-800 rounded-3xl shadow-card dark:shadow-none border border-transparent dark:border-slate-700 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover;
+  }
+
+  .tag {
+    @apply inline-block bg-primary/10 text-primary-dark dark:text-primary-light text-xs font-bold px-3 py-1 rounded-full;
+  }
+}
+
+@layer utilities {
+  /* Override Tailwind utility colors for dark mode to force proper contrast */
+  .text-dark {
+    color: #0D2B2B !important;
+  }
+  .dark .text-dark {
+    color: #F3F4F6 !important; /* gray-100 */
+  }
+
+  .text-muted {
+    color: #4A7A7A !important;
+  }
+  .dark .text-muted {
+    color: #9CA3AF !important; /* gray-400 */
+  }
+
+  .font-floral {
+    font-family: 'Great Vibes', cursive;
+    line-height: normal;
+  }
+
+  /* Solid teal text highlight — no boring gradient */
+  .text-highlight {
+    color: #14B0B0;
+    position: relative;
+    display: inline-block;
+  }
+
+  .text-highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: #AFFFFF;
+    border-radius: 4px;
+    z-index: -1;
+  }
+
+  /* Solid accent underline for headings */
+  .text-brand {
+    color: #14B0B0 !important;
+  }
+  .dark .text-brand {
+    color: #21F8F8 !important; /* brighter vivid teal for dark mode contrast */
+  }
+
+  .text-coral {
+    color: #FF6B6B !important;
+  }
+
+  /* Section bg variants */
+  .bg-teal-solid {
+    @apply bg-[#14B0B0] dark:bg-[#0E9090];
+  }
+
+  .bg-teal-pale {
+    @apply bg-[#D4EFEF] dark:bg-[#061D1D];
+  }
+
+  .bg-teal-light {
+    @apply bg-[#C2E8E8] dark:bg-[#0A2525];
+  }
+
+  /* Dot pattern background for hero — child-friendly */
+  .bg-dots {
+    background-image: radial-gradient(circle, #19C9C9 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+  }
+
+  /* Confetti-like scattered circles utility */
+  .bg-confetti {
+    background-image:
+      radial-gradient(circle at 10% 20%, #AFFFFF 3px, transparent 3px),
+      radial-gradient(circle at 85% 10%, #FFD166 4px, transparent 4px),
+      radial-gradient(circle at 60% 90%, #FF6B6B 2px, transparent 2px),
+      radial-gradient(circle at 30% 70%, #1CDBDB 3px, transparent 3px),
+      radial-gradient(circle at 90% 55%, #AFFFFF 2px, transparent 2px);
+    background-size: 300px 300px;
+  }
+}
