@@ -105,7 +105,7 @@ export default function AccessGate({ children }) {
             <span className="mt-1 inline-block text-gray-600">
               Contact Administration: 
               <a href="tel:+2348033344077" className="text-brand font-bold hover:underline ml-1">Call</a> / 
-              <a href="https://wa.me/2348033344077" target="_blank" rel="noreferrer" className="text-brand font-bold hover:underline ml-1">WhatsApp</a>
+              <a href="https://wa.me/2348033344077?text=Hello%2C%20I%20would%20like%20to%20request%20an%20access%20code%20for%20the%20Little%20Beginnings%20Admission%20Portal.%20Please%20assist%20me." target="_blank" rel="noreferrer" className="text-brand font-bold hover:underline ml-1">WhatsApp</a>
             </span>
           </p>
         </div>
