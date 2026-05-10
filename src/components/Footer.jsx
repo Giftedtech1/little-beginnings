@@ -1,4 +1,5 @@
 import { MapPin, Phone, Mail } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import WaveDivider from './WaveDivider'
 import logo from '../assets/new logo.png'
 
@@ -17,12 +18,13 @@ const YoutubeIcon = () => (
 )
 
 const quickLinks = [
-  { label: 'Home',     href: '#home' },
-  { label: 'About Us', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Our Team', href: '#team' },
-  { label: 'Blogs',    href: '#blog' },
-  { label: 'Contact',  href: '#contact' },
+  { label: 'Home',       to: '/',           href: null },
+  { label: 'About Us',   to: '/about',       href: null },
+  { label: 'Programs',   to: '/programs',    href: null },
+  { label: 'Admissions', to: '/admissions',  href: null },
+  { label: 'Services',   to: null,           href: '/#services' },
+  { label: 'Blog',       to: null,           href: '/#blog' },
+  { label: 'Contact',    to: null,           href: '/#contact' },
 ]
 
 const services = [
@@ -82,12 +84,21 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-white/60 text-sm transition-colors hover:text-primary-bright"
-                  >
-                    {link.label}
-                  </a>
+                  {link.to ? (
+                    <Link
+                      to={link.to}
+                      className="text-white/60 text-sm transition-colors hover:text-primary-bright"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="text-white/60 text-sm transition-colors hover:text-primary-bright"
+                    >
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

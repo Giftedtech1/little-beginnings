@@ -102,7 +102,11 @@ export default function AccessGate({ children }) {
         <div className="bg-gray-50 border-t border-gray-100 p-6 text-center">
           <p className="text-xs text-gray-500">
             Don't have an access code? <br />
-            <Link to="/#contact" className="text-brand font-bold hover:underline mt-1 inline-block">Contact Administration</Link>
+            <span className="mt-1 inline-block text-gray-600">
+              Contact Administration: 
+              <a href="tel:+2348033344077" className="text-brand font-bold hover:underline ml-1">Call</a> / 
+              <a href="https://wa.me/2348033344077" target="_blank" rel="noreferrer" className="text-brand font-bold hover:underline ml-1">WhatsApp</a>
+            </span>
           </p>
         </div>
       </motion.div>

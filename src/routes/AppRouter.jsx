@@ -22,6 +22,9 @@ import ScrollToTop from '../components/ScrollToTop'
 import PageTransition from '../components/PageTransition'
 import BlogPost from '../pages/BlogPost'
 import ServiceDetail from '../pages/ServiceDetail'
+import Foundation from '../pages/Foundation'
+import TrainingSchool from '../pages/TrainingSchool'
+import TheraHub from '../pages/TheraHub'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -38,6 +41,9 @@ function AnimatedRoutes() {
         <Route path="/pre-assessment" element={<PageTransition><AccessGate><PreAssessment /></AccessGate></PageTransition>} />
         <Route path="/services/:serviceId" element={<PageTransition><ServiceDetail /></PageTransition>} />
         <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
+        <Route path="/foundation" element={<PageTransition><Foundation /></PageTransition>} />
+        <Route path="/training-school" element={<PageTransition><TrainingSchool /></PageTransition>} />
+        <Route path="/thera-hub" element={<PageTransition><TheraHub /></PageTransition>} />
         <Route path="/portal/login" element={<PageTransition><Login /></PageTransition>} />
         <Route path="/portal/update-password" element={<PageTransition><UpdatePassword /></PageTransition>} />
         <Route path="/portal/dashboard" element={<PageTransition><Dashboard /></PageTransition>} />

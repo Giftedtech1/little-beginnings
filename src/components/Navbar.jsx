@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { Menu, X, ChevronDown, Users, GraduationCap } from 'lucide-react'
+import { Menu, X, ChevronDown, Users, GraduationCap, Phone, MessageCircle, Construction, HeartPulse, Layers } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import logo from '../assets/new logo.png'
 import ThemeToggle from './ThemeToggle'
@@ -12,14 +12,17 @@ const navLinks = [
   { label: 'Admissions', href: null, to: '/admissions' },
   { label: 'Services', href: '#services', to: null },
   { label: 'Blog', href: '#blog', to: null },
-  { label: 'Contact', href: '#contact', to: null },
 ]
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [isLoginOpen, setIsLoginOpen] = useState(false)
+  const [isContactOpen, setIsContactOpen] = useState(false)
+  const [isExploreOpen, setIsExploreOpen] = useState(false)
   const dropdownRef = useRef(null)
+  const contactDropdownRef = useRef(null)
+  const exploreDropdownRef = useRef(null)
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20)
@@ -31,6 +34,12 @@ export default function Navbar() {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsLoginOpen(false)
+      }
+      if (contactDropdownRef.current && !contactDropdownRef.current.contains(event.target)) {
+        setIsContactOpen(false)
+      }
+      if (exploreDropdownRef.current && !exploreDropdownRef.current.contains(event.target)) {
+        setIsExploreOpen(false)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
@@ -81,6 +90,73 @@ export default function Navbar() {
                 </a>
               )
             )}
+
+            {/* Our Brands Dropdown */}
+            <div className="relative" ref={exploreDropdownRef}>
+              <button
+                onClick={() => setIsExploreOpen(!isExploreOpen)}
+                className="flex items-center gap-1 font-semibold text-sm transition-colors duration-200 dark:text-white"
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#14B0B0')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '')}
+              >
+                Our Brands
+                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isExploreOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              <AnimatePresence>
+                {isExploreOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute left-0 mt-2 w-56 bg-white dark:bg-slate-900 rounded-2xl shadow-card border border-primary/10 overflow-hidden"
+                  >
+                    <div className="p-2 space-y-1">
+                      <Link
+                        to="/foundation"
+                        onClick={() => setIsExploreOpen(false)}
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-dark/80 dark:text-white hover:bg-primary/10 hover:text-primary transition-colors"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                          <Layers className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <p className="leading-none">Foundation</p>
+                          <p className="text-[10px] font-normal text-gray-400 mt-0.5">Social impact arm</p>
+                        </div>
+                      </Link>
+                      <Link
+                        to="/training-school"
+                        onClick={() => setIsExploreOpen(false)}
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-dark/80 dark:text-white hover:bg-purple-500/10 hover:text-purple-500 transition-colors"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500">
+                          <GraduationCap className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <p className="leading-none">Training School</p>
+                          <p className="text-[10px] font-normal text-gray-400 mt-0.5">Educator development</p>
+                        </div>
+                      </Link>
+                      <Link
+                        to="/thera-hub"
+                        onClick={() => setIsExploreOpen(false)}
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-dark/80 dark:text-white hover:bg-amber-500/10 hover:text-amber-500 transition-colors"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500">
+                          <HeartPulse className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <p className="leading-none">TheraHub</p>
+                          <p className="text-[10px] font-normal text-gray-400 mt-0.5">Therapy & wellness</p>
+                        </div>
+                      </Link>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </nav>
 
           {/* CTA */}
@@ -131,9 +207,50 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            <a href="#contact" className="btn-primary text-sm py-2.5">
-              Contact Us
-            </a>
+            {/* Contact Dropdown */}
+            <div className="relative" ref={contactDropdownRef}>
+              <button
+                onClick={() => setIsContactOpen(!isContactOpen)}
+                className="btn-primary text-sm py-2.5 flex items-center gap-1.5"
+              >
+                Contact Us
+                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isContactOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              <AnimatePresence>
+                {isContactOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-900 rounded-2xl shadow-card border border-primary/10 overflow-hidden"
+                  >
+                    <div className="p-2 space-y-1">
+                      <a
+                        href="tel:+2348033344077"
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-dark/80 dark:text-white hover:bg-primary/10 hover:text-primary transition-colors"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                          <Phone className="w-4 h-4" />
+                        </div>
+                        Call: +234 803 334 4077
+                      </a>
+                      <a
+                        href="https://wa.me/2348033344077"
+                        target="_blank" rel="noreferrer"
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-dark/80 dark:text-white hover:bg-green-500/10 hover:text-green-500 transition-colors"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500">
+                          <MessageCircle className="w-4 h-4" />
+                        </div>
+                        WhatsApp: +234 803 334 4077
+                      </a>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
 
           {/* Mobile Toggle */}
@@ -183,7 +300,43 @@ export default function Navbar() {
               </a>
             )
           )}
-          <div className="pt-2 pb-2 border-t border-primary/10 my-2 space-y-1">
+          <div className="pt-2 pb-2 border-t border-primary/10 my-2">
+            <div className="px-4 py-2 text-xs font-bold text-muted uppercase tracking-wider">
+              Our Brands
+            </div>
+            <Link
+              to="/foundation"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-dark/80 dark:text-white hover:bg-primary/10 hover:text-primary transition-colors"
+            >
+              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                <Layers className="w-4 h-4" />
+              </div>
+              Foundation
+            </Link>
+            <Link
+              to="/training-school"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-dark/80 dark:text-white hover:bg-purple-500/10 hover:text-purple-500 transition-colors"
+            >
+              <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500">
+                <GraduationCap className="w-4 h-4" />
+              </div>
+              Training School
+            </Link>
+            <Link
+              to="/thera-hub"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-dark/80 dark:text-white hover:bg-amber-500/10 hover:text-amber-500 transition-colors"
+            >
+              <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500">
+                <HeartPulse className="w-4 h-4" />
+              </div>
+              TheraHub
+            </Link>
+          </div>
+
+          <div className="pt-2 pb-2 border-t border-primary/10 my-2">
             <div className="px-4 py-2 text-xs font-bold text-muted uppercase tracking-wider">
               Portal Access
             </div>
@@ -208,9 +361,30 @@ export default function Navbar() {
           </div>
 
           <div className="pt-3">
-            <a href="#contact" className="btn-primary w-full justify-center text-sm">
+            <button
+              onClick={() => setIsContactOpen(!isContactOpen)}
+              className="btn-primary w-full justify-center text-sm flex items-center gap-2"
+            >
               Contact Us
-            </a>
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isContactOpen ? 'rotate-180' : ''}`} />
+            </button>
+            <AnimatePresence>
+              {isContactOpen && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="mt-2 space-y-2 flex flex-col overflow-hidden"
+                >
+                  <a href="tel:+2348033344077" className="flex items-center justify-center py-2.5 rounded-xl text-sm font-bold bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+                    <Phone className="w-4 h-4 mr-2" /> Call: +234 803 334 4077
+                  </a>
+                  <a href="https://wa.me/2348033344077" target="_blank" rel="noreferrer" className="flex items-center justify-center py-2.5 rounded-xl text-sm font-bold bg-green-500/10 text-green-600 hover:bg-green-500/20 transition-colors">
+                    <MessageCircle className="w-4 h-4 mr-2" /> WhatsApp: +234 803 334 4077
+                  </a>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>

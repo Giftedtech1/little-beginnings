@@ -57,7 +57,7 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-surface flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center px-4" style={{ backgroundColor: '#f0f4f8', colorScheme: 'light' }}>
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="flex items-center justify-center mb-8">
@@ -88,11 +88,11 @@ export default function Login() {
           </div>
         )}
 
-        <div className="bg-white rounded-3xl shadow-card p-8">
-          <h1 className="font-display font-extrabold text-2xl text-dark mb-1">
+        <div className="rounded-3xl shadow-card p-8" style={{ backgroundColor: '#ffffff' }}>
+          <h1 className="font-display font-extrabold text-2xl mb-1" style={{ color: '#0D2B2B' }}>
             {currentSession ? 'Switch Account' : 'Portal Login'}
           </h1>
-          <p className="text-muted text-sm mb-7">
+          <p className="text-sm mb-7" style={{ color: '#6B7280' }}>
             {currentSession
               ? 'Enter different credentials to log in as another user.'
               : 'Sign in to access the school portal.'}
@@ -100,7 +100,7 @@ export default function Login() {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label htmlFor="login-email" className="block text-sm font-semibold text-dark mb-1.5">
+              <label htmlFor="login-email" className="block text-sm font-semibold mb-1.5" style={{ color: '#0D2B2B' }}>
                 Email Address
               </label>
               <input
@@ -110,12 +110,13 @@ export default function Login() {
                 onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
                 placeholder="you@example.com"
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm bg-surface outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+                className="w-full px-4 py-3 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+                style={{ backgroundColor: '#F9FAFB', borderColor: '#E5E7EB', color: '#111827' }}
               />
             </div>
 
             <div>
-              <label htmlFor="login-password" className="block text-sm font-semibold text-dark mb-1.5">
+              <label htmlFor="login-password" className="block text-sm font-semibold mb-1.5" style={{ color: '#0D2B2B' }}>
                 Password
               </label>
               <div className="relative">
@@ -126,12 +127,14 @@ export default function Login() {
                   onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
                   placeholder="••••••••"
                   required
-                  className="w-full px-4 py-3 pr-10 rounded-xl border border-gray-200 text-sm bg-surface outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+                  className="w-full px-4 py-3 pr-10 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+                  style={{ backgroundColor: '#F9FAFB', borderColor: '#E5E7EB', color: '#111827' }}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-dark"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 hover:text-dark"
+                  style={{ color: '#9CA3AF' }}
                   aria-label="Toggle password visibility"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -154,7 +157,7 @@ export default function Login() {
           </form>
         </div>
 
-        <p className="text-center text-xs text-muted mt-6">
+        <p className="text-center text-xs mt-6" style={{ color: '#9CA3AF' }}>
           &copy; {new Date().getFullYear()} Little Beginnings Learning Center
         </p>
       </div>
