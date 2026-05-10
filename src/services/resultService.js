@@ -88,21 +88,23 @@ export async function uploadResultMedia(studentId, file) {
   return { name: file.name, url: publicUrl, type: file.type }
 }
 
-/** Upload a PDF report to Supabase Storage (results-media bucket).
- * Returns { url, file_name, size } to match the expected shape. */
+/** Upload a PDF report to cPanel host.
+ * Returns { url, file_name, size } */
 export async function uploadPDFToCpanel(file) {
-  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_')
-  const path = `pdfs/${Date.now()}_${safeName}`
+  const formData = new FormData()
+  formData.append('pdf', file)
 
-  const { error: storageError } = await supabase.storage
-    .from('results-media')
-    .upload(path, file, { contentType: 'application/pdf', upsert: false })
+  const response = await fetch('https://www.little-beginnings.org/uploads/upload_pdf.php', {
+    method: 'POST',
+    body: formData,
+  })
 
-  if (storageError) throw new Error(storageError.message || 'Failed to upload PDF')
+  if (!response.ok) {
+    const errData = await response.json().catch(() => ({}))
+    throw new Error(errData.error || 'Failed to upload PDF')
+  }
 
-  const { data: { publicUrl } } = supabase.storage.from('results-media').getPublicUrl(path)
-
-  return { url: publicUrl, file_name: file.name, size: file.size }
+  return await response.json() // { url, file_name, size }
 }
 
 /** Create a new result.
