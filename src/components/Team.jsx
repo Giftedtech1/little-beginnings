@@ -19,7 +19,7 @@ const team = [
     id: 2,
     name: 'Balogun Samson Oluwatosin',
     role: 'Occupational Therapist & Autism Specialist',
-    bio: '‘Tosin Balogun has over two decades’ experience providing interventions to children, adolescents and adults with additional learning needs. He holds a diploma in occupational therapy at the Federal School of Occupational Therapy, Lagos and a first-degree in education from the Pebble Hills University, USA as well as a degree in early childhood education from the National Open University Nigeria. In addition to training in applied behaviour analysis (behaviour technician), he is a trained Teach Me Language program provider, a program designed to improve the language and social skills of children on the autism spectrum disorder and related conditions. He has completed training for a renewable license as an Advanced Certified Autism Specialist with the International Board of Credentialing and Continuing Education Standards. Furthermore, he is a licensed occupational therapist with the Health and Care Professions Council (HCPC), United Kingdom.',
+    bio: 'Tosin Balogun has over two decades experience providing interventions to children, adolescents and adults with additional learning needs. He holds a diploma in occupational therapy at the Federal School of Occupational Therapy, Lagos and a first-degree in education from the Pebble Hills University, USA as well as a degree in early childhood education from the National Open University Nigeria. In addition to training in applied behaviour analysis (behaviour technician), he is a trained Teach Me Language program provider, a program designed to improve the language and social skills of children on the autism spectrum disorder and related conditions. He has completed training for a renewable license as an Advanced Certified Autism Specialist with the International Board of Credentialing and Continuing Education Standards. Furthermore, he is a licensed occupational therapist with the Health and Care Professions Council (HCPC), United Kingdom.',
     img: imgBalogun,
   },
   {
@@ -109,7 +109,7 @@ export default function Team() {
                   <p className="text-brand font-bold text-[11px] sm:text-xs uppercase tracking-wider mb-5 min-h-[32px] flex items-center justify-center">
                     {member.role}
                   </p>
-                  
+
                   <div className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed text-left relative flex-grow flex flex-col justify-start">
                     <motion.div
                       initial={false}
@@ -121,7 +121,7 @@ export default function Team() {
                           <p key={i}>{paragraph}</p>
                         ))}
                       </div>
-                      
+
                       {/* Gradient mask when collapsed */}
                       <AnimatePresence>
                         {!isExpanded && (
