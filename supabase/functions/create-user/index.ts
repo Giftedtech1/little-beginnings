@@ -30,7 +30,8 @@ serve(async (req) => {
 
     // Verify the user is actually an admin in the profiles table
     const { data: profile } = await supabaseAdmin.from('profiles').select('role').eq('id', user.id).single()
-    if (profile?.role !== 'admin') throw new Error('Forbidden: Admins only')
+    const adminRoles = ['admin', 'super_admin', 'admin_2', 'admin_3']
+    if (!adminRoles.includes(profile?.role)) throw new Error('Forbidden: Admins only')
 
     // 3. Parse request body
     const { email, password, role, first_name, last_name } = await req.json()

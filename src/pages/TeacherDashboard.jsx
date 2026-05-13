@@ -326,11 +326,17 @@ export default function TeacherDashboard() {
                     {/* Items */}
                     <div className="divide-y divide-gray-50 bg-white">
                       {domain.items.map(item => (
-                        <div key={item.id} className="flex items-center gap-3 px-4 py-2.5">
-                          <input type="text" value={item.name}
-                            onChange={e => updateItem(domain.id, item.id, { name: e.target.value })}
+                        <div key={item.id} className="flex items-start gap-3 px-4 py-2.5">
+                          <textarea value={item.name}
+                            onChange={e => {
+                              updateItem(domain.id, item.id, { name: e.target.value });
+                              e.target.style.height = 'auto';
+                              e.target.style.height = e.target.scrollHeight + 'px';
+                            }}
+                            onInput={e => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
                             placeholder="Skill / goal item..."
-                            className="flex-1 text-sm bg-transparent outline-none text-dark placeholder:text-muted" />
+                            rows={1}
+                            className="flex-1 text-sm bg-transparent outline-none text-dark placeholder:text-muted resize-none overflow-hidden leading-relaxed pt-0.5" />
                           <div className="flex gap-1 flex-shrink-0 flex-wrap">
                             {SCORES.map(s => (
                               <button key={s} type="button"

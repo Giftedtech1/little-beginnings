@@ -28,7 +28,8 @@ serve(async (req) => {
     if (authError || !user) throw new Error('Unauthorized')
 
     const { data: profile } = await supabaseAdmin.from('profiles').select('role').eq('id', user.id).single()
-    if (profile?.role !== 'admin') throw new Error('Forbidden: Admins only')
+    const adminRoles = ['admin', 'super_admin', 'admin_2', 'admin_3']
+    if (!adminRoles.includes(profile?.role)) throw new Error('Forbidden: Admins only')
 
     // Parse request body for user ID to delete
     const { user_id } = await req.json()
