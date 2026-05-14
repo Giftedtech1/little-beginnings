@@ -384,7 +384,7 @@ export default function AdminPanel() {
   }, [role, activeTab, visibleTabs])
 
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden font-sans">
+    <div className="flex h-screen bg-gray-50 overflow-hidden font-sans force-light">
       
       {/* Mobile Sidebar Overlay */}
       {isSidebarOpen && (

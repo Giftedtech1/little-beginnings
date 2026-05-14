@@ -89,7 +89,7 @@ export default function UploadVideo() {
   }
 
   return (
-    <div className="min-h-screen bg-surface p-6 lg:p-10">
+    <div className="min-h-screen bg-surface p-6 lg:p-10 force-light">
       <div className="max-w-xl mx-auto">
         <h1 className="font-display font-extrabold text-2xl text-dark mb-1">Upload Session Video</h1>
         <p className="text-muted text-sm mb-8">Upload a recorded therapy session for a student. Max 25 MB.</p>

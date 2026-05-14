@@ -71,7 +71,7 @@ export default function ParentDashboard() {
   }, [activeStudent])
 
   return (
-    <div className="min-h-screen bg-surface p-4 sm:p-6 lg:p-10">
+    <div className="min-h-screen bg-surface p-4 sm:p-6 lg:p-10 force-light">
       <div className="max-w-5xl mx-auto">
 
         {/* Header */}

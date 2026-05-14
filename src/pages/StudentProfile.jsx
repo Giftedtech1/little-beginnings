@@ -35,7 +35,7 @@ export default function StudentProfile() {
   )
 
   return (
-    <div className="min-h-screen bg-surface p-6 lg:p-10">
+    <div className="min-h-screen bg-surface p-6 lg:p-10 force-light">
       <div className="max-w-3xl mx-auto">
         <div className="bg-white rounded-3xl shadow-card p-8">
           <div className="flex items-center gap-5 mb-8">

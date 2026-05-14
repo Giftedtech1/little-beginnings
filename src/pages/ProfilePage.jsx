@@ -125,7 +125,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-surface p-6 lg:p-10 flex flex-col items-center">
+    <div className="min-h-screen bg-surface p-6 lg:p-10 flex flex-col items-center force-light">
       <div className="w-full max-w-xl">
         <button 
           onClick={() => navigate(getDashboardPath())}

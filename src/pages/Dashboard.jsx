@@ -30,7 +30,7 @@ export default function Dashboard() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-surface p-6 lg:p-10">
+    <div className="min-h-screen bg-surface p-6 lg:p-10 force-light">
       <div className="max-w-6xl mx-auto">
         <h1 className="font-display font-extrabold text-2xl text-dark mb-1">Dashboard</h1>
         <p className="text-muted text-sm mb-8">Welcome back. Here's an overview of the center.</p>

@@ -179,7 +179,7 @@ export default function TeacherDashboard() {
   const teacherName = user?.user_metadata?.first_name || user?.email?.split('@')[0] || 'Teacher'
 
   return (
-    <div className="min-h-screen bg-surface p-4 sm:p-6 lg:p-10">
+    <div className="min-h-screen bg-surface p-4 sm:p-6 lg:p-10 force-light">
       <div className="max-w-4xl mx-auto">
 
         {/* Header */}

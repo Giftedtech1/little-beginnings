@@ -92,12 +92,18 @@
   .dark .text-dark {
     color: #F3F4F6 !important; /* gray-100 */
   }
+  .force-light .text-dark {
+    color: #0a1c2b !important;
+  }
 
   .text-muted {
     color: #4A7A7A !important;
   }
   .dark .text-muted {
     color: #9CA3AF !important; /* gray-400 */
+  }
+  .force-light .text-muted {
+    color: #4A7A7A !important;
   }
 
   .font-floral {
