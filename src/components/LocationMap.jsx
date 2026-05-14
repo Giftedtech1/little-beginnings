@@ -8,7 +8,7 @@ export default function LocationMap() {
 
   return (
     <section id="location" className="py-24 bg-teal-solid text-white relative min-h-screen flex flex-col justify-center">
-      <WaveDivider color="#14B0B0" variant="scallop" height="md" flip className="relative z-10" />
+      <WaveDivider color="#0192c6" variant="scallop" height="md" flip className="relative z-10" />
 
       {/* Background image with overlay */}
       <div
@@ -20,7 +20,7 @@ export default function LocationMap() {
           backgroundPosition: 'center',
         }}
       >
-        <div className="absolute inset-0" style={{ backgroundColor: 'rgba(20,176,176,0.88)' }} />
+        <div className="absolute inset-0" style={{ backgroundColor: 'rgba(1,146,198,0.88)' }} />
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <motion.div

@@ -8,7 +8,7 @@ const MAX_SIZE_MB = 25
 const MAX_SIZE_B  = MAX_SIZE_MB * 1024 * 1024
 
 const COURSES = [
-  'Speech Therapy',
+  'Communication and Language Therapy',
   'Occupational Therapy',
   'Physiotherapy',
   'Applied Behaviour Analysis (ABA)',

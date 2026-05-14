@@ -1,4 +1,4 @@
-import { MapPin, Phone, Mail } from 'lucide-react'
+import { MapPin, Phone, Mail, MessageCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import WaveDivider from './WaveDivider'
 import logo from '../assets/new logo.png'
@@ -20,7 +20,6 @@ const YoutubeIcon = () => (
 const quickLinks = [
   { label: 'Home',       to: '/',           href: null },
   { label: 'About Us',   to: '/about',       href: null },
-  { label: 'Programs',   to: '/programs',    href: null },
   { label: 'Admissions', to: '/admissions',  href: null },
   { label: 'Services',   to: null,           href: '/#services' },
   { label: 'Blog',       to: null,           href: '/#blog' },
@@ -28,11 +27,12 @@ const quickLinks = [
 ]
 
 const services = [
-  'Speech Therapy',
+  'Behaviour Intervention',
+  'Communication and Language Therapy',
   'Reading Support',
   'Occupational Therapy',
   'Math & Writing',
-  'Learning Assessment',
+  'Assessment',
 ]
 
 const socials = [
@@ -46,7 +46,7 @@ export default function Footer() {
   return (
     <footer className="bg-dark dark:bg-slate-950 text-white">
       {/* Scallop wave top — transitions from white into dark footer */}
-      <WaveDivider color="#0D2B2B" variant="scallop" height="md" flip className="block" />
+      <WaveDivider color="#0a1c2b" variant="scallop" height="md" flip className="block" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -69,7 +69,7 @@ export default function Footer() {
                   aria-label={label}
                   className="w-9 h-9 rounded-xl flex items-center justify-center transition-colors duration-200"
                   style={{ backgroundColor: 'rgba(255,255,255,0.10)' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#14B0B0')}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#0192c6')}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.10)')}
                 >
                   <Icon />
@@ -126,7 +126,7 @@ export default function Footer() {
             <h4 className="font-display font-extrabold text-base mb-4">Contact Us</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-2.5 text-sm text-white/60">
-                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#21F8F8' }} />
+                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#aae1f6' }} />
                 <span>
                   27A Dr. Ezekuse Close; <br />
                   Off Shakiru Anjorin Street, <br />
@@ -138,8 +138,17 @@ export default function Footer() {
                   href="tel:+2348033344077"
                   className="flex items-center gap-2.5 text-sm text-white/60 transition-colors hover:text-primary-bright"
                 >
-                  <Phone className="w-4 h-4 flex-shrink-0" style={{ color: '#21F8F8' }} />
+                  <Phone className="w-4 h-4 flex-shrink-0" style={{ color: '#aae1f6' }} />
                   +234 803 334 4077
+                </a>
+                <a
+                  href="https://wa.me/2348033344077?text=Hello%20Little%20Beginnings,%20I%20would%20like%20to%20make%20an%20inquiry"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2.5 text-sm text-green-400 transition-colors hover:text-green-300 mt-2 ml-[26px]"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 flex-shrink-0" />
+                  Chat on WhatsApp
                 </a>
               </li>
               <li>
@@ -147,7 +156,7 @@ export default function Footer() {
                   href="tel:+2348174380100"
                   className="flex items-center gap-2.5 text-sm text-white/60 transition-colors hover:text-primary-bright"
                 >
-                  <Phone className="w-4 h-4 flex-shrink-0" style={{ color: '#21F8F8' }} />
+                  <Phone className="w-4 h-4 flex-shrink-0" style={{ color: '#aae1f6' }} />
                   +234 817 438 0100
                 </a>
               </li>
@@ -156,7 +165,7 @@ export default function Footer() {
                   href="mailto:adminoffice@little-beginnings.org"
                   className="flex items-center gap-2.5 text-sm text-white/60 transition-colors hover:text-primary-bright"
                 >
-                  <Mail className="w-4 h-4 flex-shrink-0" style={{ color: '#21F8F8' }} />
+                  <Mail className="w-4 h-4 flex-shrink-0" style={{ color: '#aae1f6' }} />
                   adminoffice@little-beginnings.org
                 </a>
               </li>

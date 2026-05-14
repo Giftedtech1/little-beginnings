@@ -6,11 +6,10 @@ import logo from '../assets/new logo.png'
 import ThemeToggle from './ThemeToggle'
 
 const navLinks = [
-  { label: 'Home', href: '#home', to: null },
+  { label: 'Home', href: '/', to: null },
   { label: 'About Us', href: null, to: '/about' },
-  { label: 'Programs', href: null, to: '/programs' },
   { label: 'Admissions', href: null, to: '/admissions' },
-  { label: 'Services', href: '#services', to: null },
+  { label: 'Our Services', href: '#services', to: null },
   { label: 'Blog', href: '#blog', to: null },
 ]
 
@@ -49,7 +48,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-          ? 'bg-surface/95 dark:bg-[#061D1D]/95 backdrop-blur-md shadow-soft border-b border-primary/10 dark:border-primary/20'
+          ? 'bg-surface/95 dark:bg-[#05131d]/95 backdrop-blur-md shadow-soft border-b border-primary/10 dark:border-primary/20'
           : 'bg-transparent'
         }`}
       style={{ paddingTop: 'env(safe-area-inset-top)' }}
@@ -57,7 +56,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="#home" className="flex items-center h-full py-2 group">
+          <a href="/" className="flex items-center h-full py-2 group">
             <div
               className="w-32 sm:w-48 md:w-56 h-full flex-shrink-0 relative transition-transform duration-300 group-hover:scale-105"
             >
@@ -73,7 +72,7 @@ export default function Navbar() {
                   key={link.to}
                   to={link.to}
                   className="font-semibold text-sm transition-colors duration-200 dark:text-white"
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#14B0B0')}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0192c6')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '')}
                 >
                   {link.label}
@@ -83,7 +82,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   className="font-semibold text-sm transition-colors duration-200 dark:text-white"
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#14B0B0')}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0192c6')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '')}
                 >
                   {link.label}
@@ -96,7 +95,7 @@ export default function Navbar() {
               <button
                 onClick={() => setIsExploreOpen(!isExploreOpen)}
                 className="flex items-center gap-1 font-semibold text-sm transition-colors duration-200 dark:text-white"
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#14B0B0')}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#15397cea')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '')}
               >
                 Our Brands
@@ -272,7 +271,7 @@ export default function Navbar() {
       <div
         className={`md:hidden bg-white dark:bg-slate-900 border-t transition-all duration-300 ${isOpen ? 'max-h-[calc(100vh-5rem)] opacity-100 overflow-y-auto' : 'max-h-0 opacity-0 overflow-hidden'
           }`}
-        style={{ borderColor: 'rgba(20,176,176,0.15)' }}
+        style={{ borderColor: 'rgba(1,146,198,0.15)' }}
       >
         <div className="px-4 py-4 space-y-1">
           {navLinks.map((link) =>
@@ -282,7 +281,7 @@ export default function Navbar() {
                 to={link.to}
                 onClick={() => setIsOpen(false)}
                 className="block px-4 py-2.5 rounded-xl font-semibold text-dark/80 dark:text-white transition-all"
-                onMouseEnter={(e) => { e.currentTarget.style.color = '#14B0B0'; e.currentTarget.style.backgroundColor = 'rgba(20, 176, 176, 0.1)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#0192c6'; e.currentTarget.style.backgroundColor = 'rgba(1, 146, 198, 0.1)' }}
                 onMouseLeave={(e) => { e.currentTarget.style.color = ''; e.currentTarget.style.backgroundColor = 'transparent' }}
               >
                 {link.label}
@@ -293,7 +292,7 @@ export default function Navbar() {
                 href={link.href}
                 onClick={() => setIsOpen(false)}
                 className="block px-4 py-2.5 rounded-xl font-semibold text-dark/80 dark:text-white transition-all"
-                onMouseEnter={(e) => { e.currentTarget.style.color = '#14B0B0'; e.currentTarget.style.backgroundColor = 'rgba(20, 176, 176, 0.1)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#0192c6'; e.currentTarget.style.backgroundColor = 'rgba(1, 146, 198, 0.1)' }}
                 onMouseLeave={(e) => { e.currentTarget.style.color = ''; e.currentTarget.style.backgroundColor = 'transparent' }}
               >
                 {link.label}

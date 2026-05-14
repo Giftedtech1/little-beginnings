@@ -4,7 +4,7 @@ import { ArrowRight, Brain, MessageSquare, Puzzle, Activity, Users, BookOpen } f
 
 const highlights = [
   { icon: Brain,         color: '#6366F1', bg: '#EEF2FF', label: 'Behavioural Therapy' },
-  { icon: MessageSquare, color: '#14B0B0', bg: '#E0FAFA', label: 'Speech-Language Therapy' },
+  { icon: MessageSquare, color: '#0192c6', bg: '#e6f6fb', label: 'Speech-Language Therapy' },
   { icon: Puzzle,        color: '#F59E0B', bg: '#FEF3C7', label: 'Occupational Therapy' },
   { icon: Activity,      color: '#EF4444', bg: '#FEE2E2', label: 'Physical Therapy' },
   { icon: Users,         color: '#8B5CF6', bg: '#EDE9FE', label: 'Social Skills Training' },
@@ -34,12 +34,6 @@ export default function Programs() {
               tailored programs delivered by certified specialists.
             </p>
           </div>
-          <Link
-            to="/programs"
-            className="inline-flex items-center gap-2 text-sm font-bold text-brand border border-brand/30 hover:bg-brand hover:text-white px-5 py-2.5 rounded-full transition-all whitespace-nowrap"
-          >
-            View All Programs <ArrowRight className="w-4 h-4" />
-          </Link>
         </motion.div>
 
         {/* Two columns — brief previews */}

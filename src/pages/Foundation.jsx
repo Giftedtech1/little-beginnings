@@ -6,17 +6,17 @@ import logo from '../assets/new logo.png'
 export default function Foundation() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-16 relative overflow-hidden font-sans"
-      style={{ background: 'linear-gradient(135deg, #0D2B2B 0%, #0a3d3d 50%, #083030 100%)' }}>
+      style={{ background: 'linear-gradient(135deg, #0a1c2b 0%, #0a3d3d 50%, #083030 100%)' }}>
 
       {/* Decorative background circles */}
       <div className="absolute top-[-100px] right-[-100px] w-[400px] h-[400px] rounded-full opacity-10"
-        style={{ background: 'radial-gradient(circle, #14B0B0, transparent)' }} />
+        style={{ background: 'radial-gradient(circle, #0192c6, transparent)' }} />
       <div className="absolute bottom-[-80px] left-[-80px] w-[300px] h-[300px] rounded-full opacity-10"
-        style={{ background: 'radial-gradient(circle, #21F8F8, transparent)' }} />
+        style={{ background: 'radial-gradient(circle, #aae1f6, transparent)' }} />
 
       {/* Grid pattern overlay */}
       <div className="absolute inset-0 opacity-5"
-        style={{ backgroundImage: 'linear-gradient(#14B0B0 1px, transparent 1px), linear-gradient(90deg, #14B0B0 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+        style={{ backgroundImage: 'linear-gradient(#0192c6 1px, transparent 1px), linear-gradient(90deg, #0192c6 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
       <div className="relative z-10 max-w-2xl w-full text-center">
 
@@ -43,16 +43,16 @@ export default function Foundation() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1, duration: 0.5 }}
           className="w-24 h-24 rounded-3xl mx-auto mb-8 flex items-center justify-center"
-          style={{ background: 'rgba(20,176,176,0.15)', border: '1px solid rgba(20,176,176,0.3)' }}
+          style={{ background: 'rgba(1,146,198,0.15)', border: '1px solid rgba(1,146,198,0.3)' }}
         >
-          <Construction className="w-12 h-12" style={{ color: '#14B0B0' }} />
+          <Construction className="w-12 h-12" style={{ color: '#0192c6' }} />
         </motion.div>
 
         {/* Tag */}
         <motion.div
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-6"
-          style={{ backgroundColor: 'rgba(20,176,176,0.15)', color: '#14B0B0', border: '1px solid rgba(20,176,176,0.3)' }}
+          style={{ backgroundColor: 'rgba(1,146,198,0.15)', color: '#0192c6', border: '1px solid rgba(1,146,198,0.3)' }}
         >
           <Clock className="w-3.5 h-3.5" /> In Progress
         </motion.div>
@@ -62,7 +62,7 @@ export default function Foundation() {
           className="text-4xl sm:text-5xl font-extrabold text-white mb-5 tracking-tight"
         >
           Little Beginnings<br />
-          <span style={{ color: '#14B0B0' }}>Foundation</span>
+          <span style={{ color: '#0192c6' }}>Foundation</span>
         </motion.h1>
 
         <motion.p
@@ -86,7 +86,7 @@ export default function Foundation() {
               animate={{ width: '35%' }}
               transition={{ delay: 0.8, duration: 1.2, ease: 'easeOut' }}
               className="h-2 rounded-full"
-              style={{ background: 'linear-gradient(90deg, #14B0B0, #21F8F8)' }}
+              style={{ background: 'linear-gradient(90deg, #0192c6, #aae1f6)' }}
             />
           </div>
         </motion.div>

@@ -39,7 +39,7 @@ export default function StudentProfile() {
       <div className="max-w-3xl mx-auto">
         <div className="bg-white rounded-3xl shadow-card p-8">
           <div className="flex items-center gap-5 mb-8">
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center" style={{ backgroundColor: '#E0FAFA' }}>
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center" style={{ backgroundColor: '#e6f6fb' }}>
               <User className="w-8 h-8 text-primary" />
             </div>
             <div>

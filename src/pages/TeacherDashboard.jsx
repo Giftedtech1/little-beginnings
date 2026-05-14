@@ -232,7 +232,7 @@ export default function TeacherDashboard() {
               <label className="block text-sm font-semibold text-dark mb-1.5">2. Report Title</label>
               <input type="text" value={baseForm.title}
                 onChange={e => setBaseForm(p => ({ ...p, title: e.target.value }))}
-                placeholder="e.g. Spring 2026 – Speech Therapy Assessment"
+                placeholder="e.g. Spring 2026 – Communication and Language Therapy Assessment"
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm bg-surface outline-none focus:ring-2 focus:ring-primary/30" />
             </div>
 
@@ -315,6 +315,7 @@ export default function TeacherDashboard() {
                     <div className="flex items-center gap-3 px-4 py-3 bg-surface border-b border-gray-100">
                       <input type="text" value={domain.name}
                         onChange={e => setDomainName(domain.id, e.target.value)}
+                        onKeyDown={e => { if (e.key === 'Enter') e.preventDefault() }}
                         placeholder="Domain name (e.g. Oral Motor)"
                         className="flex-1 text-sm font-bold bg-transparent outline-none text-dark placeholder:text-muted placeholder:font-normal" />
                       <button type="button" onClick={() => removeDomain(domain.id)}
@@ -333,9 +334,13 @@ export default function TeacherDashboard() {
                               e.target.style.height = 'auto';
                               e.target.style.height = e.target.scrollHeight + 'px';
                             }}
+                            onKeyDown={e => {
+                              if (e.key === 'Enter' && !e.shiftKey) e.preventDefault()
+                              // Shift+Enter still adds a new line naturally
+                            }}
                             onInput={e => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
-                            placeholder="Skill / goal item..."
-                            rows={1}
+                            placeholder="Skill / goal item... (Shift+Enter for new line)"
+                            rows={2}
                             className="flex-1 text-sm bg-transparent outline-none text-dark placeholder:text-muted resize-none overflow-hidden leading-relaxed pt-0.5" />
                           <div className="flex gap-1 flex-shrink-0 flex-wrap">
                             {SCORES.map(s => (

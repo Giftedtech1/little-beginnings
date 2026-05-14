@@ -45,7 +45,7 @@ export default function AdmissionViewerModal({ admission, onClose }) {
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto custom-scrollbar flex-1 bg-[#F8FAFA] dark:bg-[#061D1D] print:overflow-visible print:bg-white print:text-black print:p-8 relative">
+        <div className="p-6 overflow-y-auto custom-scrollbar flex-1 bg-[#F8FAFA] dark:bg-[#05131d] print:overflow-visible print:bg-white print:text-black print:p-8 relative">
           
           {/* Print Watermark */}
           <div className="hidden print:flex absolute inset-0 z-0 items-center justify-center overflow-hidden pointer-events-none select-none opacity-[0.04]">

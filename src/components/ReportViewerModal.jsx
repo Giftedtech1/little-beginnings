@@ -39,12 +39,12 @@ function printReport(result) {
 
   const win = window.open('', '_blank')
   win.document.write(`<!DOCTYPE html><html><head><title>${result.title}</title><style>
-    *{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',sans-serif;color:#0D2B2B;padding:40px;max-width:760px;margin:auto}
+    *{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',sans-serif;color:#0a1c2b;padding:40px;max-width:760px;margin:auto}
     h1{font-size:22px;font-weight:800;margin-bottom:4px}p.sub{color:#4A7A7A;font-size:13px;margin-bottom:24px}
-    .pill{display:inline-block;background:#D4EFEF;color:#0E9090;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-right:8px;margin-bottom:16px}
+    .pill{display:inline-block;background:#d1ecf7;color:#016a91;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-right:8px;margin-bottom:16px}
     .section{border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;margin-bottom:16px}
     .section-title{background:#f0fafa;padding:10px 16px;font-weight:700;font-size:13px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #e5e7eb}
-    .num{background:#14B0B0;color:#fff;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+    .num{background:#0192c6;color:#fff;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
     .section p{padding:12px 16px;font-size:13px;line-height:1.7;color:#374151}
     .domain-title{background:#f0fafa;padding:10px 16px;font-weight:700;font-size:14px;border-bottom:1px solid #e5e7eb}
     table{width:100%;border-collapse:collapse}td,th{padding:9px 16px;font-size:12px;text-align:left;border-bottom:1px solid #f3f4f6}
@@ -85,7 +85,7 @@ const REPORT_META = {
   'pdf-upload':      { label: 'PDF Document',    pill: 'bg-accent/10 text-accent-dark' },
   'pdf-link':        { label: 'PDF Link',        pill: 'bg-slate-100 text-slate-600' },
   'bi-weekly':       { label: 'Bi-Weekly Report',pill: 'bg-primary/10 text-primary' },
-  'end-of-ip':       { label: 'End of IP Report',pill: 'bg-accent/10 text-[#0E9090]' },
+  'end-of-ip':       { label: 'End of IP Report',pill: 'bg-accent/10 text-[#016a91]' },
 }
 
 // ── Sub-components ──────────────────────────────────────────────────────────

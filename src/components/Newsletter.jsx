@@ -42,7 +42,7 @@ export default function Newsletter() {
 
   return (
     <>
-      <WaveDivider color="#14B0B0" variant="zigzag" height="sm" flip className="block" />
+      <WaveDivider color="#0192c6" variant="zigzag" height="sm" flip className="block" />
       <section className="py-16 bg-teal-solid min-h-screen flex flex-col justify-center">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
           <motion.div
@@ -91,7 +91,7 @@ export default function Newsletter() {
                   type="submit"
                   disabled={loading}
                   className="shrink-0 inline-flex items-center gap-2 font-semibold font-display px-6 py-3 rounded-full transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
-                  style={{ backgroundColor: '#FFD166', color: '#0D2B2B' }}
+                  style={{ backgroundColor: '#FFD166', color: '#0a1c2b' }}
                 >
                   {loading ? (
                     <>

@@ -114,12 +114,12 @@ export default function Hero() {
             >
               <span className="flex flex-wrap items-baseline gap-x-2 text-2xl md:text-3xl text-primary dark:text-primary-light mb-2 font-extrabold tracking-tight">
                 <span>Welcome to</span>
-                <span className="font-floral font-bold tracking-normal text-[1.5em] md:text-[1.6em] text-dark dark:text-white relative top-1" style={{ textShadow: '0.5px 0 0 currentColor' }}>
+                <span className="font-berkshire font-bold tracking-normal text-[1.5em] md:text-[1.6em] text-dark dark:text-white relative top-1" style={{ textShadow: '0.5px 0 0 currentColor' }}>
                   Little Beginnings
                 </span>
               </span>
-              <span className="text-dark dark:text-white">Where Kids Become{' '}</span>
-              <span className="text-brand">Confident Learners</span>
+              <span className="text-dark dark:text-white">Where Young learners{' '}</span>
+              <span className="text-brand">Thrive Confidently</span>
             </motion.h1>
 
             <motion.p

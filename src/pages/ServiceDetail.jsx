@@ -9,15 +9,17 @@ import imgSpeech from '../assets/speech therapy.jpg'
 import imgReading from '../assets/reading support.jpg'
 import imgOccupational from '../assets/occupational therapy.jpg'
 import imgMath from '../assets/math and writing.jpg'
+import imgAssessment from '../assets/hero img2.jpg'
+import imgBehaviour from '../assets/about us.jpg'
 
 const servicesData = {
   speech: {
-    title: 'Speech Therapy',
+    title: 'Communication and Language Therapy',
     subtitle: 'Building communication confidence',
     description: 'Our expert speech and language interventions are tailored to each child, helping them develop clear articulation, expressive language skills, and the confidence to share their voice with the world.',
     image: imgSpeech,
-    accentBg: '#E0FAFA',
-    accentText: '#14B0B0',
+    accentBg: '#e6f6fb',
+    accentText: '#0192c6',
     colorClass: 'text-brand',
     bgClass: 'bg-brand/10',
     benefits: [
@@ -38,8 +40,8 @@ const servicesData = {
     subtitle: 'Turning reluctant readers into confident ones',
     description: 'Our specialized phonics, fluency, and comprehension programs provide the targeted support children need to develop strong literacy skills and a lifelong love of reading.',
     image: imgReading,
-    accentBg: '#E0FAFA',
-    accentText: '#14B0B0',
+    accentBg: '#e6f6fb',
+    accentText: '#0192c6',
     colorClass: 'text-brand',
     bgClass: 'bg-brand/10',
     benefits: [
@@ -97,6 +99,47 @@ const servicesData = {
       'Explicit writing instruction covering grammar, structure, and style.',
       'Manipulatives and visual aids to make abstract concepts tangible.',
       'Progressive skill building, ensuring mastery before moving forward.'
+    ]
+  },
+  assessment: {
+    title: 'Assessment',
+    subtitle: 'Understanding your child\'s unique needs',
+    description: 'We offer comprehensive developmental and learning assessments to provide a clear picture of your child\'s specific strengths and needs, guiding informed decisions on interventions and support.',
+    image: imgAssessment,
+    accentBg: '#e6f6fb',
+    accentText: '#0192c6',
+    colorClass: 'text-brand',
+    bgClass: 'bg-brand/10',
+    benefits: [
+      { icon: Activity, title: 'Developmental Milestones', text: 'Determine deficits existing in developmental milestones and possible diagnoses.' },
+      { icon: Brain, title: 'Cognitive & Learning Strengths', text: 'Identify specific strengths and needs as they relate to learning.' },
+      { icon: CheckCircle2, title: 'Targeted Recommendations', text: 'Make informed decisions regarding appropriate accommodations and modifications.' },
+      { icon: Target, title: 'Special Education Eligibility', text: 'Determine overall eligibility for special education needs services.' }
+    ],
+    approach: [
+      'A developmental assessment will aim to determine child\'s specific strengths and needs with respect to all domains of development. It helps determine what deficits exist in milestones developmental, and what possible diagnosis contribute to or can best explain these delays.',
+      'A learning assessment will aim to determine child\'s specific strengths and needs as it relates to learning such that it helps to make informed decisions regarding appropriate accommodation and modification to learning, behaviour modification as well as overall eligibility for special education needs services.'
+    ]
+  },
+  'behaviour-intervention': {
+    title: 'Behaviour Intervention',
+    subtitle: 'Fostering meaningful growth and independence',
+    description: 'At Little Beginnings, our mission is to empower children on the spectrum, those with ADHD, and individuals with diverse learning needs through dedicated, evidence-based care. Our intervention approach is rooted firmly in the science of behaviour, utilising proven techniques, strategies, and teaching procedures to foster meaningful growth.',
+    image: imgBehaviour,
+    accentBg: '#EDE9FE',
+    accentText: '#8B5CF6',
+    colorClass: 'text-purple-600',
+    bgClass: 'bg-purple-50 dark:bg-purple-900/20',
+    benefits: [
+      { icon: Target, title: 'Closing Gaps', text: 'Identifying specific gaps in social communication and functional daily living skills.' },
+      { icon: Heart, title: 'Empowering Independence', text: 'Equipping our children with the tools they need for independence.' },
+      { icon: BrainCircuit, title: 'Applied Behaviour Analysis', text: 'Applying the best practices of ABA to bridge gaps systematically.' },
+      { icon: Users, title: 'Family Support', text: 'Providing lasting, positive support for families and caregivers.' }
+    ],
+    approach: [
+      'We focus on identifying specific gaps in social communication and functional daily living skills.',
+      'By applying the best practices of Applied Behaviour Analysis (ABA), we work systematically to bridge these gaps—equipping our children with the tools they need for independence.',
+      'Our goal is not only to enhance the lives of the children we serve but to provide lasting, positive support for the families and caregivers who interact with them every day.'
     ]
   }
 }
@@ -203,7 +246,7 @@ export default function ServiceDetail() {
             >
               <div 
                 className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                style={{ backgroundColor: data.bgClass.includes('brand') ? '#E0FAFA' : data.accentBg }}
+                style={{ backgroundColor: data.bgClass.includes('brand') ? '#e6f6fb' : data.accentBg }}
               >
                 <benefit.icon 
                   className="w-6 h-6" 

@@ -89,7 +89,7 @@ export default function Login() {
         )}
 
         <div className="rounded-3xl shadow-card p-8" style={{ backgroundColor: '#ffffff' }}>
-          <h1 className="font-display font-extrabold text-2xl mb-1" style={{ color: '#0D2B2B' }}>
+          <h1 className="font-display font-extrabold text-2xl mb-1" style={{ color: '#0a1c2b' }}>
             {currentSession ? 'Switch Account' : 'Portal Login'}
           </h1>
           <p className="text-sm mb-7" style={{ color: '#6B7280' }}>
@@ -100,7 +100,7 @@ export default function Login() {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label htmlFor="login-email" className="block text-sm font-semibold mb-1.5" style={{ color: '#0D2B2B' }}>
+              <label htmlFor="login-email" className="block text-sm font-semibold mb-1.5" style={{ color: '#0a1c2b' }}>
                 Email Address
               </label>
               <input
@@ -116,7 +116,7 @@ export default function Login() {
             </div>
 
             <div>
-              <label htmlFor="login-password" className="block text-sm font-semibold mb-1.5" style={{ color: '#0D2B2B' }}>
+              <label htmlFor="login-password" className="block text-sm font-semibold mb-1.5" style={{ color: '#0a1c2b' }}>
                 Password
               </label>
               <div className="relative">

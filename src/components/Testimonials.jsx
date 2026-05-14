@@ -7,8 +7,8 @@ const testimonials = [
     id:     1,
     name:   'Mrs. Ngozi Bello',
     text:   "Little Beginnings changed our lives. Within three months, my son was reading full sentences. The therapists are patient, caring, and truly gifted at what they do.",
-    bg:     '#E0FAFA',
-    quote:  '#14B0B0',
+    bg:     '#e6f6fb',
+    quote:  '#0192c6',
   },
   {
     id:     2,
@@ -29,7 +29,7 @@ const testimonials = [
     name:   'Dr. Chike Emeka',
     text:   "As a pediatrician, I refer families here with confidence. The evidence-based approach, professional staff, and genuine results speak for themselves.",
     bg:     '#F0FEFE',
-    quote:  '#19C9C9',
+    quote:  '#4abbee',
   },
 ]
 
@@ -99,7 +99,7 @@ export default function Testimonials() {
         </motion.div>
       </div>
       <WaveDivider color="#ffffff" variant="splash" height="md" className="mt-16 dark:hidden" />
-      <WaveDivider color="#061D1D" variant="splash" height="md" className="mt-16 hidden dark:block" />
+      <WaveDivider color="#05131d" variant="splash" height="md" className="mt-16 hidden dark:block" />
     </section>
   )
 }

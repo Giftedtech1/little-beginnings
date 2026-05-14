@@ -147,7 +147,7 @@ export default function BlogPost() {
             {post.category && (
               <span
                 className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full"
-                style={{ backgroundColor: '#E0FAFA', color: '#14B0B0' }}
+                style={{ backgroundColor: '#e6f6fb', color: '#0192c6' }}
               >
                 <Tag className="w-3 h-3" /> {post.category}
               </span>
@@ -179,7 +179,7 @@ export default function BlogPost() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.15 }}
               className="text-lg sm:text-xl text-muted dark:text-gray-300 leading-relaxed mb-10 border-l-4 pl-5"
-              style={{ borderColor: '#14B0B0' }}
+              style={{ borderColor: '#0192c6' }}
             >
               {post.excerpt}
             </motion.p>
@@ -263,7 +263,7 @@ export default function BlogPost() {
         {/* CTA Banner */}
         <div
           className="mt-12 rounded-3xl p-8 sm:p-10 text-center"
-          style={{ backgroundColor: '#14B0B0' }}
+          style={{ backgroundColor: '#0192c6' }}
         >
           <p className="text-white/70 text-xs font-bold uppercase tracking-widest mb-2">Little Beginnings Learning Center</p>
           <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-white mb-3">

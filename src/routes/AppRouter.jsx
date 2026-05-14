@@ -4,7 +4,6 @@ import { AnimatePresence } from 'framer-motion'
 import Home from '../pages/Home'
 import Apply from '../pages/Apply'
 import AboutPage from '../pages/AboutPage'
-import CurriculumPage from '../pages/CurriculumPage'
 import Login from '../pages/Login'
 import Dashboard from '../pages/Dashboard'
 import StudentProfile from '../pages/StudentProfile'
@@ -34,8 +33,6 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<PageTransition><Home /></PageTransition>} />
         <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
-        <Route path="/programs" element={<PageTransition><CurriculumPage /></PageTransition>} />
-        <Route path="/curriculum" element={<PageTransition><CurriculumPage /></PageTransition>} />
         <Route path="/admissions" element={<PageTransition><AdmissionsLanding /></PageTransition>} />
         <Route path="/apply" element={<PageTransition><AccessGate><Apply /></AccessGate></PageTransition>} />
         <Route path="/pre-assessment" element={<PageTransition><AccessGate><PreAssessment /></AccessGate></PageTransition>} />

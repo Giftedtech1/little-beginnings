@@ -9,14 +9,14 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#14B0B0',   // 400 — main brand teal
-          light:   '#1CDBDB',   // 200 — lighter teal
-          bright:  '#21F8F8',   // 100 — vivid teal
-          pale:    '#AFFFFF',   // 50  — softest tint
-          dark:    '#0E9090',   // 500 — deep teal
+          DEFAULT: '#0192c6',   // main brand blue
+          light:   '#4abbee',   // lighter blue
+          bright:  '#aae1f6',   // vivid light blue
+          pale:    '#e6f6fb',   // softest tint
+          dark:    '#016a91',   // deep blue
         },
         accent: {
-          DEFAULT: '#FFD166',   // warm yellow — complements teal perfectly for kids
+          DEFAULT: '#FFD166',   // warm yellow — complements blue perfectly for kids
           light:   '#FFF0BB',
           dark:    '#E6B840',
         },
@@ -24,14 +24,14 @@ export default {
           DEFAULT: '#FF6B6B',
           light:   '#FFB3B3',
         },
-        surface: '#D4EFEF',     // deeper teal tint for better logo visibility
-        muted:   '#4A7A7A',
-        dark:    '#0D2B2B',     // deep teal-black
+        surface: '#d1ecf7',     // blue tint for better logo visibility
+        muted:   '#4a687a',     // muted slate blue
+        dark:    '#0a1c2b',     // deep blue-black
         
         // Dark Mode Additions
-        'dark-surface': '#061D1D',
-        'dark-card': '#0A2525',
-        'dark-muted': '#A4C4C4',
+        'dark-surface': '#05131d',
+        'dark-card': '#081a25',
+        'dark-muted': '#a4b8c4',
       },
       fontFamily: {
         sans:    ['Inter', 'sans-serif'],

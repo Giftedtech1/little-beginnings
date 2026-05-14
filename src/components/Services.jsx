@@ -1,24 +1,26 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Brain, BookOpen, Pencil, Calculator, ArrowRight } from 'lucide-react'
+import { Brain, BookOpen, Pencil, Calculator, ArrowRight, ClipboardList, Users } from 'lucide-react'
 import WaveDivider from './WaveDivider'
 
 import imgSpeech from '../assets/speech therapy.jpg'
 import imgReading from '../assets/reading support.jpg'
 import imgOccupational from '../assets/occupational therapy.jpg'
 import imgMath from '../assets/math and writing.jpg'
+import imgAssessment from '../assets/hero img2.jpg'
+import imgBehaviour from '../assets/about us.jpg'
 
 const services = [
   {
     id: 'speech',
     icon: Brain,
-    title: 'Speech Therapy',
+    title: 'Communication and Language Therapy',
     description:
       'Building communication confidence through expert speech and language interventions tailored to each child.',
     img: imgSpeech,
     featured: false,
-    accentBg: '#E0FAFA',
-    accentText: '#14B0B0',
+    accentBg: '#e6f6fb',
+    accentText: '#0192c6',
   },
   {
     id: 'reading',
@@ -28,7 +30,7 @@ const services = [
       'Specialized phonics, fluency, and comprehension programs that turn reluctant readers into confident ones.',
     img: imgReading,
     featured: true,
-    accentBg: '#14B0B0',
+    accentBg: '#0192c6',
     accentText: '#ffffff',
   },
   {
@@ -52,6 +54,28 @@ const services = [
     featured: false,
     accentBg: '#FFB3B3',
     accentText: '#CC3333',
+  },
+  {
+    id: 'assessment',
+    icon: ClipboardList,
+    title: 'Assessment',
+    description:
+      'Comprehensive developmental and learning assessments to identify specific strengths, needs, and appropriate interventions.',
+    img: imgAssessment,
+    featured: false,
+    accentBg: '#e6f6fb',
+    accentText: '#0192c6',
+  },
+  {
+    id: 'behaviour-intervention',
+    icon: Users,
+    title: 'Behaviour Intervention',
+    description:
+      'Applying the best practices of Applied Behaviour Analysis (ABA) to foster meaningful growth and independence.',
+    img: imgBehaviour,
+    featured: false,
+    accentBg: '#EDE9FE',
+    accentText: '#8B5CF6',
   },
 ]
 
@@ -91,7 +115,7 @@ export default function Services() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '150px' }}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {services.map((service) => (
             <motion.div
@@ -104,7 +128,7 @@ export default function Services() {
                   ? 'text-white shadow-card-hover scale-[1.05]'
                   : 'bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-card dark:shadow-none'
               }`}
-              style={service.featured ? { backgroundColor: '#14B0B0' } : undefined}
+              style={service.featured ? { backgroundColor: '#0192c6' } : undefined}
             >
               {service.featured && (
                 <div
@@ -135,7 +159,7 @@ export default function Services() {
                 </div>
                 <h3
                   className="font-display font-extrabold text-lg mb-2 dark:!text-white"
-                  style={{ color: service.featured ? '#ffffff' : '#0D2B2B' }}
+                  style={{ color: service.featured ? '#ffffff' : '#0a1c2b' }}
                 >
                   {service.title}
                 </h3>
@@ -148,7 +172,7 @@ export default function Services() {
                 <Link
                   to={`/services/${service.id}`}
                   className="inline-flex items-center gap-1 mt-4 text-sm font-semibold transition-colors dark:!text-white"
-                  style={{ color: service.featured ? '#AFFFFF' : '#14B0B0' }}
+                  style={{ color: service.featured ? '#e6f6fb' : '#0192c6' }}
                 >
                   Learn More <ArrowRight className="w-3.5 h-3.5" />
                 </Link>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Loader2, Trash2, UserPlus, FileSearch, CheckCircle, XCircle, History, UserCog, Link as LinkIcon, Users, Eye, EyeOff, UserCircle, BookOpen, LayoutDashboard, Menu, MessageCircle, Power, PowerOff, Lock } from 'lucide-react'
-import { getStudents, createStudent, getParents, linkParentToStudent, deleteStudent } from '../services/studentService'
+import { Loader2, Trash2, UserPlus, FileSearch, CheckCircle, XCircle, History, UserCog, Link as LinkIcon, Users, Eye, EyeOff, UserCircle, BookOpen, LayoutDashboard, Menu, MessageCircle, Power, PowerOff, Lock, Archive, ArchiveRestore } from 'lucide-react'
+import { getStudents, createStudent, getParents, linkParentToStudent, deleteStudent, archiveStudent, unarchiveStudent, getArchivedStudents } from '../services/studentService'
 import { getPendingResults, updateResultStatus, getAdminResultsHistory } from '../services/resultService'
 import { supabase } from '../services/supabaseClient'
 import { getAllProfiles, toggleUserStatus } from '../services/authService'
@@ -20,6 +20,8 @@ import NewsletterTab from '../components/admin/NewsletterTab'
 
 export default function AdminPanel() {
   const [students, setStudents] = useState([])
+  const [archivedStudents, setArchivedStudents] = useState([])
+  const [studentView, setStudentView] = useState('active') // 'active' | 'archived'
   const [parents, setParents] = useState([])
   const [allUsers, setAllUsers] = useState([])
   const [pendingResults, setPendingResults] = useState([])
@@ -51,7 +53,7 @@ export default function AdminPanel() {
 
   // Modal States
   const [isAddStudentOpen, setIsAddStudentOpen] = useState(false)
-  const [studentForm, setStudentForm] = useState({ first_name: '', last_name: '', date_of_birth: '', sex: '', program: '', blood_group: '', genotype: '', emergency_contact_name: '', emergency_contact_phone: '', emergency_contact_relationship: '' })
+  const [studentForm, setStudentForm] = useState({ first_name: '', last_name: '', date_of_birth: '', sex: '', program: '', blood_group: '', genotype: '', registration_year: '', emergency_contact_name: '', emergency_contact_phone: '', emergency_contact_relationship: '' })
   const [isStudentSubmitting, setIsStudentSubmitting] = useState(false)
 
   const [isAddUserOpen, setIsAddUserOpen] = useState(false)
@@ -65,8 +67,9 @@ export default function AdminPanel() {
 
   const fetchData = async () => {
     try {
-      const [studentsData, parentsData, usersData, pendingData, historyData, admissionsData, codesData, assessmentsData] = await Promise.all([
+      const [studentsData, archivedData, parentsData, usersData, pendingData, historyData, admissionsData, codesData, assessmentsData] = await Promise.all([
         getStudents(),
+        getArchivedStudents(),
         getParents(),
         getAllProfiles(),
         getPendingResults(),
@@ -76,6 +79,7 @@ export default function AdminPanel() {
         fetchPreAssessments()
       ])
       setStudents(studentsData)
+      setArchivedStudents(archivedData)
       setParents(parentsData)
       setAllUsers(usersData)
       setPendingResults(pendingData)
@@ -145,7 +149,7 @@ export default function AdminPanel() {
       const newStudent = await createStudent(studentForm)
       setStudents([newStudent, ...students])
       setIsAddStudentOpen(false)
-      setStudentForm({ first_name: '', last_name: '', date_of_birth: '', sex: '', program: '', blood_group: '', genotype: '', emergency_contact_name: '', emergency_contact_phone: '', emergency_contact_relationship: '' })
+      setStudentForm({ first_name: '', last_name: '', date_of_birth: '', sex: '', program: '', blood_group: '', genotype: '', registration_year: '', emergency_contact_name: '', emergency_contact_phone: '', emergency_contact_relationship: '' })
       toast.success("Student added successfully!")
     } catch (err) {
       toast.error("Failed to add student: " + err.message)
@@ -244,6 +248,52 @@ export default function AdminPanel() {
           toast.success("Student deleted successfully.")
         } catch (err) {
           toast.error("Failed to delete student: " + err.message)
+        } finally {
+          setConfirmState({ isOpen: false })
+        }
+      }
+    })
+  }
+
+  const handleArchiveStudent = (id) => {
+    setConfirmState({
+      isOpen: true,
+      title: 'Archive Student',
+      message: 'Are you sure you want to archive this student? They can be restored later from the Archive view.',
+      isDestructive: false,
+      confirmText: 'Archive',
+      onConfirm: async () => {
+        try {
+          await archiveStudent(id)
+          setStudents(students.filter(s => s.id !== id))
+          const archived = await getArchivedStudents()
+          setArchivedStudents(archived)
+          toast.success('Student archived.')
+        } catch (err) {
+          toast.error('Failed to archive student: ' + err.message)
+        } finally {
+          setConfirmState({ isOpen: false })
+        }
+      }
+    })
+  }
+
+  const handleUnarchiveStudent = (id) => {
+    setConfirmState({
+      isOpen: true,
+      title: 'Restore Student',
+      message: 'Restore this student to the active list?',
+      isDestructive: false,
+      confirmText: 'Restore',
+      onConfirm: async () => {
+        try {
+          await unarchiveStudent(id)
+          setArchivedStudents(archivedStudents.filter(s => s.id !== id))
+          const active = await getStudents()
+          setStudents(active)
+          toast.success('Student restored to active.')
+        } catch (err) {
+          toast.error('Failed to restore student: ' + err.message)
         } finally {
           setConfirmState({ isOpen: false })
         }
@@ -644,60 +694,114 @@ export default function AdminPanel() {
             )}
 
             {activeTab === 'students' && (
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                {loading ? (
-                  <div className="flex justify-center py-12"><Loader2 className="w-5 h-5 animate-spin text-muted" /></div>
-                ) : students.length === 0 ? (
-                  <p className="text-muted text-sm text-center py-12">No students found.</p>
-                ) : (
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-left">
-                      <thead className="bg-gray-50 border-b border-gray-200">
-                        <tr>{['ID', 'Name', 'Age', 'Program', 'Linked Parent', 'Status', 'Actions'].map(h => <th key={h} className="px-6 py-3.5 text-xs font-bold text-gray-500 uppercase tracking-wider whitespace-nowrap">{h}</th>)}</tr>
-                      </thead>
-                      <tbody className="divide-y divide-gray-100">
-                        {students.map(s => {
-                          const age = s.date_of_birth ? (() => { const b = new Date(s.date_of_birth); const n = new Date(); let a = n.getFullYear() - b.getFullYear(); if (n.getMonth() - b.getMonth() < 0 || (n.getMonth() === b.getMonth() && n.getDate() < b.getDate())) a--; return a })() : null
-                          const parents = s.linked_parents || []
-                          return (
-                            <tr key={s.id} className="hover:bg-gray-50/50 transition-colors group">
-                              <td className="px-6 py-4"><span className="font-mono font-bold text-xs bg-primary/10 border border-primary/20 text-primary px-2.5 py-1 rounded-md tracking-widest">#{s.student_id ?? '----'}</span></td>
-                              <td className="px-6 py-4">
-                                <button onClick={() => setViewingStudent(s)} className="font-semibold text-dark hover:text-primary hover:underline whitespace-nowrap text-left">
-                                  {s.first_name} {s.last_name}
-                                </button>
-                              </td>
-                              <td className="px-6 py-4 text-gray-600 font-medium whitespace-nowrap">{age !== null ? `${age} yrs` : '—'}</td>
-                              <td className="px-6 py-4 text-gray-600 font-medium">{s.program || '—'}</td>
-                              <td className="px-6 py-4">
-                                {parents.length > 0 ? (
-                                  <div className="space-y-2">
-                                    {parents.map((parent, index) => (
-                                      <div key={parent.id} className={index > 0 ? "pt-2 border-t border-gray-100" : ""}>
-                                        <p className="font-semibold text-gray-800 text-xs whitespace-nowrap">{parent.first_name} {parent.last_name}</p>
-                                        <a href={`mailto:${parent.email}`} className="text-xs text-primary hover:underline">{parent.email}</a>
+              <div className="space-y-4">
+                {/* Active / Archived Toggle */}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setStudentView('active')}
+                    className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${studentView === 'active' ? 'bg-primary text-white shadow-sm' : 'bg-white border border-gray-200 text-gray-500 hover:bg-gray-50'}`}
+                  >
+                    Active ({students.length})
+                  </button>
+                  <button
+                    onClick={() => setStudentView('archived')}
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-bold transition-all ${studentView === 'archived' ? 'bg-amber-500 text-white shadow-sm' : 'bg-white border border-gray-200 text-gray-500 hover:bg-gray-50'}`}
+                  >
+                    <Archive className="w-3.5 h-3.5" /> Archived ({archivedStudents.length})
+                  </button>
+                </div>
+
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                  {loading ? (
+                    <div className="flex justify-center py-12"><Loader2 className="w-5 h-5 animate-spin text-muted" /></div>
+                  ) : studentView === 'active' ? (
+                    students.length === 0 ? (
+                      <p className="text-muted text-sm text-center py-12">No active students found.</p>
+                    ) : (
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-sm text-left">
+                          <thead className="bg-gray-50 border-b border-gray-200">
+                            <tr>{['ID', 'Name', 'Reg. Year', 'Age', 'Program', 'Linked Parent', 'Status', 'Actions'].map(h => <th key={h} className="px-6 py-3.5 text-xs font-bold text-gray-500 uppercase tracking-wider whitespace-nowrap">{h}</th>)}</tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-100">
+                            {students.map(s => {
+                              const age = s.date_of_birth ? (() => { const b = new Date(s.date_of_birth); const n = new Date(); let a = n.getFullYear() - b.getFullYear(); if (n.getMonth() - b.getMonth() < 0 || (n.getMonth() === b.getMonth() && n.getDate() < b.getDate())) a--; return a })() : null
+                              const linkedParents = s.linked_parents || []
+                              return (
+                                <tr key={s.id} className="hover:bg-gray-50/50 transition-colors group">
+                                  <td className="px-6 py-4"><span className="font-mono font-bold text-xs bg-primary/10 border border-primary/20 text-primary px-2.5 py-1 rounded-md tracking-widest">{s.student_id ?? '----'}</span></td>
+                                  <td className="px-6 py-4">
+                                    <button onClick={() => setViewingStudent(s)} className="font-semibold text-dark hover:text-primary hover:underline whitespace-nowrap text-left">
+                                      {s.first_name} {s.last_name}
+                                    </button>
+                                  </td>
+                                  <td className="px-6 py-4 text-gray-600 font-medium">{s.registration_year ?? '—'}</td>
+                                  <td className="px-6 py-4 text-gray-600 font-medium whitespace-nowrap">{age !== null ? `${age} yrs` : '—'}</td>
+                                  <td className="px-6 py-4 text-gray-600 font-medium">{s.program || '—'}</td>
+                                  <td className="px-6 py-4">
+                                    {linkedParents.length > 0 ? (
+                                      <div className="space-y-2">
+                                        {linkedParents.map((parent, index) => (
+                                          <div key={parent.id} className={index > 0 ? "pt-2 border-t border-gray-100" : ""}>
+                                            <p className="font-semibold text-gray-800 text-xs whitespace-nowrap">{parent.first_name} {parent.last_name}</p>
+                                            <a href={`mailto:${parent.email}`} className="text-xs text-primary hover:underline">{parent.email}</a>
+                                          </div>
+                                        ))}
                                       </div>
-                                    ))}
-                                  </div>
-                                ) : (
-                                  <span className="text-xs text-amber-600 font-bold bg-amber-50 border border-amber-100 px-2 py-0.5 rounded-md">Not Linked</span>
-                                )}
-                              </td>
-                              <td className="px-6 py-4"><span className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-md border border-gray-200 bg-gray-50 text-gray-700">{s.enrollment_status}</span></td>
-                              <td className="px-6 py-4">
-                                <button className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100" onClick={() => handleDeleteStudent(s.id)}>
-                                  <Trash2 className="w-4 h-4" />
-                                </button>
-                              </td>
-                            </tr>
-                          )
-                        })}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
+                                    ) : (
+                                      <span className="text-xs text-amber-600 font-bold bg-amber-50 border border-amber-100 px-2 py-0.5 rounded-md">Not Linked</span>
+                                    )}
+                                  </td>
+                                  <td className="px-6 py-4"><span className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-md border border-gray-200 bg-gray-50 text-gray-700">{s.enrollment_status}</span></td>
+                                  <td className="px-6 py-4">
+                                    <div className="flex items-center gap-1">
+                                      <button className="p-1.5 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100" onClick={() => handleArchiveStudent(s.id)} title="Archive Student">
+                                        <Archive className="w-4 h-4" />
+                                      </button>
+                                      <button className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100" onClick={() => handleDeleteStudent(s.id)} title="Delete Student">
+                                        <Trash2 className="w-4 h-4" />
+                                      </button>
+                                    </div>
+                                  </td>
+                                </tr>
+                              )
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    )
+                  ) : (
+                    archivedStudents.length === 0 ? (
+                      <p className="text-muted text-sm text-center py-12">No archived students.</p>
+                    ) : (
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-sm text-left">
+                          <thead className="bg-amber-50 border-b border-amber-100">
+                            <tr>{['ID', 'Name', 'Reg. Year', 'Program', 'Actions'].map(h => <th key={h} className="px-6 py-3.5 text-xs font-bold text-amber-700 uppercase tracking-wider whitespace-nowrap">{h}</th>)}</tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-100">
+                            {archivedStudents.map(s => (
+                              <tr key={s.id} className="hover:bg-gray-50/50 transition-colors group bg-amber-50/30">
+                                <td className="px-6 py-4"><span className="font-mono font-bold text-xs bg-amber-100 border border-amber-200 text-amber-700 px-2.5 py-1 rounded-md tracking-widest">{s.student_id ?? '----'}</span></td>
+                                <td className="px-6 py-4 font-semibold text-dark whitespace-nowrap">{s.first_name} {s.last_name}</td>
+                                <td className="px-6 py-4 text-gray-600 font-medium">{s.registration_year ?? '—'}</td>
+                                <td className="px-6 py-4 text-gray-600 font-medium">{s.program || '—'}</td>
+                                <td className="px-6 py-4">
+                                  <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 rounded-lg transition-colors" onClick={() => handleUnarchiveStudent(s.id)}>
+                                    <ArchiveRestore className="w-3.5 h-3.5" /> Restore
+                                  </button>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    )
+                  )}
+                </div>
               </div>
             )}
+
 
             {/* Users Tab */}
             {activeTab === 'users' && (
@@ -796,6 +900,21 @@ export default function AdminPanel() {
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                     </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold mb-1">Registration Year <span className="text-red-500">*</span></label>
+                    <select required value={studentForm.registration_year} onChange={e => setStudentForm({...studentForm, registration_year: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm">
+                      <option value="">-- Select Year --</option>
+                      {Array.from({ length: new Date().getFullYear() - 2009 }, (_, i) => new Date().getFullYear() - i).map(yr => (
+                        <option key={yr} value={yr}>{yr}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold mb-1">Student ID Preview</label>
+                    <div className="w-full px-4 py-2.5 rounded-xl border border-dashed border-primary/40 bg-primary/5 text-sm font-mono font-bold text-primary">
+                      {studentForm.registration_year ? `LBC-${String(studentForm.registration_year).slice(-2)}-XXX` : '— Select year first —'}
+                    </div>
                   </div>
                   <div className="col-span-2">
                     <label className="block text-sm font-semibold mb-1">Program</label>

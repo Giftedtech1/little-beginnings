@@ -51,7 +51,7 @@ export default function OurFacilities() {
   }, [activeIndex])
 
   return (
-    <section id="our-facilities" className="py-20 bg-[#F8FAFA] dark:bg-[#061D1D] min-h-screen flex flex-col justify-center">
+    <section id="our-facilities" className="py-20 bg-[#F8FAFA] dark:bg-[#05131d] min-h-screen flex flex-col justify-center">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}

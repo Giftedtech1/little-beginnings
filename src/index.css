@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Berkshire+Swash&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -19,7 +19,7 @@
   }
 
   body {
-    @apply font-sans text-dark bg-white antialiased transition-colors duration-300 dark:bg-[#061D1D] dark:text-gray-100;
+    @apply font-sans text-dark bg-white antialiased transition-colors duration-300 dark:bg-[#05131d] dark:text-gray-100;
     overscroll-behavior-y: none;    /* prevents iOS rubber-band bounce affecting layout */
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
@@ -36,14 +36,14 @@
 
   /* Keyboard focus ring — only shows on keyboard navigation, not mouse clicks */
   :focus-visible {
-    outline: 2px solid #14B0B0;
+    outline: 2px solid #0192c6;
     outline-offset: 3px;
     border-radius: 6px;
   }
 
   /* Text selection brand color */
   ::selection {
-    background: #14B0B0;
+    background: #0192c6;
     color: #fff;
   }
 }
@@ -87,7 +87,7 @@
 @layer utilities {
   /* Override Tailwind utility colors for dark mode to force proper contrast */
   .text-dark {
-    color: #0D2B2B !important;
+    color: #0a1c2b !important;
   }
   .dark .text-dark {
     color: #F3F4F6 !important; /* gray-100 */
@@ -105,9 +105,14 @@
     line-height: normal;
   }
 
+  .font-berkshire {
+    font-family: 'Berkshire Swash', cursive;
+    line-height: normal;
+  }
+
   /* Solid teal text highlight — no boring gradient */
   .text-highlight {
-    color: #14B0B0;
+    color: #0192c6;
     position: relative;
     display: inline-block;
   }
@@ -119,17 +124,17 @@
     left: 0;
     right: 0;
     height: 6px;
-    background: #AFFFFF;
+    background: #e6f6fb;
     border-radius: 4px;
     z-index: -1;
   }
 
   /* Solid accent underline for headings */
   .text-brand {
-    color: #14B0B0 !important;
+    color: #0192c6 !important;
   }
   .dark .text-brand {
-    color: #21F8F8 !important; /* brighter vivid teal for dark mode contrast */
+    color: #aae1f6 !important; /* brighter vivid teal for dark mode contrast */
   }
 
   .text-coral {
@@ -138,31 +143,31 @@
 
   /* Section bg variants */
   .bg-teal-solid {
-    @apply bg-[#14B0B0] dark:bg-[#0E9090];
+    @apply bg-[#0192c6] dark:bg-[#016a91];
   }
 
   .bg-teal-pale {
-    @apply bg-[#D4EFEF] dark:bg-[#061D1D];
+    @apply bg-[#d1ecf7] dark:bg-[#05131d];
   }
 
   .bg-teal-light {
-    @apply bg-[#C2E8E8] dark:bg-[#0A2525];
+    @apply bg-[#bfe3f4] dark:bg-[#081a25];
   }
 
   /* Dot pattern background for hero — child-friendly */
   .bg-dots {
-    background-image: radial-gradient(circle, #19C9C9 1.5px, transparent 1.5px);
+    background-image: radial-gradient(circle, #4abbee 1.5px, transparent 1.5px);
     background-size: 24px 24px;
   }
 
   /* Confetti-like scattered circles utility */
   .bg-confetti {
     background-image:
-      radial-gradient(circle at 10% 20%, #AFFFFF 3px, transparent 3px),
+      radial-gradient(circle at 10% 20%, #e6f6fb 3px, transparent 3px),
       radial-gradient(circle at 85% 10%, #FFD166 4px, transparent 4px),
       radial-gradient(circle at 60% 90%, #FF6B6B 2px, transparent 2px),
-      radial-gradient(circle at 30% 70%, #1CDBDB 3px, transparent 3px),
-      radial-gradient(circle at 90% 55%, #AFFFFF 2px, transparent 2px);
+      radial-gradient(circle at 30% 70%, #4abbee 3px, transparent 3px),
+      radial-gradient(circle at 90% 55%, #e6f6fb 2px, transparent 2px);
     background-size: 300px 300px;
   }
 }

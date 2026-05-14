@@ -8,10 +8,10 @@ const challenges = [
     icon: BookOpen,
     title: 'Reading',
     description: 'Phonics, fluency, and comprehension strategies for children who struggle to decode text.',
-    bg:       '#E0FAFA',
-    iconBg:   '#AFFFFF',
-    iconColor:'#0E9090',
-    border:   '#19C9C9',
+    bg:       '#e6f6fb',
+    iconBg:   '#e6f6fb',
+    iconColor:'#016a91',
+    border:   '#4abbee',
   },
   {
     id: 'writing',
@@ -39,9 +39,9 @@ const challenges = [
     title: 'Handwriting',
     description: 'Fine motor and grip support to develop neat, legible handwriting and pencil control.',
     bg:       '#F0FEFE',
-    iconBg:   '#1CDBDB',
-    iconColor:'#0D2B2B',
-    border:   '#14B0B0',
+    iconBg:   '#4abbee',
+    iconColor:'#0a1c2b',
+    border:   '#0192c6',
   },
 ]
 
@@ -108,7 +108,7 @@ export default function Challenges() {
         </motion.div>
       </div>
       <WaveDivider color="#F0FEFE" variant="peaks" height="md" className="mt-16 dark:hidden" />
-      <WaveDivider color="#061D1D" variant="peaks" height="md" className="mt-16 hidden dark:block" />
+      <WaveDivider color="#05131d" variant="peaks" height="md" className="mt-16 hidden dark:block" />
     </section>
   )
 }
