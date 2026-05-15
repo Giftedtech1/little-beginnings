@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { X, Calendar, User, Phone, Mail, HeartPulse, PhoneCall, ShieldCheck, CreditCard, Printer } from 'lucide-react'
-import letterHead from '../assets/letter_head.jpg'
+import logo from '../assets/new logo.png'
 import seal from '../assets/shool seal.png'
 
 export default function AdmissionViewerModal({ admission, onClose }) {
@@ -55,7 +55,12 @@ export default function AdmissionViewerModal({ admission, onClose }) {
           <div className="relative z-10">
             {/* Print Header (Only visible when printing) */}
           <div className="hidden print:block text-center border-b-[3px] border-black pb-4 mb-8">
-            <img src={letterHead} alt="Little Beginnings Letterhead" className="w-full h-auto mb-4" />
+            <div className="flex flex-col items-center justify-center gap-2 mb-4">
+              <img src={logo} alt="Little Beginnings Logo" className="h-24 w-auto object-contain" />
+              <h1 className="font-berkshire font-bold text-4xl text-black tracking-normal" style={{ textShadow: '0.5px 0 0 currentColor' }}>
+                Little Beginnings
+              </h1>
+            </div>
             <h2 className="text-sm uppercase tracking-widest font-bold">Official Admission Document</h2>
             <div className="mt-4 flex justify-between text-xs text-left">
               <div><strong>Applicant:</strong> {admission.child_name}</div>
