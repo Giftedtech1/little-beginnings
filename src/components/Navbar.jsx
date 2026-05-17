@@ -244,16 +244,6 @@ export default function Navbar() {
                         </div>
                         Call: +234 817 438 0100
                       </a>
-                      <a
-                        href="https://wa.me/2348033344077"
-                        target="_blank" rel="noreferrer"
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-dark/80 dark:text-white hover:bg-green-500/10 hover:text-green-500 transition-colors"
-                      >
-                        <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500">
-                          <MessageCircle className="w-4 h-4" />
-                        </div>
-                        WhatsApp: +234 803 334 4077
-                      </a>
                     </div>
                   </motion.div>
                 )}
@@ -390,9 +380,7 @@ export default function Navbar() {
                   <a href="tel:+2348174380100" className="flex items-center justify-center py-2.5 rounded-xl text-sm font-bold bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
                     <Phone className="w-4 h-4 mr-2" /> Call: +234 817 438 0100
                   </a>
-                  <a href="https://wa.me/2348033344077" target="_blank" rel="noreferrer" className="flex items-center justify-center py-2.5 rounded-xl text-sm font-bold bg-green-500/10 text-green-600 hover:bg-green-500/20 transition-colors">
-                    <MessageCircle className="w-4 h-4 mr-2" /> WhatsApp: +234 803 334 4077
-                  </a>
+
                 </motion.div>
               )}
             </AnimatePresence>
