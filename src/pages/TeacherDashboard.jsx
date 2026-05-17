@@ -327,7 +327,7 @@ export default function TeacherDashboard() {
                     {/* Items */}
                     <div className="divide-y divide-gray-50 bg-white">
                       {domain.items.map(item => (
-                        <div key={item.id} className="flex items-start gap-3 px-4 py-2.5">
+                        <div key={item.id} className="flex flex-col sm:flex-row sm:items-start gap-3 px-4 py-3">
                           <textarea value={item.name}
                             onChange={e => {
                               updateItem(domain.id, item.id, { name: e.target.value });
@@ -341,20 +341,22 @@ export default function TeacherDashboard() {
                             onInput={e => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
                             placeholder="Skill / goal item... (Shift+Enter for new line)"
                             rows={2}
-                            className="flex-1 text-sm bg-transparent outline-none text-dark placeholder:text-muted resize-none overflow-hidden leading-relaxed pt-0.5" />
-                          <div className="flex gap-1 flex-shrink-0 flex-wrap">
-                            {SCORES.map(s => (
-                              <button key={s} type="button"
-                                onClick={() => updateItem(domain.id, item.id, { score: s })}
-                                className={`text-[11px] font-extrabold px-2.5 py-1.5 rounded-lg border transition-all min-w-[2.5rem] text-center ${item.score === s ? SCORE_COLORS[s] + ' scale-105 shadow-sm' : 'border-gray-200 text-gray-400 hover:border-gray-300 hover:bg-gray-50'}`}>
-                                {s}
-                              </button>
-                            ))}
+                            className="w-full sm:flex-1 text-sm bg-transparent outline-none text-dark placeholder:text-muted resize-none overflow-hidden leading-relaxed pt-0.5" />
+                          <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-3">
+                            <div className="flex gap-1 flex-shrink-0 flex-wrap">
+                              {SCORES.map(s => (
+                                <button key={s} type="button"
+                                  onClick={() => updateItem(domain.id, item.id, { score: s })}
+                                  className={`text-[11px] font-extrabold px-2.5 py-1.5 rounded-lg border transition-all min-w-[2.5rem] text-center ${item.score === s ? SCORE_COLORS[s] + ' scale-105 shadow-sm' : 'border-gray-200 text-gray-400 hover:border-gray-300 hover:bg-gray-50'}`}>
+                                  {s}
+                                </button>
+                              ))}
+                            </div>
+                            <button type="button" onClick={() => removeItem(domain.id, item.id)}
+                              className="p-1.5 sm:p-1 hover:bg-red-50 text-red-300 hover:text-red-500 rounded-lg transition-colors flex-shrink-0">
+                              <X className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+                            </button>
                           </div>
-                          <button type="button" onClick={() => removeItem(domain.id, item.id)}
-                            className="p-1 hover:bg-red-50 text-red-300 hover:text-red-500 rounded-lg transition-colors flex-shrink-0">
-                            <X className="w-3.5 h-3.5" />
-                          </button>
                         </div>
                       ))}
                     </div>
