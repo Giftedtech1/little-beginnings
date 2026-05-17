@@ -334,12 +334,8 @@ export default function TeacherDashboard() {
                               e.target.style.height = 'auto';
                               e.target.style.height = e.target.scrollHeight + 'px';
                             }}
-                            onKeyDown={e => {
-                              if (e.key === 'Enter' && !e.shiftKey) e.preventDefault()
-                              // Shift+Enter still adds a new line naturally
-                            }}
                             onInput={e => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px'; }}
-                            placeholder="Skill / goal item... (Shift+Enter for new line)"
+                            placeholder="Skill / goal item... (Press Enter for new line)"
                             rows={2}
                             className="w-full sm:flex-1 text-sm bg-transparent outline-none text-dark placeholder:text-muted resize-none overflow-hidden leading-relaxed pt-0.5" />
                           <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-3">
