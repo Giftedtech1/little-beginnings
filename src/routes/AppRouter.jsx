@@ -24,6 +24,7 @@ import ServiceDetail from '../pages/ServiceDetail'
 import Foundation from '../pages/Foundation'
 import TrainingSchool from '../pages/TrainingSchool'
 import TheraHub from '../pages/TheraHub'
+import ProtectedRoute from '../components/ProtectedRoute'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -43,13 +44,13 @@ function AnimatedRoutes() {
         <Route path="/thera-hub" element={<PageTransition><TheraHub /></PageTransition>} />
         <Route path="/portal/login" element={<PageTransition><Login /></PageTransition>} />
         <Route path="/portal/update-password" element={<PageTransition><UpdatePassword /></PageTransition>} />
-        <Route path="/portal/dashboard" element={<PageTransition><Dashboard /></PageTransition>} />
-        <Route path="/portal/admin" element={<PageTransition><AdminPanel /></PageTransition>} />
-        <Route path="/portal/teacher" element={<PageTransition><TeacherDashboard /></PageTransition>} />
-        <Route path="/portal/my-child" element={<PageTransition><ParentDashboard /></PageTransition>} />
-        <Route path="/portal/student/:id" element={<PageTransition><StudentProfile /></PageTransition>} />
-        <Route path="/portal/upload" element={<PageTransition><UploadVideo /></PageTransition>} />
-        <Route path="/portal/profile" element={<PageTransition><ProfilePage /></PageTransition>} />
+        <Route path="/portal/dashboard" element={<ProtectedRoute><PageTransition><Dashboard /></PageTransition></ProtectedRoute>} />
+        <Route path="/portal/admin" element={<ProtectedRoute allowedRoles={['admin', 'super_admin', 'admin_2', 'admin_3']}><PageTransition><AdminPanel /></PageTransition></ProtectedRoute>} />
+        <Route path="/portal/teacher" element={<ProtectedRoute allowedRoles={['staff', 'admin', 'super_admin', 'admin_2', 'admin_3']}><PageTransition><TeacherDashboard /></PageTransition></ProtectedRoute>} />
+        <Route path="/portal/my-child" element={<ProtectedRoute allowedRoles={['parent', 'admin', 'super_admin', 'admin_2', 'admin_3']}><PageTransition><ParentDashboard /></PageTransition></ProtectedRoute>} />
+        <Route path="/portal/student/:id" element={<ProtectedRoute allowedRoles={['staff', 'admin', 'super_admin', 'admin_2', 'admin_3']}><PageTransition><StudentProfile /></PageTransition></ProtectedRoute>} />
+        <Route path="/portal/upload" element={<ProtectedRoute allowedRoles={['staff', 'admin', 'super_admin', 'admin_2', 'admin_3']}><PageTransition><UploadVideo /></PageTransition></ProtectedRoute>} />
+        <Route path="/portal/profile" element={<ProtectedRoute><PageTransition><ProfilePage /></PageTransition></ProtectedRoute>} />
       </Routes>
     </AnimatePresence>
   )

@@ -32,14 +32,19 @@ export default function AdminPanel() {
   const [loading, setLoading] = useState(true)
   const toast = useToast()
   const navigate = useNavigate()
-  const { role } = useAuth()
+  const { user, role, loading: authLoading } = useAuth()
 
   useEffect(() => {
+    if (authLoading) return // wait for auth to resolve
+    if (!user) {
+      navigate('/portal/login')
+      return
+    }
     if (role && !['admin', 'super_admin', 'admin_2', 'admin_3'].includes(role)) {
       toast.error("You don't have permission to view the admin panel.")
       navigate('/portal/login')
     }
-  }, [role, navigate, toast])
+  }, [user, role, authLoading, navigate, toast])
 
   // Custom Modal States
   const [confirmState, setConfirmState] = useState({ isOpen: false })
