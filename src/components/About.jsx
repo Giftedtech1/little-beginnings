@@ -5,10 +5,10 @@ import WaveDivider from './WaveDivider'
 import aboutImg from '../assets/about us.jpg'
 
 const pillars = [
-  { icon: Heart,     label: 'Compassionate Care', bg: '#FFB3B3', color: '#CC3333' },
-  { icon: Users,     label: 'Family-Centered',     bg: '#e6f6fb', color: '#016a91' },
-  { icon: Star,      label: 'Expert-Led',          bg: '#FFD166', color: '#8B6914' },
-  { icon: Lightbulb, label: 'Innovation',          bg: '#e6f6fb', color: '#0192c6' },
+  { icon: Heart,     label: 'Compassionate Care', bg: '#FFB3B3', color: '#CC3333', position: '-top-6 left-0' },
+  { icon: Users,     label: 'Family-Centered',     bg: '#e6f6fb', color: '#016a91', position: '-top-6 right-0' },
+  { icon: Star,      label: 'Expert-Led',          bg: '#FFD166', color: '#8B6914', position: '-bottom-6 left-0' },
+  { icon: Lightbulb, label: 'Innovation',          bg: '#e6f6fb', color: '#0192c6', position: '-bottom-6 right-0' },
 ]
 
 export default function About() {
@@ -55,14 +55,13 @@ export default function About() {
 
             {/* Desktop: orbiting corner cards (hidden on mobile) */}
             <div className="hidden md:block absolute inset-0">
-              {pillars.map((p, i) => {
-                const positions = ['-top-6 left-0', '-top-6 right-0', '-bottom-6 left-0', '-bottom-6 right-0']
+              {pillars.map((p) => {
                 return (
                   <motion.div
                     key={p.label}
                     whileHover={{ scale: 1.07, y: -5 }}
                     transition={{ type: 'spring', stiffness: 300, damping: 15 }}
-                    className={`absolute ${positions[i]} bg-white dark:bg-slate-800 dark:border dark:border-slate-700 rounded-2xl shadow-card dark:shadow-none px-4 py-3 flex items-center gap-2 max-w-[155px] cursor-pointer`}
+                    className={`absolute ${p.position} bg-white dark:bg-slate-800 dark:border dark:border-slate-700 rounded-2xl shadow-card dark:shadow-none px-4 py-3 flex items-center gap-2 max-w-[155px] cursor-pointer`}
                   >
                     <div
                       className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 dark:!bg-slate-700"
@@ -89,20 +88,19 @@ export default function About() {
             </h2>
             <p className="text-muted leading-relaxed mb-5">
               At Little Beginnings, we believe every child has the capacity to learn, grow, and thrive.
-              Our multidisciplinary team of certified specialists creates personalized learning plans
+              Our interdisciplinary team of specialists create personalized learning plans
               that address each child's unique challenges and celebrate their strengths.
             </p>
             <p className="text-muted leading-relaxed mb-8">
-              We integrate communication and language therapy, occupational therapy, reading support, and academic coaching
-              in a calm, stimulating environment where children feel safe to explore and grow at their own pace.
+              We integrate multiple aspects of therapy including; communication and language therapy, behavior intervention etc in a calm, stimulating environment.
             </p>
 
             <div className="grid grid-cols-2 gap-4 mb-8">
               {[
-                { value: '12+',  label: 'Years of Experience',   bg: '#e6f6fb', val: '#0192c6' },
-                { value: '500+', label: 'Success Stories',       bg: '#FFD166', val: '#8B6914' },
-                { value: '15+',  label: 'Specialist Therapists', bg: '#FFB3B3', val: '#CC3333' },
-                { value: '4',    label: 'Learning Programs',     bg: '#e6f6fb', val: '#016a91' },
+                    { value: '12+',  label: 'Years of Experience',   bg: '#e6f6fb', val: '#0192c6' },
+    { value: '500+', label: 'Success Stories',       bg: '#FFD166', val: '#8B6914' },
+    { value: '15+',  label: 'Current Specialists Therapist', bg: '#FFB3B3', val: '#CC3333' },
+    { value: '7+',    label: 'Therapy Programs',     bg: '#e6f6fb', val: '#016a91' },
               ].map((s) => (
                 <div key={s.label} className="bg-white dark:bg-slate-800 dark:border dark:border-slate-700 rounded-2xl p-4 shadow-soft dark:shadow-none">
                   <div

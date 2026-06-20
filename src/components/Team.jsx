@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 
 // Import images
-import imgOluremi from '../assets/Oluremi Joel-Ogbue.png'
+import imgOluremi from '../assets/Oluremi Joel-Ogbue.png.jpg'
 import imgBalogun from '../assets/BALOGUN SAMSON OLUWATOSIN.jpg'
 import imgOshilaja from '../assets/Dr. Oluwaseun Oshilaja.jpg'
 import imgIjeoma from '../assets/Ijeoma Umeokafor.jpg'

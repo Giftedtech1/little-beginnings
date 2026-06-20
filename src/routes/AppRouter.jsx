@@ -21,6 +21,7 @@ import ScrollToTop from '../components/ScrollToTop'
 import PageTransition from '../components/PageTransition'
 import BlogPost from '../pages/BlogPost'
 import ServiceDetail from '../pages/ServiceDetail'
+import OurServicesPage from '../pages/OurServicesPage'
 import Foundation from '../pages/Foundation'
 import TrainingSchool from '../pages/TrainingSchool'
 import TheraHub from '../pages/TheraHub'
@@ -37,6 +38,7 @@ function AnimatedRoutes() {
         <Route path="/admissions" element={<PageTransition><AdmissionsLanding /></PageTransition>} />
         <Route path="/apply" element={<PageTransition><AccessGate><Apply /></AccessGate></PageTransition>} />
         <Route path="/pre-assessment" element={<PageTransition><AccessGate><PreAssessment /></AccessGate></PageTransition>} />
+        <Route path="/services" element={<PageTransition><OurServicesPage /></PageTransition>} />
         <Route path="/services/:serviceId" element={<PageTransition><ServiceDetail /></PageTransition>} />
         <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
         <Route path="/foundation" element={<PageTransition><Foundation /></PageTransition>} />

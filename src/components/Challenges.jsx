@@ -1,47 +1,97 @@
 import { motion } from 'framer-motion'
-import { BookOpen, Pencil, Calculator, Type } from 'lucide-react'
+import { Puzzle, Zap, Activity, Smile, BookOpen, TrendingUp, Users, Brain, PlusCircle } from 'lucide-react'
 import WaveDivider from './WaveDivider'
 
 const challenges = [
   {
-    id: 'reading',
-    icon: BookOpen,
-    title: 'Reading',
-    description: 'Phonics, fluency, and comprehension strategies for children who struggle to decode text.',
-    bg:       '#e6f6fb',
-    iconBg:   '#e6f6fb',
-    iconColor:'#016a91',
-    border:   '#4abbee',
+    id: 'autism',
+    icon: Puzzle,
+    title: 'Autism Spectrum Disorder',
+    description: 'Tailored intervention programs to support communication, social interaction, and sensory processing differences.',
+    bg:       '#EEF2FF',
+    iconBg:   '#EDE9FE',
+    iconColor:'#6366F1',
+    border:   '#C7D2FE',
   },
   {
-    id: 'writing',
-    icon: Pencil,
-    title: 'Writing',
-    description: 'Sentence structure, spelling, and expressive writing support for reluctant writers.',
+    id: 'adhd',
+    icon: Zap,
+    title: 'Attention Deficit Hyperactivity Disorder',
+    description: 'Strategies to build focus, emotional regulation, and organizational skills through active guidance.',
     bg:       '#FFF8E1',
-    iconBg:   '#FFD166',
-    iconColor:'#8B6914',
-    border:   '#FFD166',
+    iconBg:   '#FEF3C7',
+    iconColor:'#D97706',
+    border:   '#FDE68A',
   },
   {
-    id: 'math',
-    icon: Calculator,
-    title: 'Math',
-    description: 'Number sense, operations, and problem-solving skills through hands-on, visual methods.',
+    id: 'cerebral-palsy',
+    icon: Activity,
+    title: 'Cerebral Palsy',
+    description: 'Support for motor control, physical coordination, and mobility using specialized adaptive techniques.',
     bg:       '#FFE8E8',
-    iconBg:   '#FFB3B3',
-    iconColor:'#CC3333',
-    border:   '#FF6B6B',
+    iconBg:   '#FEE2E2',
+    iconColor:'#EF4444',
+    border:   '#FECACA',
   },
   {
-    id: 'handwriting',
-    icon: Type,
-    title: 'Handwriting',
-    description: 'Fine motor and grip support to develop neat, legible handwriting and pencil control.',
-    bg:       '#F0FEFE',
-    iconBg:   '#4abbee',
-    iconColor:'#0a1c2b',
-    border:   '#0192c6',
+    id: 'down-syndrome',
+    icon: Smile,
+    title: 'Down Syndrome',
+    description: 'Holistic cognitive, speech, and developmental exercises to foster independence and learning confidence.',
+    bg:       '#E8F8F5',
+    iconBg:   '#D1F2EB',
+    iconColor:'#0E9F6E',
+    border:   '#A2E9DB',
+  },
+  {
+    id: 'learning-disabilities',
+    icon: BookOpen,
+    title: 'Learning Disabilities',
+    description: 'Academic interventions for dyslexia, dysgraphia, and dyscalculia to help children thrive in school.',
+    bg:       '#e6f6fb',
+    iconBg:   '#E0F2FE',
+    iconColor:'#0284C7',
+    border:   '#BAE6FD',
+  },
+  {
+    id: 'global-delay',
+    icon: TrendingUp,
+    title: 'Global Developmental Delay',
+    description: 'Comprehensive support to help kids reach physical, cognitive, communication, and social-emotional milestones.',
+    bg:       '#F5F3FF',
+    iconBg:   '#EDE9FE',
+    iconColor:'#7C3AED',
+    border:   '#DDD6FE',
+  },
+  {
+    id: 'odd-cd',
+    icon: Users,
+    title: 'Oppositional Defiant / Conduct Disorder',
+    description: 'Behavioral strategies and positive reinforcement programs focusing on emotional expression and cooperation.',
+    bg:       '#FFF3E0',
+    iconBg:   '#FFE0B2',
+    iconColor:'#EA580C',
+    border:   '#FED7AA',
+  },
+  {
+    id: 'rare-conditions',
+    icon: Brain,
+    title: 'Rare Conditions',
+    description: 'Customized therapeutic care plans tailored to rare conditions like lisencephaly, Angelman syndrome, muscular dystrophy, etc.',
+    bg:       '#FDF2F8',
+    iconBg:   '#FCE7F3',
+    iconColor:'#DB2777',
+    border:   '#FBCFE8',
+  },
+  {
+    id: 'more',
+    icon: PlusCircle,
+    title: 'And more....',
+    description: 'Contact us to see how our interdisciplinary team can design a plan tailored for your child’s unique needs.',
+    bg:       '#F3F4F6',
+    iconBg:   '#E5E7EB',
+    iconColor:'#4B5563',
+    border:   '#D1D5DB',
   },
 ]
 
@@ -68,7 +118,7 @@ export default function Challenges() {
           className="text-center max-w-2xl mx-auto mb-14"
         >
           <h2 className="section-title">
-            Learning Challenges <span className="text-brand">We Address</span>
+            DEVELOPMENTAL CHALLENGES <span className="text-brand">WE ADDRESS</span>
           </h2>
           <p className="section-subtitle">
             Our specialists are trained to identify and address a wide range of learning difficulties
@@ -82,7 +132,7 @@ export default function Challenges() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '150px' }}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {challenges.map((ch) => (
             <motion.div

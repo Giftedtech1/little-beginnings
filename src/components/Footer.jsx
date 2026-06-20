@@ -1,6 +1,7 @@
 import { MapPin, Phone, Mail, MessageCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import WaveDivider from './WaveDivider'
+import { t } from '../utils/i18n'
 import logo from '../assets/new logo.png'
 
 // Inline SVG social icons
@@ -20,10 +21,11 @@ const YoutubeIcon = () => (
 const quickLinks = [
   { label: 'Home',       to: '/',           href: null },
   { label: 'About Us',   to: '/about',       href: null },
+  { label: 'Our Services', to: '/services',   href: null },
   { label: 'Admissions', to: '/admissions',  href: null },
-  { label: 'Services',   to: null,           href: '/#services' },
-  { label: 'Blog',       to: null,           href: '/#blog' },
-  { label: 'Contact',    to: null,           href: '/#contact' },
+  { label: 'Programs',  to: '/#services',   href: null },
+  { label: 'Blog',       to: '/#blog',       href: null },
+  { label: 'Contact',    to: '/#contact',    href: null },
 ]
 
 const services = [
@@ -44,7 +46,7 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="bg-dark dark:bg-slate-950 text-white">
+    <footer id="contact" className="bg-dark dark:bg-slate-950 text-white">
       {/* Scallop wave top — transitions from white into dark footer */}
       <WaveDivider color="#0a1c2b" variant="scallop" height="md" flip className="block" />
 
@@ -58,8 +60,7 @@ export default function Footer() {
               <img src={logo} alt="Little Beginnings Logo" className="w-full h-full object-contain object-left" />
             </div>
             <p className="text-white/60 text-sm leading-relaxed mb-5">
-              Little Beginnings is a warm, caring and dynamic learning community where we support our pupils,
-              encouraging each unique child to be ambitious and successful.
+              Little Beginnings is a warm, caring, and dynamic learning community where we support each child, nurturing their unique strengths and encouraging them to thrive, blossom, and reach their full potential.
             </p>
             <div className="flex gap-3">
               {socials.map(({ icon: Icon, label, href }) => (
@@ -80,7 +81,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-display font-extrabold text-base mb-4">Quick Links</h4>
+            <h4 className="font-display font-extrabold text-base mb-4">{t('quickLinks')}</h4>
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.label}>
@@ -106,7 +107,7 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h4 className="font-display font-extrabold text-base mb-4">Our Services</h4>
+            <h4 className="font-display font-extrabold text-base mb-4">{t('programs')}</h4>
             <ul className="space-y-2.5">
               {services.map((s) => (
                 <li key={s}>
@@ -123,7 +124,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-display font-extrabold text-base mb-4">Contact Us</h4>
+            <h4 className="font-display font-extrabold text-base mb-4">{t('contactUs')}</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-2.5 text-sm text-white/60">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#aae1f6' }} />
@@ -178,8 +179,8 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Little Beginnings Learning Center. All rights reserved.
           </p>
           <div className="flex gap-4 text-xs text-white/40">
-            <a href="#" className="transition-colors hover:text-primary-bright">Privacy Policy</a>
-            <a href="#" className="transition-colors hover:text-primary-bright">Terms of Service</a>
+            <a href="#" className="transition-colors hover:text-primary-bright">{t('privacyPolicy')}</a>
+            <a href="#" className="transition-colors hover:text-primary-bright">{t('termsOfService')}</a>
           </div>
         </div>
       </div>

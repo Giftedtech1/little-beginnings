@@ -48,8 +48,7 @@ export default function AboutPage() {
           
           <div className="prose prose-lg dark:prose-invert max-w-none text-muted leading-relaxed space-y-6">
             <p>
-              Little Beginnings is a warm, caring and dynamic learning community where we support our pupils, 
-              encouraging each unique child to be ambitious and successful.
+              Little Beginnings is a warm, caring, and dynamic learning community where we support each child, nurturing their unique strengths and encouraging them to thrive, blossom, and reach their full potential.
             </p>
             <p>
               The School was founded with the awareness to provide the education needed by a child to be successful, 

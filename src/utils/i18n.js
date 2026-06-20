@@ -1,0 +1,75 @@
+const en = {
+  ourPrograms: 'Our Programs',
+  interventions: 'Interventions.',
+  therapeuticPrograms: 'Therapeutic Programs',
+  holisticSupport: 'Holistic Support',
+  services: 'Services',
+  programs: 'Programs',
+  quickLinks: 'Quick Links',
+  contactUs: 'Contact Us',
+  privacyPolicy: 'Privacy Policy',
+  termsOfService: 'Terms of Service',
+  curriculumSub: 'A comprehensive, interdisciplinary approach to supporting children with special needs tailored programs, delivered by specialists.',
+  therapeuticSub: 'Behavioural, Communication and Language, Occupational, and Physical Therapies, each designed to address unique challenges.',
+  holisticSub: 'Social skills training, Parent/siblings training to support the whole family.',
+  ourServices: 'Our Services',
+  servicesSubtitle: 'Evidence-based support services tailored to empower children, families, and caregivers at home, in school, and in our facility.',
+  inFacilityTitle: 'In-Facility Intervention',
+  inFacilityDesc: 'Specialized therapeutic and educational programs delivered in our child-centered, sensory-friendly facility for focused developmental growth.',
+  schoolFacilitationTitle: 'School Facilitation & Learning Support',
+  schoolFacilitationDesc: 'Empowering students in mainstream schools through trained shadow teachers and learning support specialists to foster academic and social inclusion.',
+  homeInterventionTitle: 'Home Intervention',
+  homeInterventionDesc: 'Bringing evidence-based therapies directly to your home, integrating developmental goals into the natural domestic routines of your child.',
+  nannyTrainingTitle: 'Nanny Training',
+  nannyTrainingDesc: 'Empowering caregivers with practical skills, behavior management techniques, and understanding of child development to support therapeutic goals.',
+  familyTrainingTitle: 'Parents / Family Training',
+  familyTrainingDesc: 'Equipping parents, siblings, and the wider family with tools, strategies, and counseling to build a unified support system at home.',
+  inFacilityPt1: 'Structured, sensory-friendly learning environment',
+  inFacilityPt2: 'Direct access to a multidisciplinary team of specialists',
+  inFacilityPt3: 'Intensive behavioral and communication therapy',
+  inFacilityPt4: 'Individualized, evidence-based learning plans',
+  schoolFacilitationPt1: 'One-on-one shadow teaching in classroom settings',
+  schoolFacilitationPt2: 'Adaptation of school curricula to individual learning styles',
+  schoolFacilitationPt3: 'Social skills integration and peer interaction support',
+  schoolFacilitationPt4: 'Collaboration between therapists, parents, and school teachers',
+  homeInterventionPt1: 'Therapy session delivered in a familiar, comfortable setting',
+  homeInterventionPt2: 'Focus on activities of daily living (ADLs) and independence',
+  homeInterventionPt3: 'Generalization of skills learned in clinical settings to the home',
+  homeInterventionPt4: 'Flexible scheduling options to fit family routines',
+  nannyTrainingPt1: 'Specialized training on developmental milestones and SEN awareness',
+  nannyTrainingPt2: 'Positive behavior support and managing challenging behaviors',
+  nannyTrainingPt3: 'Safe caregiving, playtime engagement, and sensory activities',
+  nannyTrainingPt4: 'Certification upon successful completion of the training',
+  familyTrainingPt1: 'Dynamic workshops and one-on-one coaching sessions',
+  familyTrainingPt2: 'Coping strategies and emotional support for the family unit',
+  familyTrainingPt3: 'Implementing consistent behavioral routines at home',
+  familyTrainingPt4: 'Siblings support and family integration workshops',
+  foundation: 'Foundation',
+  socialImpactArm: 'Social impact arm',
+  trainingSchool: 'Training School',
+  educatorDevelopment: 'Educator development',
+  theraHub: 'TheraHub',
+  therapyWellness: 'Therapy & wellness',
+  empoweringGrowth: 'Empowering growth through our',
+  specializedSupportServices: 'specialized support services',
+  readyToBeginJourney: 'Ready to Begin Your Journey?',
+  scheduleConsultation: 'Schedule an initial consultation to find the right therapeutic or learning program for your child.',
+  chatOnWhatsApp: 'Chat on WhatsApp',
+  onSiteIntervention: 'On-Site Intervention',
+  academicIntegration: 'Academic Integration',
+  naturalEnvironment: 'Natural Environment',
+  caregiverEmpowerment: 'Caregiver Empowerment',
+  holisticSupportBadge: 'Holistic Support',
+}
+
+const enMap = new Map(Object.entries(en))
+
+/**
+ * Translate a key using the English locale.
+ * Uses a Map to avoid prototype lookup and bracket notation with user input.
+ * @param {string} key
+ * @returns {string}
+ */
+export function t(key) {
+  return enMap.has(key) ? enMap.get(key) : key
+}

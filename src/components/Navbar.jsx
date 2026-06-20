@@ -1,16 +1,18 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Menu, X, ChevronDown, Users, GraduationCap, Phone, MessageCircle, Construction, HeartPulse, Layers } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import logo from '../assets/new logo.png'
 import ThemeToggle from './ThemeToggle'
+import { t } from '../utils/i18n'
 
 const navLinks = [
-  { label: 'Home', href: '/', to: null },
+  { label: 'Home', href: null, to: '/' },
   { label: 'About Us', href: null, to: '/about' },
+  { label: 'Our Services', href: null, to: '/services' },
   { label: 'Admissions', href: null, to: '/admissions' },
-  { label: 'Our Services', href: '#services', to: null },
-  { label: 'Blog', href: '#blog', to: null },
+  { label: 'Programs', href: null, to: '/#services' },
+  { label: 'Blog', href: null, to: '/#blog' },
 ]
 
 export default function Navbar() {
@@ -56,13 +58,13 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="/" className="flex items-center h-full py-2 group">
+          <Link to="/" className="flex items-center h-full py-2 group">
             <div
               className="w-32 sm:w-48 md:w-56 h-full flex-shrink-0 relative transition-transform duration-300 group-hover:scale-105"
             >
               <img src={logo} alt="Little Beginnings Logo" className="w-full h-full object-contain object-left sm:object-center" />
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-7">
@@ -121,8 +123,8 @@ export default function Navbar() {
                           <Layers className="w-4 h-4" />
                         </div>
                         <div>
-                          <p className="leading-none">Foundation</p>
-                          <p className="text-[10px] font-normal text-gray-400 mt-0.5">Social impact arm</p>
+                          <p className="leading-none">{t('foundation')}</p>
+                          <p className="text-[10px] font-normal text-gray-400 mt-0.5">{t('socialImpactArm')}</p>
                         </div>
                       </Link>
                       <Link
@@ -134,8 +136,8 @@ export default function Navbar() {
                           <GraduationCap className="w-4 h-4" />
                         </div>
                         <div>
-                          <p className="leading-none">Training School</p>
-                          <p className="text-[10px] font-normal text-gray-400 mt-0.5">Educator development</p>
+                          <p className="leading-none">{t('trainingSchool')}</p>
+                          <p className="text-[10px] font-normal text-gray-400 mt-0.5">{t('educatorDevelopment')}</p>
                         </div>
                       </Link>
                       <Link
@@ -147,8 +149,8 @@ export default function Navbar() {
                           <HeartPulse className="w-4 h-4" />
                         </div>
                         <div>
-                          <p className="leading-none">TheraHub</p>
-                          <p className="text-[10px] font-normal text-gray-400 mt-0.5">Therapy & wellness</p>
+                          <p className="leading-none">{t('theraHub')}</p>
+                          <p className="text-[10px] font-normal text-gray-400 mt-0.5">{t('therapyWellness')}</p>
                         </div>
                       </Link>
                     </div>
@@ -310,7 +312,7 @@ export default function Navbar() {
               <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                 <Layers className="w-4 h-4" />
               </div>
-              Foundation
+              {t('foundation')}
             </Link>
             <Link
               to="/training-school"
@@ -320,7 +322,7 @@ export default function Navbar() {
               <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500">
                 <GraduationCap className="w-4 h-4" />
               </div>
-              Training School
+              {t('trainingSchool')}
             </Link>
             <Link
               to="/thera-hub"
@@ -330,7 +332,7 @@ export default function Navbar() {
               <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500">
                 <HeartPulse className="w-4 h-4" />
               </div>
-              TheraHub
+              {t('theraHub')}
             </Link>
           </div>
 

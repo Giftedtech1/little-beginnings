@@ -12,12 +12,11 @@ import iconMotor from '../assets/motor skills icon.png'
 const activities = [
   { img: iconReading, label: 'Reading' },
   { img: iconArtTherapy, label: 'Art Therapy' },
-  { img: iconMusic, label: 'Music' },
+  { img: iconMusic, label: 'Music and Movement' },
   { img: iconMotor, label: 'Motor Skills' },
-  { label: 'Drama' },
-  { label: 'Swimming' },
-  { label: 'Dancing' },
-]
+  { label: 'Hydrotherapy' },
+  { label: 'Sensory Enrichment' },
+];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -28,7 +27,7 @@ const fadeUp = {
   }),
 }
 
-// Floating confetti shapes
+// Floating confetti shapes — kept to 6 to avoid overloading the GPU
 const blobs = [
   // Triangle - Yellow
   { size: 'w-10 h-10', color: 'bg-[#FFD700]', top: '12%', left: '8%', delay: '0s', style: { clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)' }, className: 'rotate-12' },
@@ -38,32 +37,10 @@ const blobs = [
   { size: 'w-9 h-9', color: 'bg-[#00BCD4]', top: '60%', left: '5%', delay: '0.8s', style: { borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%' }, className: '' },
   // Square - Purple
   { size: 'w-7 h-7', color: 'bg-[#9C27B0]', top: '75%', left: '88%', delay: '0.2s', style: { borderRadius: '8px' }, className: 'rotate-45' },
-  // Pentagon - Orange
-  { size: 'w-6 h-6', color: 'bg-[#FF5722]', top: '40%', left: '95%', delay: '1s', style: { clipPath: 'polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)' }, className: 'rotate-12' },
-
   // Circle - Green
   { size: 'w-12 h-12', color: 'bg-[#4CAF50]', top: '18%', left: '45%', delay: '0.3s', style: { borderRadius: '50%' }, className: '' },
   // Triangle - Pink
   { size: 'w-8 h-8', color: 'bg-[#E91E63]', top: '82%', left: '15%', delay: '1.2s', style: { clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)' }, className: '-rotate-12' },
-  // Irregular Blob - Blue
-  { size: 'w-10 h-10', color: 'bg-[#2196F3]', top: '30%', left: '25%', delay: '0.6s', style: { borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%' }, className: 'rotate-45' },
-  // Diamond - Amber
-  { size: 'w-5 h-5', color: 'bg-[#FF9800]', top: '55%', left: '40%', delay: '0.9s', style: { clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' }, className: '' },
-  // Square - Light Green
-  { size: 'w-8 h-8', color: 'bg-[#8BC34A]', top: '68%', left: '70%', delay: '0.5s', style: { borderRadius: '6px' }, className: '-rotate-6' },
-
-  // Pentagon - Bright Yellow
-  { size: 'w-5 h-5', color: 'bg-[#FFEB3B]', top: '15%', left: '75%', delay: '1.1s', style: { clipPath: 'polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)' }, className: '-rotate-12' },
-  // Irregular Blob - Red
-  { size: 'w-10 h-10', color: 'bg-[#F44336]', top: '88%', left: '55%', delay: '0.7s', style: { borderRadius: '40% 60% 60% 40% / 60% 30% 70% 40%' }, className: '' },
-  // Circle - Deep Purple
-  { size: 'w-5 h-5', color: 'bg-[#673AB7]', top: '45%', left: '82%', delay: '0.1s', style: { borderRadius: '50%' }, className: '' },
-  // Triangle - Teal
-  { size: 'w-7 h-7', color: 'bg-[#009688]', top: '35%', left: '12%', delay: '1.5s', style: { clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)' }, className: 'rotate-[30deg]' },
-  // Square - Amber/Yellow
-  { size: 'w-9 h-9', color: 'bg-[#FFC107]', top: '75%', left: '35%', delay: '1.3s', style: { borderRadius: '12px' }, className: 'rotate-[15deg]' },
-  // Diamond - Pink
-  { size: 'w-6 h-6', color: 'bg-[#E91E63]', top: '22%', left: '60%', delay: '0.8s', style: { clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' }, className: 'rotate-[-15deg]' },
 ]
 
 export default function Hero() {
@@ -154,7 +131,7 @@ export default function Hero() {
                 href="#services"
                 className="btn-outline"
               >
-                Our Services
+                Programs
               </motion.a>
             </motion.div>
 
@@ -214,6 +191,7 @@ export default function Hero() {
               <img
                 src={heroImg2}
                 alt="Kids activities"
+                loading="lazy"
                 decoding="async"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -230,6 +208,7 @@ export default function Hero() {
               <img
                 src={heroImg3}
                 alt="Speech therapy"
+                loading="lazy"
                 decoding="async"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />

@@ -6,11 +6,11 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
 import imgSpeech from '../assets/speech therapy.jpg'
-import imgReading from '../assets/reading support.jpg'
-import imgOccupational from '../assets/occupational therapy.jpg'
+import imgReading from '../assets/reading support.jpg.jpg'
+import imgOccupational from '../assets/occupational therapy.jpg.jpg'
 import imgMath from '../assets/math and writing.jpg'
-import imgAssessment from '../assets/hero img2.jpg'
-import imgBehaviour from '../assets/about us.jpg'
+import imgAssessment from '../assets/assessment.webp'
+import imgBehaviour from '../assets/behavioural-intervention.webp'
 
 const servicesData = {
   speech: {
@@ -156,7 +156,9 @@ const stagger = {
 
 export default function ServiceDetail() {
   const { serviceId } = useParams()
-  const data = servicesData[serviceId]
+  const data = Object.prototype.hasOwnProperty.call(servicesData, serviceId)
+    ? servicesData[serviceId]
+    : null
 
   useEffect(() => {
     window.scrollTo(0, 0)

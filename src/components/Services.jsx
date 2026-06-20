@@ -2,13 +2,14 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Brain, BookOpen, Pencil, Calculator, ArrowRight, ClipboardList, Users } from 'lucide-react'
 import WaveDivider from './WaveDivider'
+import { t } from '../utils/i18n'
 
 import imgSpeech from '../assets/speech therapy.jpg'
-import imgReading from '../assets/reading support.jpg'
-import imgOccupational from '../assets/occupational therapy.jpg'
+import imgReading from '../assets/reading support.jpg.jpg'
+import imgOccupational from '../assets/occupational therapy.jpg.jpg'
 import imgMath from '../assets/math and writing.jpg'
-import imgAssessment from '../assets/hero img2.jpg'
-import imgBehaviour from '../assets/about us.jpg'
+import imgAssessment from '../assets/assessment.webp'
+import imgBehaviour from '../assets/behavioural-intervention.webp'
 
 const services = [
   {
@@ -18,7 +19,7 @@ const services = [
     description:
       'Building communication confidence through expert speech and language interventions tailored to each child.',
     img: imgSpeech,
-    featured: false,
+    featured: true,
     accentBg: '#e6f6fb',
     accentText: '#0192c6',
   },
@@ -47,7 +48,7 @@ const services = [
   {
     id: 'math',
     icon: Calculator,
-    title: 'Math & Writing',
+    title: 'Math & Literacy',
     description:
       'Structured literacy and numeracy programs that build strong foundational skills with hands-on learning.',
     img: imgMath,
@@ -62,7 +63,7 @@ const services = [
     description:
       'Comprehensive developmental and learning assessments to identify specific strengths, needs, and appropriate interventions.',
     img: imgAssessment,
-    featured: false,
+    featured: true,
     accentBg: '#e6f6fb',
     accentText: '#0192c6',
   },
@@ -73,7 +74,7 @@ const services = [
     description:
       'Applying the best practices of Applied Behaviour Analysis (ABA) to foster meaningful growth and independence.',
     img: imgBehaviour,
-    featured: false,
+    featured: true,
     accentBg: '#EDE9FE',
     accentText: '#8B5CF6',
   },
@@ -102,7 +103,7 @@ export default function Services() {
           className="text-center max-w-2xl mx-auto mb-14"
         >
           <h2 className="section-title">
-            Our <span className="text-brand">Services</span>
+            Our <span className="text-brand">{t('programs')}</span>
           </h2>
           <p className="section-subtitle">
             Evidence-based programs delivered by certified specialists in a warm, child-friendly environment.

@@ -1,14 +1,15 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Brain, MessageSquare, Puzzle, Activity, Users, BookOpen } from 'lucide-react'
+import { t } from '../utils/i18n'
 
 const highlights = [
-  { icon: Brain,         color: '#6366F1', bg: '#EEF2FF', label: 'Behavioural Therapy' },
-  { icon: MessageSquare, color: '#0192c6', bg: '#e6f6fb', label: 'Speech-Language Therapy' },
+  { icon: Brain,         color: '#6366F1', bg: '#EEF2FF', label: 'Behavioral Intervention' },
+  { icon: MessageSquare, color: '#0192c6', bg: '#e6f6fb', label: 'Communication and Language' },
   { icon: Puzzle,        color: '#F59E0B', bg: '#FEF3C7', label: 'Occupational Therapy' },
   { icon: Activity,      color: '#EF4444', bg: '#FEE2E2', label: 'Physical Therapy' },
   { icon: Users,         color: '#8B5CF6', bg: '#EDE9FE', label: 'Social Skills Training' },
-  { icon: BookOpen,      color: '#0EA5E9', bg: '#E0F2FE', label: 'Educational Strategies' },
+  { icon: BookOpen,      color: '#0EA5E9', bg: '#E0F2FE', label: 'Academy Support' },
 ]
 
 export default function Programs() {
@@ -24,14 +25,13 @@ export default function Programs() {
           className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10"
         >
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-brand mb-2">Our Programs</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-brand mb-2">{t('ourPrograms')}</p>
             <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-dark dark:text-white leading-tight">
               Evidence-based<br />
-              <span className="text-brand">Interventions.</span>
+              <span className="text-brand">{t('interventions')}</span>
             </h2>
             <p className="mt-3 text-muted text-sm max-w-md">
-              A comprehensive, multidisciplinary approach to supporting children with special needs —
-              tailored programs delivered by certified specialists.
+              {t('curriculumSub')}
             </p>
           </div>
         </motion.div>
@@ -45,9 +45,9 @@ export default function Programs() {
             transition={{ duration: 0.5 }}
             className="border-l-4 border-brand pl-6 py-2"
           >
-            <h3 className="font-display font-bold text-base text-dark dark:text-white mb-1">Therapeutic Programs</h3>
+            <h3 className="font-display font-bold text-base text-dark dark:text-white mb-1">{t('therapeuticPrograms')}</h3>
             <p className="text-sm text-muted">
-              Behavioural, Speech-Language, Occupational, and Physical therapy — each designed to address the unique challenges every child faces.
+              {t('therapeuticSub')}
             </p>
           </motion.div>
 
@@ -58,9 +58,9 @@ export default function Programs() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="border-l-4 border-amber-400 pl-6 py-2"
           >
-            <h3 className="font-display font-bold text-base text-dark dark:text-white mb-1">Holistic Support</h3>
+            <h3 className="font-display font-bold text-base text-dark dark:text-white mb-1">{t('holisticSupport')}</h3>
             <p className="text-sm text-muted">
-              Social Skills Training, Parent Training, Nutritional Therapy, and Complementary Interventions to support the whole child and family.
+              {t('holisticSub')}
             </p>
           </motion.div>
         </div>
