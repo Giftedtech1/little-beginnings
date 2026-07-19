@@ -104,7 +104,7 @@ export default function UpdatePassword() {
 
   return (
     <div className="min-h-screen bg-surface flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl shadow-card p-8 md:p-10 w-full max-w-md">
+      <div className="bg-white text-gray-900 rounded-3xl shadow-card p-8 md:p-10 w-full max-w-md">
         <div className="flex justify-center mb-6">
           <div className="bg-accent/10 p-4 rounded-full">
             <KeyRound className="w-8 h-8 text-accent" />
@@ -143,7 +143,7 @@ export default function UpdatePassword() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pr-10 rounded-xl border border-gray-200 focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-colors"
+                  className="w-full px-4 py-3 pr-10 rounded-xl border border-gray-200 bg-white text-gray-900 focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-colors"
                   placeholder="••••••••"
                 />
                 <button
@@ -187,7 +187,7 @@ export default function UpdatePassword() {
                   required
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className={`w-full px-4 py-3 pr-10 rounded-xl border outline-none transition-colors focus:ring-1
+                  className={`w-full px-4 py-3 pr-10 rounded-xl border bg-white text-gray-900 outline-none transition-colors focus:ring-1
                     ${confirmPassword.length > 0
                       ? passwordsMatch
                         ? 'border-green-400 focus:border-green-400 focus:ring-green-400'

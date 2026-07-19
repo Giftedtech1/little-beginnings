@@ -93,10 +93,12 @@ export default function Blog() {
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-gray-300">No Image</div>
                   )}
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-white/90 dark:bg-slate-800/90 text-primary dark:text-white text-xs font-bold px-3 py-1 rounded-full">
-                      {post.category || 'General'}
-                    </span>
+                  <div className="absolute top-4 left-4 flex flex-wrap gap-1.5">
+                    {(post.category || 'General').split(',').map((cat) => (
+                      <span key={cat} className="bg-white/90 dark:bg-slate-800/90 text-primary dark:text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                        {cat.trim() === 'Parenting' ? 'Parenting Tips' : cat.trim()}
+                      </span>
+                    ))}
                   </div>
                 </div>
                 <div className="p-6">

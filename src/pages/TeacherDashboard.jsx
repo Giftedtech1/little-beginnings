@@ -196,7 +196,7 @@ export default function TeacherDashboard() {
         </div>
 
         {/* Form Card */}
-        <div className="bg-white rounded-3xl shadow-card p-6 md:p-8 mb-8">
+        <div className="bg-white text-gray-900 rounded-3xl shadow-card p-6 md:p-8 mb-8">
           <h2 className="font-display font-bold text-lg mb-6 flex items-center gap-2">
             <FileUp className="w-5 h-5 text-primary" /> Upload New Report
           </h2>

@@ -67,7 +67,7 @@ const challenges = [
     id: 'odd-cd',
     icon: Users,
     title: 'Oppositional Defiant / Conduct Disorder',
-    description: 'Behavioral strategies and positive reinforcement programs focusing on emotional expression and cooperation.',
+    description: 'Behavioural strategies and positive reinforcement programs focusing on emotional expression and cooperation.',
     bg:       '#FFF3E0',
     iconBg:   '#FFE0B2',
     iconColor:'#EA580C',

@@ -1,0 +1,1 @@
+import{t as s}from"./vendor-supabase-DA24rY1F.js";var t="https://rclfoznheqrcocxmkttn.supabase.co",a="sb_publishable_kLJOjof5ADrq5-LFLA6fxA_sbZjpJs_",e=!!a;e||console.warn("[Little Beginnings] ⚠️  Supabase credentials not set. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to your .env file. Portal features will be unavailable.");var n=e?s(t,a):null;export{n as t};

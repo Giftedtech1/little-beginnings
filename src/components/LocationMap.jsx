@@ -53,7 +53,7 @@ export default function LocationMap() {
               <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6">
                 <MapPin className="w-6 h-6" />
               </div>
-              <h3 className="font-display font-bold text-2xl mb-2">Our Center</h3>
+              <h3 className="font-display font-bold text-2xl mb-2">Our Centre</h3>
               <p className="text-muted leading-relaxed mb-8 text-lg">
                 {address}
               </p>

@@ -107,7 +107,7 @@ export default function Hero() {
               className="mt-5 text-muted text-lg leading-relaxed max-w-lg"
             >
               Little Beginnings is a specialized learning center dedicated to nurturing every child's
-              unique potential — through evidence-based therapy, compassionate care, and joyful learning.
+              unique potential, through evidence based therapy, compassionate care, and joyful learning.
             </motion.p>
 
             <motion.div
@@ -228,7 +228,7 @@ export default function Hero() {
             {/* Secondary floating card */}
             <div className="hidden sm:block absolute top-[-5%] right-[-2%] z-40 bg-white dark:bg-slate-800 dark:border dark:border-slate-700 rounded-2xl shadow-card dark:shadow-none px-4 py-3">
               <div className="text-primary dark:text-white font-extrabold font-display text-2xl">A+</div>
-              <div className="text-xs text-muted dark:text-gray-400 font-medium">Learning Outcomes</div>
+              <div className="text-xs text-muted dark:text-gray-400 font-medium">Learning Outcomes <br /> Skill Independence</div>
             </div>
           </motion.div>
         </div>

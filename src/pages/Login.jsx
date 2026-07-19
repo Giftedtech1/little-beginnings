@@ -158,7 +158,7 @@ export default function Login() {
         </div>
 
         <p className="text-center text-xs mt-6" style={{ color: '#9CA3AF' }}>
-          &copy; {new Date().getFullYear()} Little Beginnings Learning Center
+          &copy; {new Date().getFullYear()} Little Beginnings Learning Centre
         </p>
       </div>
     </div>

@@ -135,7 +135,7 @@ export default function ProfilePage() {
         </button>
 
         {/* Main Premium Profile Card */}
-        <div className="bg-white rounded-[2rem] shadow-card overflow-hidden border border-primary/5">
+        <div className="bg-white text-gray-900 rounded-[2rem] shadow-card overflow-hidden border border-primary/5">
           {/* Header Banner */}
           <div className="h-32 bg-gray-50 border-b border-gray-100"></div>
           
@@ -198,7 +198,7 @@ export default function ProfilePage() {
                                 required
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full px-4 py-3.5 pr-10 rounded-xl border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/20 bg-white outline-none transition-all"
+                                className="w-full px-4 py-3.5 pr-10 rounded-xl border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/20 bg-white text-gray-900 outline-none transition-all"
                                 placeholder="••••••••"
                               />
                               <button type="button" onClick={() => setShowPassword(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-dark">
@@ -229,7 +229,7 @@ export default function ProfilePage() {
                                 required
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
-                                className={`w-full px-4 py-3.5 pr-10 rounded-xl border bg-white outline-none transition-all focus:ring-2 ${confirmPassword.length > 0 ? passwordsMatch ? 'border-green-400 focus:border-green-400 focus:ring-green-400/20' : 'border-red-400 focus:border-red-400 focus:ring-red-400/20' : 'border-gray-200 focus:border-accent focus:ring-accent/20'}`}
+                                className={`w-full px-4 py-3.5 pr-10 rounded-xl border bg-white text-gray-900 outline-none transition-all focus:ring-2 ${confirmPassword.length > 0 ? passwordsMatch ? 'border-green-400 focus:border-green-400 focus:ring-green-400/20' : 'border-red-400 focus:border-red-400 focus:ring-red-400/20' : 'border-gray-200 focus:border-accent focus:ring-accent/20'}`}
                                 placeholder="••••••••"
                               />
                               <button type="button" onClick={() => setShowConfirm(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-dark">

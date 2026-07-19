@@ -14,7 +14,7 @@ const HISTORY_STEPS = [
 const PRE_INT_STEPS = [
   { id: 3, title: 'Medical History' },
   { id: 4, title: 'Development & Schedule' },
-  { id: 5, title: 'Behavior & Self-Care' }
+  { id: 5, title: 'Behaviour & Self-Care' }
 ]
 
 export default function PreAssessment() {
@@ -128,7 +128,7 @@ export default function PreAssessment() {
         {/* Dashboard View */}
         {view === 'dashboard' && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-            <div className="bg-white shadow-xl rounded-3xl p-8 sm:p-12 border border-gray-100 text-center">
+            <div className="bg-white shadow-xl rounded-3xl p-8 sm:p-12 border border-gray-100 text-center text-gray-900">
               <h1 className="font-display font-extrabold text-3xl text-dark mb-4">Pre-Assessment Portal</h1>
               <p className="text-gray-500 max-w-2xl mx-auto mb-10">
                 Please provide your basic details below, and then select which form(s) you need to complete. 
@@ -170,7 +170,7 @@ export default function PreAssessment() {
                     <ClipboardList className="w-6 h-6" />
                   </div>
                   <h3 className="font-bold text-lg text-dark mb-2">Pre-Intervention Form</h3>
-                  <p className="text-sm text-gray-500 font-sans">Comprehensive medical, developmental, and behavioral history.</p>
+                  <p className="text-sm text-gray-500 font-sans">Comprehensive medical, developmental, and behavioural history.</p>
                 </button>
               </div>
 
@@ -191,7 +191,7 @@ export default function PreAssessment() {
 
         {/* Forms View */}
         {view !== 'dashboard' && (
-          <div className="bg-white shadow-xl rounded-3xl overflow-hidden border border-gray-100">
+          <div className="bg-white shadow-xl rounded-3xl overflow-hidden border border-gray-100 text-gray-900">
             {/* Steps Progress */}
             <div className="bg-brand/5 border-b border-brand/10 p-4 sm:px-8 flex flex-wrap justify-between items-center text-xs font-bold uppercase tracking-widest text-brand/60">
               {(view === 'history' ? HISTORY_STEPS : PRE_INT_STEPS).map((s) => (
@@ -270,7 +270,7 @@ export default function PreAssessment() {
                         {[
                           { id: 'speech', label: '1. Speech and Language' },
                           { id: 'occupational', label: '2. Occupational Therapy' },
-                          { id: 'physical', label: '3. Physical Therapy' },
+                          { id: 'physical', label: '3. Physiotherapy' },
                           { id: 'other_eval', label: '4. Others Not Mentioned' }
                         ].map(evalField => (
                           <div key={evalField.id} className="mb-8 border-b border-gray-200 pb-8 last:border-0 last:pb-0">
@@ -530,16 +530,16 @@ export default function PreAssessment() {
                   </motion.div>
                 )}
 
-                {/* STEP 5: BEHAVIOR & SELF-CARE */}
+                {/* STEP 5: BEHAVIOUR & SELF-CARE */}
                 {step === 5 && (
                   <motion.div key="step5" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-8">
                     <div className="border-b border-gray-100 pb-4 mb-6 text-center">
-                      <h3 className="font-display font-extrabold text-2xl text-dark tracking-wide uppercase">Part 5: Behavior & Self-Care Skills</h3>
+                      <h3 className="font-display font-extrabold text-2xl text-dark tracking-wide uppercase">Part 5: Behaviour & Self-Care Skills</h3>
                     </div>
 
                     <div className="space-y-6">
                       <div className="bg-gray-50 p-6 rounded-2xl border border-gray-200 space-y-4">
-                        <h4 className="font-bold text-lg text-brand">Behavior & Social Skills</h4>
+                        <h4 className="font-bold text-lg text-brand">Behaviour & Social Skills</h4>
                         
                         <div className="grid sm:grid-cols-2 gap-4">
                           <div>

@@ -105,7 +105,7 @@ export default function AssessmentViewerModal({ assessment, onClose }) {
                   const labels = {
                     speech: 'Speech and Language',
                     occupational: 'Occupational Therapy',
-                    physical: 'Physical Therapy',
+                    physical: 'Physiotherapy',
                     other_eval: 'Other Interventions'
                   }
                   return (
@@ -192,9 +192,9 @@ export default function AssessmentViewerModal({ assessment, onClose }) {
                   </div>
                 </div>
 
-                {/* Behavior & Self-Care */}
+                {/* Behaviour & Self-Care */}
                 <div>
-                  <h3 className="font-bold text-sm text-brand uppercase tracking-widest mb-4 border-b border-gray-100 pb-2">Behavior & Self-Care</h3>
+                  <h3 className="font-bold text-sm text-brand uppercase tracking-widest mb-4 border-b border-gray-100 pb-2">Behaviour & Self-Care</h3>
                   <div className="grid sm:grid-cols-2 gap-x-8">
                     {renderField("Disciplinarian at Home", pre_intervention_data.discipline_by)}
                     {renderField("Tantrums Frequency", pre_intervention_data.tantrums)}

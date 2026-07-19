@@ -14,7 +14,7 @@ export default function PromptModal({ isOpen, title, message, placeholder, onCon
 
   return (
     <div className="fixed inset-0 z-[200] bg-black/50 flex items-center justify-center p-4 animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl animate-in zoom-in-95 duration-200">
+      <div className="bg-white text-gray-900 rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl animate-in zoom-in-95 duration-200">
         <h2 className="font-display font-bold text-xl mb-2 text-dark">{title}</h2>
         <p className="text-muted text-sm mb-6">{message}</p>
         
@@ -26,7 +26,7 @@ export default function PromptModal({ isOpen, title, message, placeholder, onCon
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder={placeholder}
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none resize-none mb-6"
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 focus:border-primary focus:ring-1 focus:ring-primary outline-none resize-none mb-6"
           />
           
           <div className="flex gap-3">

@@ -26,14 +26,14 @@ const team = [
     id: 3,
     name: 'Dr. Oluwaseun Oshilaja',
     role: 'Consultant Psychologist & Behaviour Interventionist',
-    bio: 'Dr. Oluwaseun Oshilaja holds an M.Sc. in Psychology and a PhD in Psychology from the University of Lagos. He serves as a Consultant Psychologist and Behaviour Interventionist at Little Beginnings Centre, where he applies his deep expertise in behavioral sciences to support our students and families.',
+    bio: 'Dr. Oluwaseun Oshilaja holds an M.Sc. in Psychology and a PhD in Psychology from the University of Lagos. He serves as a Consultant Psychologist and Behaviour Interventionist at Little Beginnings Centre, where he applies his deep expertise in behavioural sciences to support our students and families.',
     img: imgOshilaja,
   },
   {
     id: 4,
     name: 'Ijeoma Umeokafor',
     role: 'Academic & Business Development Administrator',
-    bio: 'Driving Excellence | Scaling Impact | Empowering Every Learner.\n\nBridging the gap between educational excellence and operational growth, I oversee the strategic heart of Little Beginnings. With a focus on academic rigor and sustainable expansion, I ensure Little Beginnings Center remains a premier destination for specialized care and neurodivergent development.',
+    bio: 'Driving Excellence | Scaling Impact | Empowering Every Learner.\n\nBridging the gap between educational excellence and operational growth, I oversee the strategic heart of Little Beginnings. With a focus on academic rigour and sustainable expansion, I ensure Little Beginnings Centre remains a premier destination for specialized care and neurodivergent development.',
     img: imgIjeoma,
   },
 ]
@@ -73,7 +73,7 @@ export default function Team() {
             Management <span className="text-brand">Team</span>
           </h2>
           <p className="section-subtitle mt-4">
-            The dedicated professionals guiding Little Beginnings Center with expertise, passion, and a commitment to inclusive education.
+            The dedicated professionals guiding Little Beginnings Centre with expertise, passion, and a commitment to inclusive education.
           </p>
         </motion.div>
 

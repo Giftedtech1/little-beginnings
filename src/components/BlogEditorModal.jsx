@@ -9,7 +9,9 @@ import { useToast } from '../context/ToastContext'
 export default function BlogEditorModal({ post, onClose, onSave }) {
   const [title, setTitle] = useState(post?.title || '')
   const [excerpt, setExcerpt] = useState(post?.excerpt || '')
-  const [category, setCategory] = useState(post?.category || 'General')
+  const [selectedCategories, setSelectedCategories] = useState(
+    post?.category ? post.category.split(',').map(c => c.trim()) : ['General']
+  )
   const [imageUrl, setImageUrl] = useState(post?.image_url || '')
   const [published, setPublished] = useState(post?.published || false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -24,7 +26,7 @@ export default function BlogEditorModal({ post, onClose, onSave }) {
     content: post?.content || '',
     editorProps: {
       attributes: {
-        class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none min-h-[300px] p-4',
+        class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none min-h-[300px] p-4 text-gray-900 bg-white prose-headings:text-gray-900 prose-p:text-gray-900 prose-strong:text-gray-900 prose-ul:text-gray-900 prose-ol:text-gray-900 prose-li:text-gray-900',
       },
     },
   })
@@ -80,7 +82,7 @@ export default function BlogEditorModal({ post, onClose, onSave }) {
         title,
         slug: post?.slug || generateSlug(title),
         excerpt,
-        category,
+        category: selectedCategories.join(', '),
         image_url: imageUrl,
         content: editor.getHTML(),
         published
@@ -104,7 +106,7 @@ export default function BlogEditorModal({ post, onClose, onSave }) {
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl w-full max-w-5xl max-h-[90vh] flex flex-col shadow-2xl">
+      <div className="bg-white text-gray-900 rounded-2xl w-full max-w-5xl max-h-[90vh] flex flex-col shadow-2xl">
         <div className="p-4 border-b border-gray-200 flex justify-between items-center flex-shrink-0">
           <h2 className="font-bold text-xl">{post ? 'Edit Post' : 'Create New Post'}</h2>
           <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
@@ -120,7 +122,7 @@ export default function BlogEditorModal({ post, onClose, onSave }) {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Post Title..."
-              className="w-full text-3xl font-bold border-none focus:ring-0 px-0 bg-transparent placeholder-gray-300"
+              className="w-full text-3xl font-bold border-none focus:ring-0 px-0 bg-transparent text-gray-900 placeholder-gray-300"
             />
             
             {/* Toolbar */}
@@ -158,14 +160,34 @@ export default function BlogEditorModal({ post, onClose, onSave }) {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold mb-2">Category</label>
-              <select value={category} onChange={e => setCategory(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white">
-                <option value="General">General</option>
-                <option value="Academics">Academics</option>
-                <option value="Activities">Activities</option>
-                <option value="Parenting">Parenting Tips</option>
-                <option value="Announcements">Announcements</option>
-              </select>
+              <label className="block text-sm font-semibold mb-2">Categories (Select one or more)</label>
+              <div className="flex flex-wrap gap-2">
+                {['General', 'Academics', 'Activities', 'Parenting', 'Announcements'].map((cat) => {
+                  const active = selectedCategories.includes(cat);
+                  return (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => {
+                        if (active) {
+                          if (selectedCategories.length > 1) {
+                            setSelectedCategories(selectedCategories.filter(c => c !== cat));
+                          }
+                        } else {
+                          setSelectedCategories([...selectedCategories, cat]);
+                        }
+                      }}
+                      className={`px-3 py-1.5 text-xs font-bold rounded-full transition-all border ${
+                        active 
+                          ? 'bg-primary border-primary text-white shadow-sm' 
+                          : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
+                      }`}
+                    >
+                      {cat === 'Parenting' ? 'Parenting Tips' : cat}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             <div>
@@ -174,7 +196,7 @@ export default function BlogEditorModal({ post, onClose, onSave }) {
                 value={excerpt}
                 onChange={e => setExcerpt(e.target.value)}
                 rows={3}
-                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 resize-none text-sm"
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 resize-none text-sm"
                 placeholder="A brief summary for the blog card..."
               />
             </div>

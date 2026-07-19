@@ -5,10 +5,10 @@ import WaveDivider from './WaveDivider'
 import aboutImg from '../assets/about us.jpg'
 
 const pillars = [
-  { icon: Heart,     label: 'Compassionate Care', bg: '#FFB3B3', color: '#CC3333', position: '-top-6 left-0' },
-  { icon: Users,     label: 'Family-Centered',     bg: '#e6f6fb', color: '#016a91', position: '-top-6 right-0' },
-  { icon: Star,      label: 'Expert-Led',          bg: '#FFD166', color: '#8B6914', position: '-bottom-6 left-0' },
-  { icon: Lightbulb, label: 'Innovation',          bg: '#e6f6fb', color: '#0192c6', position: '-bottom-6 right-0' },
+  { icon: Heart, label: 'Compassionate Care', bg: '#FFB3B3', color: '#CC3333', position: '-top-6 left-0' },
+  { icon: Users, label: 'Family-Centred', bg: '#e6f6fb', color: '#016a91', position: '-top-6 right-0' },
+  { icon: Star, label: 'Expert-Led', bg: '#FFD166', color: '#8B6914', position: '-bottom-6 left-0' },
+  { icon: Lightbulb, label: 'Innovation', bg: '#e6f6fb', color: '#0192c6', position: '-bottom-6 right-0' },
 ]
 
 export default function About() {
@@ -92,15 +92,15 @@ export default function About() {
               that address each child's unique challenges and celebrate their strengths.
             </p>
             <p className="text-muted leading-relaxed mb-8">
-              We integrate multiple aspects of therapy including; communication and language therapy, behavior intervention etc in a calm, stimulating environment.
+              We integrate multiple aspects of therapy including; communication and language therapy, behavioural intervention etc in a calm, stimulating environment.
             </p>
 
             <div className="grid grid-cols-2 gap-4 mb-8">
               {[
-                    { value: '12+',  label: 'Years of Experience',   bg: '#e6f6fb', val: '#0192c6' },
-    { value: '500+', label: 'Success Stories',       bg: '#FFD166', val: '#8B6914' },
-    { value: '15+',  label: 'Current Specialists Therapist', bg: '#FFB3B3', val: '#CC3333' },
-    { value: '7+',    label: 'Therapy Programs',     bg: '#e6f6fb', val: '#016a91' },
+                { value: '12+', label: 'Years of Experience', bg: '#e6f6fb', val: '#0192c6' },
+                { value: '500+', label: 'Success Stories', bg: '#FFD166', val: '#8B6914' },
+                { value: '15+', label: 'Current Specialists Therapists', bg: '#FFB3B3', val: '#CC3333' },
+                { value: '7+', label: 'Therapy Programs', bg: '#e6f6fb', val: '#016a91' },
               ].map((s) => (
                 <div key={s.label} className="bg-white dark:bg-slate-800 dark:border dark:border-slate-700 rounded-2xl p-4 shadow-soft dark:shadow-none">
                   <div

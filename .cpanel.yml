@@ -1,0 +1,4 @@
+---
+deployment:
+  - source: dist
+    destination: /home2/littlebe/public_html

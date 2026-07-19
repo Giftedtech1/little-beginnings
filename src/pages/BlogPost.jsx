@@ -144,14 +144,15 @@ export default function BlogPost() {
             transition={{ duration: 0.45, delay: 0.05 }}
             className="flex flex-wrap items-center gap-3 mb-6"
           >
-            {post.category && (
+            {post.category && post.category.split(',').map((cat) => (
               <span
+                key={cat}
                 className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full"
                 style={{ backgroundColor: '#e6f6fb', color: '#0192c6' }}
               >
-                <Tag className="w-3 h-3" /> {post.category}
+                <Tag className="w-3 h-3" /> {cat.trim() === 'Parenting' ? 'Parenting Tips' : cat.trim()}
               </span>
-            )}
+            ))}
             <span className="text-muted text-sm flex items-center gap-1.5">
               <Calendar className="w-3.5 h-3.5" />
               {formattedDate}
@@ -198,7 +199,7 @@ export default function BlogPost() {
               </div>
               <div>
                 <p className="font-bold text-dark dark:text-white text-sm">Little Beginnings</p>
-                <p className="text-xs">Learning Center</p>
+                <p className="text-xs">Learning Centre</p>
               </div>
             </div>
             <ShareButton post={post} />
@@ -265,7 +266,7 @@ export default function BlogPost() {
           className="mt-12 rounded-3xl p-8 sm:p-10 text-center"
           style={{ backgroundColor: '#0192c6' }}
         >
-          <p className="text-white/70 text-xs font-bold uppercase tracking-widest mb-2">Little Beginnings Learning Center</p>
+          <p className="text-white/70 text-xs font-bold uppercase tracking-widest mb-2">Little Beginnings Learning Centre</p>
           <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-white mb-3">
             Ready to support your child's journey?
           </h2>

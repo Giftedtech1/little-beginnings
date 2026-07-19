@@ -4,12 +4,12 @@ import { ArrowRight, Brain, MessageSquare, Puzzle, Activity, Users, BookOpen } f
 import { t } from '../utils/i18n'
 
 const highlights = [
-  { icon: Brain,         color: '#6366F1', bg: '#EEF2FF', label: 'Behavioral Intervention' },
+  { icon: Brain,         color: '#6366F1', bg: '#EEF2FF', label: 'Behavioural Intervention' },
   { icon: MessageSquare, color: '#0192c6', bg: '#e6f6fb', label: 'Communication and Language' },
   { icon: Puzzle,        color: '#F59E0B', bg: '#FEF3C7', label: 'Occupational Therapy' },
-  { icon: Activity,      color: '#EF4444', bg: '#FEE2E2', label: 'Physical Therapy' },
+  { icon: Activity,      color: '#EF4444', bg: '#FEE2E2', label: 'Physiotherapy' },
   { icon: Users,         color: '#8B5CF6', bg: '#EDE9FE', label: 'Social Skills Training' },
-  { icon: BookOpen,      color: '#0EA5E9', bg: '#E0F2FE', label: 'Academy Support' },
+  { icon: BookOpen,      color: '#0EA5E9', bg: '#E0F2FE', label: 'Academic Support' },
 ]
 
 export default function Programs() {

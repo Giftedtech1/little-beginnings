@@ -106,7 +106,7 @@ export default function Services() {
             Our <span className="text-brand">{t('programs')}</span>
           </h2>
           <p className="section-subtitle">
-            Evidence-based programs delivered by certified specialists in a warm, child-friendly environment.
+            Evidence based programs delivered by specialists in a warm, child-friendly environment.
           </p>
         </motion.div>
 
@@ -124,11 +124,10 @@ export default function Services() {
               variants={cardVariants}
               whileHover={{ y: -8, scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              className={`relative rounded-3xl overflow-hidden flex flex-col ${
-                service.featured
-                  ? 'text-white shadow-card-hover scale-[1.05]'
-                  : 'bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-card dark:shadow-none'
-              }`}
+              className={`relative rounded-3xl overflow-hidden flex flex-col ${service.featured
+                ? 'text-white shadow-card-hover scale-[1.05]'
+                : 'bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-card dark:shadow-none'
+                }`}
               style={service.featured ? { backgroundColor: '#0192c6' } : undefined}
             >
               {service.featured && (

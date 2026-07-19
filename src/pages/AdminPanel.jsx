@@ -213,21 +213,21 @@ export default function AdminPanel() {
     setConfirmState({
       isOpen: true,
       title: "Link Family",
-      message: "Are you sure you want to permanently link this parent to this student?",
+      message: "Are you sure you want to permanently link this parent to this child?",
       isDestructive: false,
       confirmText: "Yes, Link Them",
       onConfirm: async () => {
         setIsLinkSubmitting(true)
         try {
-          if (!linkForm.parent_id || !linkForm.student_id) throw new Error("Please select both a parent and a student.")
+          if (!linkForm.parent_id || !linkForm.student_id) throw new Error("Please select both a parent and a child.")
           await linkParentToStudent(linkForm.parent_id, linkForm.student_id)
-          toast.success("Successfully linked parent and student!")
+          toast.success("Successfully linked parent and child!")
           setIsLinkOpen(false)
           setLinkForm({ parent_id: '', student_id: '' })
           setConfirmState({ isOpen: false })
         } catch (err) {
           if (err.code === '23505') {
-            toast.error("This parent and student are already linked.")
+            toast.error("This parent and child are already linked.")
           } else {
             toast.error("Failed to link: " + err.message)
           }
@@ -242,17 +242,17 @@ export default function AdminPanel() {
   const handleDeleteStudent = (id) => {
     setConfirmState({
       isOpen: true,
-      title: "Delete Student",
-      message: "WARNING: Are you sure you want to delete this student? This action cannot be undone and will delete all their results.",
+      title: "Delete Child",
+      message: "WARNING: Are you sure you want to delete this child? This action cannot be undone and will delete all their results.",
       isDestructive: true,
       confirmText: "Delete",
       onConfirm: async () => {
         try {
           await deleteStudent(id)
           setStudents(students.filter(s => s.id !== id))
-          toast.success("Student deleted successfully.")
+          toast.success("Child deleted successfully.")
         } catch (err) {
-          toast.error("Failed to delete student: " + err.message)
+          toast.error("Failed to delete child: " + err.message)
         } finally {
           setConfirmState({ isOpen: false })
         }
@@ -263,8 +263,8 @@ export default function AdminPanel() {
   const handleArchiveStudent = (id) => {
     setConfirmState({
       isOpen: true,
-      title: 'Archive Student',
-      message: 'Are you sure you want to archive this student? They can be restored later from the Archive view.',
+      title: 'Archive Child',
+      message: 'Are you sure you want to archive this child? They can be restored later from the Archive view.',
       isDestructive: false,
       confirmText: 'Archive',
       onConfirm: async () => {
@@ -273,9 +273,9 @@ export default function AdminPanel() {
           setStudents(students.filter(s => s.id !== id))
           const archived = await getArchivedStudents()
           setArchivedStudents(archived)
-          toast.success('Student archived.')
+          toast.success('Child archived.')
         } catch (err) {
-          toast.error('Failed to archive student: ' + err.message)
+          toast.error('Failed to archive child: ' + err.message)
         } finally {
           setConfirmState({ isOpen: false })
         }
@@ -286,8 +286,8 @@ export default function AdminPanel() {
   const handleUnarchiveStudent = (id) => {
     setConfirmState({
       isOpen: true,
-      title: 'Restore Student',
-      message: 'Restore this student to the active list?',
+      title: 'Restore Child',
+      message: 'Restore this child to the active list?',
       isDestructive: false,
       confirmText: 'Restore',
       onConfirm: async () => {
@@ -296,9 +296,9 @@ export default function AdminPanel() {
           setArchivedStudents(archivedStudents.filter(s => s.id !== id))
           const active = await getStudents()
           setStudents(active)
-          toast.success('Student restored to active.')
+          toast.success('Child restored to active.')
         } catch (err) {
-          toast.error('Failed to restore student: ' + err.message)
+          toast.error('Failed to restore child: ' + err.message)
         } finally {
           setConfirmState({ isOpen: false })
         }
@@ -372,7 +372,7 @@ export default function AdminPanel() {
     { id: 'access_codes', icon: Lock, label: 'Access Codes', roles: ['admin', 'super_admin'] },
     { id: 'pending',   icon: FileSearch, label: `Pending Results${pendingResults.length ? ` (${pendingResults.length})` : ''}`, roles: ['admin', 'super_admin', 'admin_2'] },
     { id: 'history',   icon: History, label: 'History', roles: ['admin', 'super_admin', 'admin_2'] },
-    { id: 'students',  icon: Users, label: 'Students', roles: ['admin', 'super_admin', 'admin_2'] },
+    { id: 'students',  icon: Users, label: 'Children', roles: ['admin', 'super_admin', 'admin_2'] },
     { id: 'users',     icon: UserCog, label: 'Users', roles: ['admin', 'super_admin'] },
     // NEW TABS
     { id: 'blog',      icon: BookOpen, label: 'Blog', roles: ['admin', 'super_admin', 'admin_2', 'admin_3'] },
@@ -439,7 +439,7 @@ export default function AdminPanel() {
             {activeTab === 'students' && (
               <>
                 <button onClick={() => setIsLinkOpen(true)} className="hidden sm:flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 hover:bg-gray-50 text-dark text-sm font-bold rounded-lg transition-all shadow-sm"><LinkIcon className="w-4 h-4" /> Link Family</button>
-                <button onClick={() => setIsAddStudentOpen(true)} className="flex items-center gap-2 px-4 py-2 bg-black hover:bg-gray-800 text-white text-sm font-bold rounded-lg transition-all shadow-sm"><UserPlus className="w-4 h-4" /> Add Student</button>
+                <button onClick={() => setIsAddStudentOpen(true)} className="flex items-center gap-2 px-4 py-2 bg-black hover:bg-gray-800 text-white text-sm font-bold rounded-lg transition-all shadow-sm"><UserPlus className="w-4 h-4" /> Add Child</button>
               </>
             )}
             {activeTab === 'users' && (
@@ -459,7 +459,7 @@ export default function AdminPanel() {
                   {[
                     { label: 'Pending Approvals', value: pendingResults.length, color: 'text-amber-600', border: 'border-amber-200' },
                     { label: 'Pending Admissions', value: admissions.filter(a=>a.status==='pending').length, color: 'text-blue-600', border: 'border-blue-200' },
-                    { label: 'Total Students',    value: students.length,       color: 'text-emerald-600', border: 'border-emerald-200' },
+                    { label: 'Total Children',    value: students.length,       color: 'text-emerald-600', border: 'border-emerald-200' },
                     { label: 'System Users',      value: allUsers.length,       color: 'text-purple-600',  border: 'border-purple-200' },
                   ].map(s => (
                     <div key={s.label} className={`bg-white rounded-2xl p-5 sm:p-6 border ${s.border} shadow-sm`}>
@@ -721,7 +721,7 @@ export default function AdminPanel() {
                     <div className="flex justify-center py-12"><Loader2 className="w-5 h-5 animate-spin text-muted" /></div>
                   ) : studentView === 'active' ? (
                     students.length === 0 ? (
-                      <p className="text-muted text-sm text-center py-12">No active students found.</p>
+                      <p className="text-muted text-sm text-center py-12">No active children found.</p>
                     ) : (
                       <div className="overflow-x-auto">
                         <table className="w-full text-sm text-left">
@@ -760,10 +760,10 @@ export default function AdminPanel() {
                                   <td className="px-6 py-4"><span className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-md border border-gray-200 bg-gray-50 text-gray-700">{s.enrollment_status}</span></td>
                                   <td className="px-6 py-4">
                                     <div className="flex items-center gap-1">
-                                      <button className="p-1.5 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100" onClick={() => handleArchiveStudent(s.id)} title="Archive Student">
+                                      <button className="p-1.5 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100" onClick={() => handleArchiveStudent(s.id)} title="Archive Child">
                                         <Archive className="w-4 h-4" />
                                       </button>
-                                      <button className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100" onClick={() => handleDeleteStudent(s.id)} title="Delete Student">
+                                      <button className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100" onClick={() => handleDeleteStudent(s.id)} title="Delete Child">
                                         <Trash2 className="w-4 h-4" />
                                       </button>
                                     </div>
@@ -777,7 +777,7 @@ export default function AdminPanel() {
                     )
                   ) : (
                     archivedStudents.length === 0 ? (
-                      <p className="text-muted text-sm text-center py-12">No archived students.</p>
+                      <p className="text-muted text-sm text-center py-12">No archived children.</p>
                     ) : (
                       <div className="overflow-x-auto">
                         <table className="w-full text-sm text-left">
@@ -879,8 +879,8 @@ export default function AdminPanel() {
 
       {isAddStudentOpen && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-3xl p-6 md:p-8 w-full max-w-xl shadow-2xl max-h-[90vh] overflow-y-auto">
-            <h2 className="font-display font-bold text-xl mb-1">Add New Student</h2>
+          <div className="bg-white text-gray-900 rounded-3xl p-6 md:p-8 w-full max-w-xl shadow-2xl max-h-[90vh] overflow-y-auto">
+            <h2 className="font-display font-bold text-xl mb-1">Add New Child</h2>
             <p className="text-sm text-gray-500 mb-6">Fields marked <span className="text-red-500">*</span> are required.</p>
             <form onSubmit={handleAddStudent} className="space-y-5">
               <div>
@@ -888,19 +888,19 @@ export default function AdminPanel() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold mb-1">First Name <span className="text-red-500">*</span></label>
-                    <input required type="text" value={studentForm.first_name} onChange={e => setStudentForm({...studentForm, first_name: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm" />
+                    <input required type="text" value={studentForm.first_name} onChange={e => setStudentForm({...studentForm, first_name: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm" />
                   </div>
                   <div>
                     <label className="block text-sm font-semibold mb-1">Last Name <span className="text-red-500">*</span></label>
-                    <input required type="text" value={studentForm.last_name} onChange={e => setStudentForm({...studentForm, last_name: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm" />
+                    <input required type="text" value={studentForm.last_name} onChange={e => setStudentForm({...studentForm, last_name: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm" />
                   </div>
                   <div>
                     <label className="block text-sm font-semibold mb-1">Date of Birth <span className="text-red-500">*</span></label>
-                    <input required type="date" max={new Date().toISOString().split('T')[0]} value={studentForm.date_of_birth} onChange={e => setStudentForm({...studentForm, date_of_birth: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm" />
+                    <input required type="date" max={new Date().toISOString().split('T')[0]} value={studentForm.date_of_birth} onChange={e => setStudentForm({...studentForm, date_of_birth: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm" />
                   </div>
                   <div>
                     <label className="block text-sm font-semibold mb-1">Sex</label>
-                    <select value={studentForm.sex} onChange={e => setStudentForm({...studentForm, sex: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm">
+                    <select value={studentForm.sex} onChange={e => setStudentForm({...studentForm, sex: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm">
                       <option value="">-- Select --</option>
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
@@ -908,7 +908,7 @@ export default function AdminPanel() {
                   </div>
                   <div>
                     <label className="block text-sm font-semibold mb-1">Registration Year <span className="text-red-500">*</span></label>
-                    <select required value={studentForm.registration_year} onChange={e => setStudentForm({...studentForm, registration_year: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm">
+                    <select required value={studentForm.registration_year} onChange={e => setStudentForm({...studentForm, registration_year: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm">
                       <option value="">-- Select Year --</option>
                       {Array.from({ length: new Date().getFullYear() - 2009 }, (_, i) => new Date().getFullYear() - i).map(yr => (
                         <option key={yr} value={yr}>{yr}</option>
@@ -916,14 +916,20 @@ export default function AdminPanel() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold mb-1">Student ID Preview</label>
+                    <label className="block text-sm font-semibold mb-1">Child ID Preview</label>
                     <div className="w-full px-4 py-2.5 rounded-xl border border-dashed border-primary/40 bg-primary/5 text-sm font-mono font-bold text-primary">
                       {studentForm.registration_year ? `LBC-${String(studentForm.registration_year).slice(-2)}-XXX` : '— Select year first —'}
                     </div>
                   </div>
                   <div className="col-span-2">
-                    <label className="block text-sm font-semibold mb-1">Program</label>
-                    <input type="text" value={studentForm.program} onChange={e => setStudentForm({...studentForm, program: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm" placeholder="e.g. ABA Therapy" />
+                    <label className="block text-sm font-semibold mb-1">Program Structure</label>
+                    <select value={studentForm.program} onChange={e => setStudentForm({...studentForm, program: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm">
+                      <option value="">-- Select Program Structure --</option>
+                      <option value="Amethyst">Amethyst</option>
+                      <option value="Diamond-Full">Diamond-Full</option>
+                      <option value="Diamond-Blended">Diamond-Blended</option>
+                      <option value="Others">Others</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -933,14 +939,14 @@ export default function AdminPanel() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold mb-1">Blood Group</label>
-                    <select value={studentForm.blood_group} onChange={e => setStudentForm({...studentForm, blood_group: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm">
+                    <select value={studentForm.blood_group} onChange={e => setStudentForm({...studentForm, blood_group: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm">
                       <option value="">-- Select --</option>
                       {['A+','A-','B+','B-','AB+','AB-','O+','O-'].map(bg => <option key={bg} value={bg}>{bg}</option>)}
                     </select>
                   </div>
                   <div>
                     <label className="block text-sm font-semibold mb-1">Genotype</label>
-                    <select value={studentForm.genotype} onChange={e => setStudentForm({...studentForm, genotype: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm">
+                    <select value={studentForm.genotype} onChange={e => setStudentForm({...studentForm, genotype: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm">
                       <option value="">-- Select --</option>
                       {['AA','AS','AC','SS','SC'].map(g => <option key={g} value={g}>{g}</option>)}
                     </select>
@@ -953,15 +959,15 @@ export default function AdminPanel() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="col-span-2">
                     <label className="block text-sm font-semibold mb-1">Contact Name</label>
-                    <input type="text" value={studentForm.emergency_contact_name} onChange={e => setStudentForm({...studentForm, emergency_contact_name: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm" />
+                    <input type="text" value={studentForm.emergency_contact_name} onChange={e => setStudentForm({...studentForm, emergency_contact_name: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm" />
                   </div>
                   <div>
                     <label className="block text-sm font-semibold mb-1">Phone</label>
-                    <input type="tel" value={studentForm.emergency_contact_phone} onChange={e => setStudentForm({...studentForm, emergency_contact_phone: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm" />
+                    <input type="tel" value={studentForm.emergency_contact_phone} onChange={e => setStudentForm({...studentForm, emergency_contact_phone: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm" />
                   </div>
                   <div>
                     <label className="block text-sm font-semibold mb-1">Relationship</label>
-                    <input type="text" value={studentForm.emergency_contact_relationship} onChange={e => setStudentForm({...studentForm, emergency_contact_relationship: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm" placeholder="e.g. Uncle" />
+                    <input type="text" value={studentForm.emergency_contact_relationship} onChange={e => setStudentForm({...studentForm, emergency_contact_relationship: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm" placeholder="e.g. Uncle" />
                   </div>
                 </div>
               </div>
@@ -969,7 +975,7 @@ export default function AdminPanel() {
               <div className="flex gap-3 pt-2">
                 <button type="button" onClick={() => setIsAddStudentOpen(false)} className="flex-1 bg-gray-100 hover:bg-gray-200 text-dark font-bold py-3 rounded-xl">Cancel</button>
                 <button type="submit" disabled={isStudentSubmitting} className="flex-1 btn-primary justify-center disabled:opacity-50">
-                  {isStudentSubmitting ? 'Saving...' : 'Add Student'}
+                  {isStudentSubmitting ? 'Saving...' : 'Add Child'}
                 </button>
               </div>
             </form>
@@ -980,27 +986,27 @@ export default function AdminPanel() {
       {/* Add User (Staff/Parent) Modal */}
       {isAddUserOpen && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-white text-gray-900 rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl max-h-[90vh] overflow-y-auto">
             <h2 className="font-display font-bold text-xl mb-6">Add New User</h2>
             <form onSubmit={handleAddUser} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold mb-1">First Name</label>
-                  <input required type="text" value={userForm.first_name} onChange={e => setUserForm({...userForm, first_name: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200" />
+                  <input required type="text" value={userForm.first_name} onChange={e => setUserForm({...userForm, first_name: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900" />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold mb-1">Last Name</label>
-                  <input required type="text" value={userForm.last_name} onChange={e => setUserForm({...userForm, last_name: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200" />
+                  <input required type="text" value={userForm.last_name} onChange={e => setUserForm({...userForm, last_name: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900" />
                 </div>
               </div>
               <div>
                 <label className="block text-sm font-semibold mb-1">Email</label>
-                <input required type="email" value={userForm.email} onChange={e => setUserForm({...userForm, email: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200" />
+                <input required type="email" value={userForm.email} onChange={e => setUserForm({...userForm, email: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900" />
               </div>
               <div>
                 <label className="block text-sm font-semibold mb-1">Temporary Password</label>
                 <div className="relative">
-                  <input required type={showPassword ? 'text' : 'password'} value={userForm.password} onChange={e => setUserForm({...userForm, password: e.target.value})} className="w-full px-4 py-3 pr-10 rounded-xl border border-gray-200" minLength="8" autoComplete="new-password" placeholder="Min 8 chars, 1 uppercase, 1 symbol" />
+                  <input required type={showPassword ? 'text' : 'password'} value={userForm.password} onChange={e => setUserForm({...userForm, password: e.target.value})} className="w-full px-4 py-3 pr-10 rounded-xl border border-gray-200 bg-white text-gray-900" minLength="8" autoComplete="new-password" placeholder="Min 8 chars, 1 uppercase, 1 symbol" />
                   <button
                     type="button"
                     onClick={() => setShowPassword((v) => !v)}
@@ -1013,7 +1019,7 @@ export default function AdminPanel() {
               </div>
               <div>
                 <label className="block text-sm font-semibold mb-1">Role</label>
-                <select value={userForm.role} onChange={e => setUserForm({...userForm, role: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white">
+                <select value={userForm.role} onChange={e => setUserForm({...userForm, role: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900">
                   <option value="staff">Staff (Teacher/Therapist)</option>
                   <option value="parent">Parent</option>
                   <option value="super_admin">Super Admin</option>
@@ -1035,14 +1041,14 @@ export default function AdminPanel() {
       {/* Link Family Modal */}
       {isLinkOpen && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl">
+          <div className="bg-white text-gray-900 rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl">
             <h2 className="font-display font-bold text-xl mb-6 flex items-center gap-2">
-              <LinkIcon className="w-5 h-5 text-accent" /> Link Parent to Student
+              <LinkIcon className="w-5 h-5 text-accent" /> Link Parent to Child
             </h2>
             <form onSubmit={handleLinkSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold mb-1">Select Parent</label>
-                <select required value={linkForm.parent_id} onChange={e => setLinkForm({...linkForm, parent_id: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white">
+                <select required value={linkForm.parent_id} onChange={e => setLinkForm({...linkForm, parent_id: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900">
                   <option value="">-- Choose a Parent --</option>
                   {parents.map(p => (
                     <option key={p.id} value={p.id}>{p.first_name} {p.last_name}</option>
@@ -1050,9 +1056,9 @@ export default function AdminPanel() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-semibold mb-1">Select Student</label>
-                <select required value={linkForm.student_id} onChange={e => setLinkForm({...linkForm, student_id: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white">
-                  <option value="">-- Choose a Student --</option>
+                <label className="block text-sm font-semibold mb-1">Select Child</label>
+                <select required value={linkForm.student_id} onChange={e => setLinkForm({...linkForm, student_id: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900">
+                  <option value="">-- Choose a Child --</option>
                   {students.map(s => (
                     <option key={s.id} value={s.id}>
                       #{s.student_id ?? '----'} — {s.first_name} {s.last_name}
@@ -1095,6 +1101,11 @@ export default function AdminPanel() {
       <StudentProfileModal
         student={viewingStudent}
         onClose={() => setViewingStudent(null)}
+        onUpdate={(updatedStudent) => {
+          setStudents(students.map(s => s.id === updatedStudent.id ? { ...s, ...updatedStudent } : s))
+          setArchivedStudents(archivedStudents.map(s => s.id === updatedStudent.id ? { ...s, ...updatedStudent } : s))
+          setViewingStudent(updatedStudent)
+        }}
       />
     </div>
   )

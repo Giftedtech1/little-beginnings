@@ -176,7 +176,7 @@ export default function Footer() {
 
         <div className="border-t mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
           <p className="text-white/40 text-xs">
-            &copy; {new Date().getFullYear()} Little Beginnings Learning Center. All rights reserved.
+            &copy; {new Date().getFullYear()} Little Beginnings Learning Centre. All rights reserved.
           </p>
           <div className="flex gap-4 text-xs text-white/40">
             <a href="#" className="transition-colors hover:text-primary-bright">{t('privacyPolicy')}</a>
