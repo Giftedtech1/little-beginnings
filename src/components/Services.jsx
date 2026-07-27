@@ -106,7 +106,7 @@ export default function Services() {
             Our <span className="text-brand">{t('programs')}</span>
           </h2>
           <p className="section-subtitle">
-            Evidence based programs delivered by specialists in a warm, child-friendly environment.
+            Evidence based programs delivered by specialists in a warm, child friendly environment.
           </p>
         </motion.div>
 

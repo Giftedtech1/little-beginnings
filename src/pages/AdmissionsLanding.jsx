@@ -58,7 +58,7 @@ export default function AdmissionsLanding() {
                   </div>
                   <h2 className="text-2xl font-bold text-gray-900 mb-3">Admission Application</h2>
                   <p className="text-gray-600 mb-8 flex-1">
-                    For parents of new students seeking general admission to Little Beginnings Centre.
+                    For parents of new children seeking admission to Little Beginnings Centre.
                   </p>
                   <div className="flex items-center text-sm font-bold text-black uppercase tracking-widest group-hover:gap-3 transition-all gap-2 mt-auto">
                     Complete Form <ArrowRight className="w-4 h-4" />
@@ -76,7 +76,7 @@ export default function AdmissionsLanding() {
                   </div>
                   <h2 className="text-2xl font-bold text-gray-900 mb-3">Pre-Assessment Form</h2>
                   <p className="text-gray-600 mb-8 flex-1">
-                    A detailed medical and developmental history form required for students enrolling in specialized intervention programs.
+                    A detailed medical and developmental history form required for children enrolling in specialized intervention programs.
                   </p>
                   <div className="flex items-center text-sm font-bold text-primary uppercase tracking-widest group-hover:gap-3 transition-all gap-2 mt-auto">
                     Complete Form <ArrowRight className="w-4 h-4" />
