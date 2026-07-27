@@ -77,7 +77,8 @@ const servicesData = {
       'Purposeful, activity-based interventions designed to feel like play.',
       'Sensory diet development for home and school environments.',
       'Adaptive equipment recommendations and training when necessary.'
-    ]
+    ],
+    focusAreasIntro: 'Our comprehensive approach targets the specific skills your child needs to successfully participate in activities of meaning and purpose.'
   },
   math: {
     title: 'Math & Writing',
@@ -230,7 +231,7 @@ export default function ServiceDetail() {
             Key Focus Areas
           </h2>
           <p className="text-muted">
-            Our comprehensive approach targets the specific skills your child needs to thrive both academically and socially.
+            {data.focusAreasIntro || "Our comprehensive approach targets the specific skills your child needs to thrive both academically and socially."}
           </p>
         </div>
 
