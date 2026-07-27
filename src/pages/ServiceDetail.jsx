@@ -60,7 +60,7 @@ const servicesData = {
   occupational: {
     title: 'Occupational Therapy',
     subtitle: 'Developing daily-life independence',
-    description: 'We focus on developing fine motor skills, sensory processing, and the visual-motor integration necessary for children to successfully engage in school, play, and self-care activities.',
+    description: 'We focus on developing fine motor skills, sensory processing, and the visual-motor integration your child needs to successfully participate in activities of meaning and purpose.',
     image: imgOccupational,
     accentBg: '#FFF0BB',
     accentText: '#B8860B',
@@ -119,7 +119,8 @@ const servicesData = {
     approach: [
       'A developmental assessment will aim to determine child\'s specific strengths and needs with respect to all domains of development. It helps determine what deficits exist in milestones developmental, and what possible diagnosis contribute to or can best explain these delays.',
       'A learning assessment will aim to determine child\'s specific strengths and needs as it relates to learning such that it helps to make informed decisions regarding appropriate accommodation and modification to learning, behaviour modification as well as overall eligibility for special education needs services.'
-    ]
+    ],
+    approachIntro: 'We employ a child-led play-based and activity-based approaches to observe a child\'s developmental milestones in natural, stress-free settings.'
   },
   'behaviour-intervention': {
     title: 'Behaviour Intervention',
@@ -296,8 +297,7 @@ export default function ServiceDetail() {
               Our Approach to {data.title}
             </h2>
             <p className="text-muted leading-relaxed text-lg">
-              We believe every child is unique, which is why we don't believe in one-size-fits-all solutions. 
-              Our specialists work closely with your family to create a supportive, engaging, and effective learning path.
+              {data.approachIntro || "We believe every child is unique, which is why we don't believe in one-size-fits-all solutions. Our specialists work closely with your family to create a supportive, engaging, and effective learning path."}
             </p>
           </div>
         </motion.div>
