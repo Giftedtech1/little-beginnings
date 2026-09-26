@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { FileUp, Loader2, CheckCircle, XCircle, Clock, Plus, Trash2, ChevronDown, ChevronRight, Upload, X, UserCircle, FilePlus2, FileText } from 'lucide-react'
+import { FileUp, Loader2, CheckCircle, XCircle, Clock, Plus, ChevronDown, ChevronRight, Upload, X, UserCircle, FilePlus2, FileText } from 'lucide-react'
 import { getStudents } from '../services/studentService'
 import { createResult, getTeacherResults, uploadResultMedia, uploadPDFToCpanel } from '../services/resultService'
 import { useAuth } from '../context/AuthContext'
@@ -48,8 +48,8 @@ export default function TeacherDashboard() {
   const [domains, setDomains] = useState([])
   const [generalComments, setGeneralComments] = useState('')
   
-  // PDF Upload state
-  const [pdfFile, setPdfFile] = useState(null)
+  // PDF Upload state (multiple)
+  const [pdfFiles, setPdfFiles] = useState([])
 
   // Media state
   const [mediaFiles, setMediaFiles] = useState([])
@@ -104,26 +104,31 @@ export default function TeacherDashboard() {
   // ── PDF helpers ────────────────────────────────────────────────────────────
   const handlePdfDrop = e => {
     e.preventDefault()
-    const file = e.dataTransfer.files[0]
-    if (file) addPdf(file)
+    addPdfs([...e.dataTransfer.files])
   }
-  const addPdf = file => {
-    if (file.type !== 'application/pdf') {
-      toast.error('Only PDF files are allowed.')
-      return
+  const addPdfs = files => {
+    const PDF_LIMIT = 20 * 1024 * 1024
+    const allowed = []
+    const skipped = []
+    for (const file of files) {
+      if (file.type !== 'application/pdf') {
+        skipped.push(`${file.name} (not a PDF)`)
+      } else if (file.size > PDF_LIMIT) {
+        skipped.push(`${file.name} (exceeds 20 MB)`)
+      } else {
+        allowed.push(file)
+      }
     }
-    if (file.size > 20 * 1024 * 1024) {
-      toast.error('PDF exceeds maximum allowed size of 20 MB.')
-      return
-    }
-    setPdfFile(file)
+    if (skipped.length) toast.error(`Skipped: ${skipped.join(', ')}`)
+    setPdfFiles(p => [...p, ...allowed])
   }
+  const removePdf = idx => setPdfFiles(p => p.filter((_, i) => i !== idx))
 
   // ── Reset form ─────────────────────────────────────────────────────────────
   const resetForm = () => {
     setBaseForm({ student_id: '', title: '', period: '' })
     setDomains([]); setGeneralComments('')
-    setPdfFile(null); setMediaFiles([])
+    setPdfFiles([]); setMediaFiles([])
   }
 
   // ── Submit ─────────────────────────────────────────────────────────────────
@@ -148,10 +153,24 @@ export default function TeacherDashboard() {
       let formData = null
 
       if (reportType === 'pdf-upload') {
-        if (!pdfFile) throw new Error('Please upload a PDF file.')
-        const res = await uploadPDFToCpanel(pdfFile)
-        fileUrl = res.url
-        fileInfo = { name: res.file_name, size: res.size }
+        if (!pdfFiles.length) throw new Error('Please upload at least one PDF file.')
+        // Upload each PDF and create a separate result row for each
+        const uploadedResults = []
+        for (const pdf of pdfFiles) {
+          const res = await uploadPDFToCpanel(pdf)
+          const newRes = await createResult({
+            student_id, title, report_type: reportType,
+            file_url: res.url,
+            form_data: null,
+            media_urls: mediaUrls,
+            file_info: { name: res.file_name, size: res.size }
+          }, user.id)
+          uploadedResults.push(newRes)
+        }
+        setPastResults(p => [...uploadedResults, ...p])
+        resetForm(); setSuccess(true)
+        setTimeout(() => setSuccess(false), 5000)
+        return // early return — results already saved above
       } else if (reportType === 'bi-weekly' || reportType === 'end-of-ip') {
         if (!domains.length && !generalComments.trim()) {
            throw new Error('Please add at least one domain or general comment.')
@@ -268,31 +287,46 @@ export default function TeacherDashboard() {
             {/* Step 5 — PDF Upload */}
             {reportType === 'pdf-upload' && (
               <div>
-                <label className="block text-sm font-semibold text-dark mb-2">5. Upload PDF Document</label>
+                <label className="block text-sm font-semibold text-dark mb-2">
+                  5. Upload PDF Documents
+                  {pdfFiles.length > 0 && (
+                    <span className="ml-2 text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                      {pdfFiles.length} file{pdfFiles.length > 1 ? 's' : ''} selected
+                    </span>
+                  )}
+                </label>
+
+                {/* Drop zone */}
                 <div onDrop={handlePdfDrop} onDragOver={e => e.preventDefault()}
                   onClick={() => pdfInputRef.current?.click()}
                   className="border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center cursor-pointer hover:border-primary transition-colors bg-white">
-                  <input ref={pdfInputRef} type="file" accept="application/pdf" className="hidden"
-                    onChange={e => addPdf(e.target.files[0])} />
-                  
-                  {pdfFile ? (
-                    <div className="flex flex-col items-center">
-                       <FileText className="w-10 h-10 text-primary mb-3" />
-                       <p className="text-sm font-bold text-dark">{pdfFile.name}</p>
-                       <p className="text-xs text-muted mt-1">{(pdfFile.size / 1024 / 1024).toFixed(2)} MB</p>
-                       <button type="button" onClick={(e) => { e.stopPropagation(); setPdfFile(null); }} className="mt-4 text-xs font-bold text-red-500 hover:text-red-700 bg-red-50 px-3 py-1.5 rounded-full flex items-center gap-1">
-                         <Trash2 className="w-3.5 h-3.5" /> Remove File
-                       </button>
-                    </div>
-                  ) : (
-                    <>
-                      <FileUp className="w-8 h-8 text-muted mx-auto mb-3" />
-                      <p className="text-sm text-dark font-medium">Drag & drop a PDF file here</p>
-                      <p className="text-xs text-muted mt-1">or <span className="text-primary font-semibold">browse files</span></p>
-                      <p className="text-xs text-muted/60 mt-2">Max 20 MB</p>
-                    </>
-                  )}
+                  <input ref={pdfInputRef} type="file" accept="application/pdf" multiple className="hidden"
+                    onChange={e => addPdfs([...e.target.files])} />
+                  <FileUp className="w-8 h-8 text-muted mx-auto mb-3" />
+                  <p className="text-sm text-dark font-medium">Drag & drop PDF files here</p>
+                  <p className="text-xs text-muted mt-1">or <span className="text-primary font-semibold">browse files</span></p>
+                  <p className="text-xs text-muted/60 mt-2">Multiple files allowed · Max 20 MB each</p>
                 </div>
+
+                {/* Queued PDF list */}
+                {pdfFiles.length > 0 && (
+                  <div className="mt-3 space-y-2">
+                    {pdfFiles.map((f, i) => (
+                      <div key={i} className="flex items-center gap-3 px-4 py-2.5 bg-surface rounded-xl border border-gray-100">
+                        <FileText className="w-4 h-4 text-primary flex-shrink-0" />
+                        <span className="text-sm text-dark flex-1 truncate">{f.name}</span>
+                        <span className="text-xs text-muted flex-shrink-0">{(f.size / 1024 / 1024).toFixed(1)} MB</span>
+                        <button type="button" onClick={() => removePdf(i)}
+                          className="p-1 hover:bg-red-50 text-red-400 hover:text-red-600 rounded-lg transition-colors flex-shrink-0">
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    ))}
+                    <p className="text-xs text-muted pl-1">
+                      Total: {(pdfFiles.reduce((acc, f) => acc + f.size, 0) / 1024 / 1024).toFixed(1)} MB · Each PDF will be submitted as a separate report.
+                    </p>
+                  </div>
+                )}
               </div>
             )}
 
