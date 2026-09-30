@@ -49,31 +49,108 @@ export async function getStudentById(id) {
   return data
 }
 
-/** Generate the next student ID for a given registration year (e.g. LBC-24-001). */
+/** Generate the next unique student ID for a given registration year (e.g. LBC-26-001). */
 async function generateStudentId(registrationYear) {
   const twoDigitYear = String(registrationYear).slice(-2)
-  const { count, error } = await supabase
+  const prefix = `LBC-${twoDigitYear}-`
+
+  // Fetch all existing student_ids starting with this prefix to find the highest sequence number
+  const { data, error } = await supabase
     .from('students')
-    .select('*', { count: 'exact', head: true })
-    .eq('registration_year', registrationYear)
-  if (error) throw error
-  const seq = String((count ?? 0) + 1).padStart(3, '0')
-  return `LBC-${twoDigitYear}-${seq}`
+    .select('student_id')
+    .ilike('student_id', `${prefix}%`)
+
+  if (error) {
+    console.warn('Failed to fetch existing student IDs by prefix:', error)
+  }
+
+  const existingIds = new Set(
+    (data || [])
+      .map(s => s.student_id?.trim().toUpperCase())
+      .filter(Boolean)
+  )
+
+  let maxSeq = 0
+  for (const id of existingIds) {
+    const match = id.match(new RegExp(`^LBC-${twoDigitYear}-(\\d+)$`, 'i'))
+    if (match) {
+      const num = parseInt(match[1], 10)
+      if (!isNaN(num) && num > maxSeq) {
+        maxSeq = num
+      }
+    }
+  }
+
+  let nextSeq = maxSeq + 1
+  let candidateId = `${prefix}${String(nextSeq).padStart(3, '0')}`
+
+  // Guard against any collisions with existing IDs
+  while (existingIds.has(candidateId.toUpperCase())) {
+    nextSeq++
+    candidateId = `${prefix}${String(nextSeq).padStart(3, '0')}`
+  }
+
+  return { student_id: candidateId, nextSeq, prefix, existingIds }
 }
 
-/** Create a new student record with auto-generated ID. */
+/** Create a new student record with auto-generated ID and duplicate collision retry protection. */
 export async function createStudent(student) {
   const { registration_year } = student
   if (!registration_year) throw new Error('Registration year is required.')
 
-  const student_id = await generateStudentId(Number(registration_year))
-  const { data, error } = await supabase
-    .from('students')
-    .insert([{ ...student, student_id, registration_year: Number(registration_year) }])
-    .select()
-    .single()
-  if (error) throw error
-  return data
+  const yearNum = Number(registration_year)
+
+  // If a student_id was manually supplied, insert directly
+  if (student.student_id) {
+    const { data, error } = await supabase
+      .from('students')
+      .insert([{ ...student, registration_year: yearNum }])
+      .select()
+      .single()
+    if (error) throw error
+    return data
+  }
+
+  const { student_id: initialId, nextSeq: initialSeq, prefix, existingIds } = await generateStudentId(yearNum)
+
+  let candidateId = initialId
+  let currentSeq = initialSeq
+  const MAX_RETRIES = 10
+  let lastError = null
+
+  for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+    const { data, error } = await supabase
+      .from('students')
+      .insert([{ ...student, student_id: candidateId, registration_year: yearNum }])
+      .select()
+      .single()
+
+    if (!error) {
+      return data
+    }
+
+    // Check if the failure is a duplicate key constraint on student_id
+    const isDuplicateKey =
+      error.code === '23505' ||
+      error.message?.includes('students_student_id_key') ||
+      error.details?.includes('student_id') ||
+      error.message?.toLowerCase().includes('duplicate key')
+
+    if (isDuplicateKey) {
+      existingIds.add(candidateId.toUpperCase())
+      while (existingIds.has(candidateId.toUpperCase())) {
+        currentSeq++
+        candidateId = `${prefix}${String(currentSeq).padStart(3, '0')}`
+      }
+      lastError = error
+      continue
+    }
+
+    // For any other error (validation, permissions, etc.), throw immediately
+    throw error
+  }
+
+  throw lastError || new Error('Failed to generate a unique student ID after multiple attempts.')
 }
 
 /** Update an existing student. */

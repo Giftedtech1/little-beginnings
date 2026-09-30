@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { FileText, BookOpen, ExternalLink, Video, Download, ChevronDown, Users } from 'lucide-react'
+import { FileText, BookOpen, ExternalLink, Video, Download, ChevronDown, Users, Calendar } from 'lucide-react'
 import { getStudentApprovedResults } from '../services/resultService'
 import { getVideosByStudent } from '../services/videoService'
 import { supabase } from '../services/supabaseClient'
@@ -167,9 +167,19 @@ export default function ParentDashboard() {
                           <div className="flex justify-between items-start mb-3">
                             <div className="min-w-0">
                               <h3 className="font-bold text-dark truncate">{res.title}</h3>
-                              {res.form_data?.period && (
-                                <p className="text-xs text-muted mt-0.5">{res.form_data.period}</p>
-                              )}
+                              <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                                {res.created_at && (
+                                  <span className="text-xs text-muted flex items-center gap-1">
+                                    <Calendar className="w-3.5 h-3.5 text-muted" />
+                                    {new Date(res.created_at).toLocaleDateString()}
+                                  </span>
+                                )}
+                                {res.form_data?.period && (
+                                  <span className="text-xs text-muted">
+                                    · {res.form_data.period}
+                                  </span>
+                                )}
+                              </div>
                             </div>
                             <span className="text-[10px] uppercase font-bold tracking-wider bg-green-50 text-green-600 px-2 py-1 rounded-md flex-shrink-0 ml-2">Official</span>
                           </div>

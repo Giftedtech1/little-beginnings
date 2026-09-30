@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Loader2, Trash2, UserPlus, FileSearch, CheckCircle, XCircle, History, UserCog, Link as LinkIcon, Users, Eye, EyeOff, UserCircle, BookOpen, LayoutDashboard, Menu, MessageCircle, Power, PowerOff, Lock, Archive, ArchiveRestore } from 'lucide-react'
+import { Loader2, Trash2, UserPlus, FileSearch, CheckCircle, XCircle, History, UserCog, Link as LinkIcon, Users, Eye, EyeOff, UserCircle, BookOpen, LayoutDashboard, Menu, MessageCircle, Power, PowerOff, Lock, Archive, ArchiveRestore, Calendar } from 'lucide-react'
 import { getStudents, createStudent, getParents, linkParentToStudent, deleteStudent, archiveStudent, unarchiveStudent, getArchivedStudents } from '../services/studentService'
 import { getPendingResults, updateResultStatus, getAdminResultsHistory } from '../services/resultService'
 import { supabase } from '../services/supabaseClient'
@@ -637,7 +637,17 @@ export default function AdminPanel() {
                             )}
                           </div>
                           <p className="text-sm font-semibold text-gray-700 truncate mb-1">{res.title}</p>
-                          {res.profiles && <p className="text-xs text-gray-500 font-medium">Uploaded by: <span className="text-gray-700">{res.profiles.first_name} {res.profiles.last_name}</span></p>}
+                          <div className="flex items-center gap-3 text-xs text-gray-500 font-medium flex-wrap">
+                            {res.profiles && (
+                              <p>Uploaded by: <span className="text-gray-700">{res.profiles.first_name} {res.profiles.last_name}</span></p>
+                            )}
+                            {res.created_at && (
+                              <span className="flex items-center gap-1 text-gray-400">
+                                <Calendar className="w-3.5 h-3.5" />
+                                {new Date(res.created_at).toLocaleDateString()}
+                              </span>
+                            )}
+                          </div>
                         </div>
                         <div className="flex items-center gap-2 w-full sm:w-auto">
                           <button onClick={() => setViewingResult(res)} className="flex-1 sm:flex-none px-4 py-2 text-xs font-bold text-primary bg-primary/5 hover:bg-primary/10 border border-primary/20 rounded-lg transition-colors flex items-center justify-center gap-1.5">
