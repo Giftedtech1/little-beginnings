@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { FileUp, Loader2, CheckCircle, XCircle, Clock, Plus, ChevronDown, ChevronRight, Upload, X, UserCircle, FilePlus2, FileText } from 'lucide-react'
+import { FileUp, Loader2, CheckCircle, XCircle, Clock, Plus, ChevronDown, ChevronRight, Upload, X, UserCircle, FilePlus2, FileText, Trash2 } from 'lucide-react'
 import { getStudents } from '../services/studentService'
 import { createResult, getTeacherResults, uploadResultMedia, uploadPDFToCpanel } from '../services/resultService'
 import { useAuth } from '../context/AuthContext'
@@ -21,8 +21,19 @@ const REPORT_TYPES = [
   { id: 'pdf-upload', label: 'Upload PDF', desc: 'Drag and drop a completed PDF report', icon: FileText },
 ]
 
-const newDomain = () => ({ id: crypto.randomUUID(), name: '', items: [] })
-const newItem = () => ({ id: crypto.randomUUID(), name: '', score: 'SW' })
+const generateId = () => {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    try {
+      return crypto.randomUUID()
+    } catch {
+      // fallback if crypto.randomUUID fails
+    }
+  }
+  return 'id-' + Date.now().toString(36) + '-' + Math.random().toString(36).substring(2, 9)
+}
+
+const newItem = () => ({ id: generateId(), name: '', score: 'SW' })
+const newDomain = () => ({ id: generateId(), name: '', items: [newItem()] })
 
 // ── Component ────────────────────────────────────────────────────────────────
 export default function TeacherDashboard() {
