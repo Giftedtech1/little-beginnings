@@ -1,5 +1,16 @@
-import { X, FileText, ExternalLink, Video, MessageSquare, Download, Printer, User, Calendar, Activity } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { X, FileText, ExternalLink, Video, MessageSquare, Download, Printer, User, Calendar, Activity, Pencil, Save, Plus, Trash2, Loader2 } from 'lucide-react'
 import seal from '../assets/shool seal.png'
+
+// ── ID helper (for newly added domains/items while editing) ────────────────
+function genId() {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    try { return crypto.randomUUID() } catch { /* fall through */ }
+  }
+  return 'id-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 9)
+}
+
+const cloneDeep = (v) => (v ? JSON.parse(JSON.stringify(v)) : v)
 
 // ── PDF print utility ───────────────────────────────────────────────────────
 function printReport(result) {
@@ -9,7 +20,7 @@ function printReport(result) {
   const data = result.form_data || {}
 
   let bodyHtml = ''
-  
+
   if (result.report_type === 'bi-weekly' || result.report_type === 'end-of-ip') {
     if (data.domains) {
       // New format (Domain builder)
@@ -113,7 +124,7 @@ function ScoreLegend() {
 
 function StudentInfoCard({ student, teacherName, createdAt }) {
   if (!student) return null
-  
+
   const calculateAge = (dob) => {
     if (!dob) return null
     const diff = new Date() - new Date(dob)
@@ -169,8 +180,8 @@ function PdfUploadView({ result }) {
       <div className="text-center max-w-sm px-6">
         <p className="font-display font-extrabold text-dark text-xl mb-2">{fileName}</p>
         <p className="text-muted text-sm mb-6">{fileSize} • Uploaded {new Date(result.created_at).toLocaleDateString()}</p>
-        
-        <a href={result.file_url} target="_blank" rel="noreferrer" download 
+
+        <a href={result.file_url} target="_blank" rel="noreferrer" download
            className="btn-primary w-full justify-center flex items-center gap-2 shadow-lg shadow-primary/20">
           <Download className="w-5 h-5" /> Download Report
         </a>
@@ -302,20 +313,177 @@ function MediaGallery({ mediaUrls }) {
   )
 }
 
+// ── Editable views (used when a Super Admin is reviewing a pending report) ──
+
+function EditableDomainBuilder({ domains, setDomains }) {
+  const addDomain = () => setDomains(p => [...p, { id: genId(), name: '', items: [{ id: genId(), name: '', score: 'SW' }] }])
+  const removeDomain = id => setDomains(p => p.filter(d => d.id !== id))
+  const setDomainName = (id, name) => setDomains(p => p.map(d => d.id === id ? { ...d, name } : d))
+  const addItem = id => setDomains(p => p.map(d => d.id === id ? { ...d, items: [...d.items, { id: genId(), name: '', score: 'SW' }] } : d))
+  const removeItem = (dId, iId) => setDomains(p => p.map(d => d.id === dId ? { ...d, items: d.items.filter(i => i.id !== iId) } : d))
+  const updateItem = (dId, iId, patch) => setDomains(p => p.map(d => d.id === dId ? { ...d, items: d.items.map(i => i.id === iId ? { ...i, ...patch } : i) } : d))
+
+  return (
+    <div className="space-y-4">
+      {domains.map((domain) => (
+        <div key={domain.id} className="rounded-2xl border border-gray-200 overflow-hidden">
+          <div className="flex items-center gap-3 px-4 py-3 bg-surface border-b border-gray-100">
+            <input type="text" value={domain.name}
+              onChange={e => setDomainName(domain.id, e.target.value)}
+              placeholder="Domain name (e.g. Oral Motor)"
+              className="flex-1 text-sm font-bold bg-transparent outline-none text-dark placeholder:text-muted placeholder:font-normal" />
+            <button type="button" onClick={() => removeDomain(domain.id)}
+              className="p-1.5 hover:bg-red-50 text-red-400 hover:text-red-600 rounded-lg transition-colors">
+              <Trash2 className="w-4 h-4" />
+            </button>
+          </div>
+          <div className="divide-y divide-gray-50 bg-white">
+            {domain.items.map(item => (
+              <div key={item.id} className="flex flex-col sm:flex-row sm:items-start gap-3 px-4 py-3">
+                <textarea value={item.name}
+                  onChange={e => updateItem(domain.id, item.id, { name: e.target.value })}
+                  placeholder="Skill / goal item..."
+                  rows={2}
+                  className="w-full sm:flex-1 text-sm bg-transparent outline-none text-dark placeholder:text-muted resize-none leading-relaxed pt-0.5" />
+                <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-3">
+                  <div className="flex gap-1 flex-shrink-0 flex-wrap">
+                    {Object.keys(SCORE_META).map(s => (
+                      <button key={s} type="button"
+                        onClick={() => updateItem(domain.id, item.id, { score: s })}
+                        className={`text-[11px] font-extrabold px-2.5 py-1.5 rounded-lg border transition-all min-w-[2.5rem] text-center ${item.score === s ? `${SCORE_META[s].bg} ${SCORE_META[s].text} ${SCORE_META[s].border} scale-105 shadow-sm` : 'border-gray-200 text-gray-400 hover:border-gray-300 hover:bg-gray-50'}`}>
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                  <button type="button" onClick={() => removeItem(domain.id, item.id)}
+                    className="p-1.5 sm:p-1 hover:bg-red-50 text-red-300 hover:text-red-500 rounded-lg transition-colors flex-shrink-0">
+                    <X className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="px-4 py-2.5 border-t border-gray-100 bg-white">
+            <button type="button" onClick={() => addItem(domain.id)}
+              className="text-xs font-semibold text-primary hover:text-primary-dark flex items-center gap-1 transition-colors">
+              <Plus className="w-3.5 h-3.5" /> Add Item
+            </button>
+          </div>
+        </div>
+      ))}
+
+      <button type="button" onClick={addDomain}
+        className="w-full py-3 border-2 border-dashed border-gray-200 rounded-2xl text-sm font-semibold text-muted hover:border-primary hover:text-primary transition-colors flex items-center justify-center gap-2 bg-white">
+        <Plus className="w-4 h-4" /> Add Domain
+      </button>
+    </div>
+  )
+}
+
+function EditableLegacyCategories({ categories, setCategories }) {
+  return (
+    <div className="space-y-3">
+      {categories.map((cat, i) => (
+        <div key={cat.id || i} className="rounded-2xl border border-gray-100 overflow-hidden">
+          <div className="flex items-center gap-3 px-5 py-3 bg-surface border-b border-gray-100">
+            <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+              <span className="text-[10px] font-extrabold text-primary">{i + 1}</span>
+            </div>
+            <h3 className="text-sm font-bold text-dark">{cat.name}</h3>
+          </div>
+          <div className="px-5 py-4">
+            <textarea rows={3} value={cat.notes || ''}
+              onChange={e => setCategories(prev => prev.map((c, ci) => ci === i ? { ...c, notes: e.target.value } : c))}
+              placeholder="Notes..."
+              className="w-full text-sm text-dark leading-relaxed outline-none resize-none bg-surface rounded-xl p-3 border border-gray-100 focus:ring-2 focus:ring-primary/30" />
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 // ── Main component ──────────────────────────────────────────────────────────
-export default function ReportViewerModal({ result, onClose }) {
+export default function ReportViewerModal({ result, onClose, editable = false, onSave }) {
+  const [isEditing, setIsEditing] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
+  const [saveError, setSaveError] = useState('')
+  const [editTitle, setEditTitle] = useState('')
+  const [editPeriod, setEditPeriod] = useState('')
+  const [editDomains, setEditDomains] = useState([])
+  const [editComments, setEditComments] = useState('')
+  const [editCategories, setEditCategories] = useState([])
+
+  // Reset editing state whenever a different report is opened
+  useEffect(() => {
+    if (!result) return
+    const data = result.form_data || {}
+    setIsEditing(false)
+    setIsSaving(false)
+    setSaveError('')
+    setEditTitle(result.title || '')
+    setEditPeriod(data.period || '')
+    setEditDomains(data.domains ? cloneDeep(data.domains) : [])
+    setEditComments(data.generalComments || '')
+    setEditCategories(data.categories ? cloneDeep(data.categories) : [])
+  }, [result?.id])
+
   if (!result) return null
 
   const meta   = REPORT_META[result.report_type] || REPORT_META['pdf-link']
   const period = result.form_data?.period
-  
-  const teacherName = result.uploaded_by_profile 
+
+  const teacherName = result.uploaded_by_profile
     ? `${result.uploaded_by_profile.first_name} ${result.uploaded_by_profile.last_name}`
-    : result.profiles 
+    : result.profiles
       ? `${result.profiles.first_name} ${result.profiles.last_name}`
       : 'Teacher'
 
   const data = result.form_data || {}
+  const isDomainReport = result.report_type === 'bi-weekly' || result.report_type === 'end-of-ip'
+  // Only reports still awaiting a decision may be edited — once approved/rejected,
+  // editing belongs to the therapist's resubmission flow, not the review screen.
+  const canEdit = editable && typeof onSave === 'function' && result.status === 'pending'
+
+  const resetEditState = () => {
+    setEditTitle(result.title || '')
+    setEditPeriod(data.period || '')
+    setEditDomains(data.domains ? cloneDeep(data.domains) : [])
+    setEditComments(data.generalComments || '')
+    setEditCategories(data.categories ? cloneDeep(data.categories) : [])
+  }
+
+  const handleStartEdit = () => { resetEditState(); setSaveError(''); setIsEditing(true) }
+  const handleCancelEdit = () => { resetEditState(); setSaveError(''); setIsEditing(false) }
+
+  const handleSaveEdit = async () => {
+    setIsSaving(true)
+    setSaveError('')
+    try {
+      // Mirror exactly which editor was shown below (legacy categories only
+      // when the report already used that format and never got migrated to
+      // domains) so a save can never silently drop the editor's content.
+      const usingLegacyCategories = !!data.categories && !data.domains
+      const nextFormData = isDomainReport
+        ? {
+            ...data,
+            period: editPeriod,
+            generalComments: editComments,
+            ...(usingLegacyCategories ? { categories: editCategories } : { domains: editDomains }),
+          }
+        : data
+
+      await onSave(result.id, {
+        title: editTitle.trim() || result.title,
+        form_data: nextFormData,
+      })
+      setIsEditing(false)
+    } catch (err) {
+      setSaveError(err?.message || 'Failed to save changes. Please try again.')
+    } finally {
+      setIsSaving(false)
+    }
+  }
 
   return (
     <div
@@ -332,15 +500,38 @@ export default function ReportViewerModal({ result, onClose }) {
             <div className="flex items-center flex-wrap gap-2 mb-2">
               <span className={`text-xs font-bold px-3 py-1 rounded-full ${meta.pill}`}>{meta.label}</span>
               {period && <span className="text-xs text-muted font-medium bg-gray-100 px-2 py-0.5 rounded-full">{period}</span>}
+              {isEditing && <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">Editing</span>}
             </div>
             <h2 className="font-display font-extrabold text-2xl text-dark leading-tight">{result.title}</h2>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
-            {['bi-weekly', 'end-of-ip'].includes(result.report_type) && (
-              <button onClick={() => printReport(result)}
-                className="flex items-center gap-1.5 text-xs font-bold text-primary bg-primary/10 hover:bg-primary/20 px-3 py-2 rounded-xl transition-colors">
-                <Printer className="w-3.5 h-3.5" /> Print PDF
-              </button>
+            {isEditing ? (
+              <>
+                <button onClick={handleCancelEdit} disabled={isSaving}
+                  className="flex items-center gap-1.5 text-xs font-bold text-muted bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-xl transition-colors disabled:opacity-50">
+                  Cancel
+                </button>
+                <button onClick={handleSaveEdit} disabled={isSaving}
+                  className="flex items-center gap-1.5 text-xs font-bold text-white bg-primary hover:bg-primary-dark px-3 py-2 rounded-xl transition-colors disabled:opacity-60">
+                  {isSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+                  {isSaving ? 'Saving...' : 'Save Changes'}
+                </button>
+              </>
+            ) : (
+              <>
+                {canEdit && (
+                  <button onClick={handleStartEdit}
+                    className="flex items-center gap-1.5 text-xs font-bold text-primary bg-primary/10 hover:bg-primary/20 px-3 py-2 rounded-xl transition-colors">
+                    <Pencil className="w-3.5 h-3.5" /> Edit
+                  </button>
+                )}
+                {isDomainReport && (
+                  <button onClick={() => printReport(result)}
+                    className="flex items-center gap-1.5 text-xs font-bold text-primary bg-primary/10 hover:bg-primary/20 px-3 py-2 rounded-xl transition-colors">
+                    <Printer className="w-3.5 h-3.5" /> Print PDF
+                  </button>
+                )}
+              </>
             )}
             <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-xl transition-colors" aria-label="Close report">
               <X className="w-5 h-5 text-muted" />
@@ -350,19 +541,62 @@ export default function ReportViewerModal({ result, onClose }) {
 
         {/* Body */}
         <div className="overflow-y-auto flex-1 px-4 py-6 sm:px-7">
-          <StudentInfoCard 
-            student={result.students} 
-            teacherName={teacherName} 
-            createdAt={result.created_at} 
+          <StudentInfoCard
+            student={result.students}
+            teacherName={teacherName}
+            createdAt={result.created_at}
           />
 
-          {(result.report_type === 'bi-weekly' || result.report_type === 'end-of-ip') && (
+          {saveError && (
+            <div className="bg-red-50 text-red-700 text-sm font-medium p-3.5 rounded-xl mb-4 border border-red-100">{saveError}</div>
+          )}
+
+          {isEditing && (
+            <div className="mb-5 space-y-3 bg-white border border-gray-100 rounded-2xl p-4">
+              <div>
+                <label className="block text-xs font-bold text-muted uppercase tracking-wide mb-1.5">Title</label>
+                <input type="text" value={editTitle} onChange={e => setEditTitle(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm bg-surface outline-none focus:ring-2 focus:ring-primary/30" />
+              </div>
+              {isDomainReport && (
+                <div>
+                  <label className="block text-xs font-bold text-muted uppercase tracking-wide mb-1.5">Period <span className="font-normal text-muted/70">(optional)</span></label>
+                  <input type="text" value={editPeriod} onChange={e => setEditPeriod(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm bg-surface outline-none focus:ring-2 focus:ring-primary/30" />
+                </div>
+              )}
+            </div>
+          )}
+
+          {!isEditing && isDomainReport && (
             data.domains ? <DomainReportView result={result} /> : <LegacyBiWeeklyView result={result} />
           )}
-          {result.report_type === 'pdf-upload'      && <PdfUploadView result={result} />}
-          {result.report_type === 'pdf-link'        && <PdfLinkView result={result} />}
-          
-          <MediaGallery mediaUrls={result.media_urls} />
+          {!isEditing && result.report_type === 'pdf-upload' && <PdfUploadView result={result} />}
+          {!isEditing && result.report_type === 'pdf-link'   && <PdfLinkView result={result} />}
+
+          {isEditing && isDomainReport && (
+            <div className="space-y-5">
+              {data.categories && !data.domains ? (
+                <EditableLegacyCategories categories={editCategories} setCategories={setEditCategories} />
+              ) : (
+                <EditableDomainBuilder domains={editDomains} setDomains={setEditDomains} />
+              )}
+              <div>
+                <label className="block text-sm font-semibold text-dark mb-1.5">General Comments</label>
+                <textarea rows={3} value={editComments} onChange={e => setEditComments(e.target.value)}
+                  placeholder="Overall summary or recommendations..."
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm bg-white outline-none focus:ring-2 focus:ring-primary/30 resize-none" />
+              </div>
+            </div>
+          )}
+
+          {isEditing && !isDomainReport && (
+            <p className="text-sm text-muted bg-white border border-gray-100 rounded-xl p-4">
+              Only the title above can be edited here. To change the attached document itself, send this back to the therapist to re-upload a corrected file.
+            </p>
+          )}
+
+          {!isEditing && <MediaGallery mediaUrls={result.media_urls} />}
         </div>
       </div>
     </div>

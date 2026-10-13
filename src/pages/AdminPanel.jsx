@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Loader2, Trash2, UserPlus, FileSearch, CheckCircle, XCircle, History, UserCog, Link as LinkIcon, Users, Eye, EyeOff, UserCircle, BookOpen, LayoutDashboard, Menu, MessageCircle, Power, PowerOff, Lock, Archive, ArchiveRestore, Calendar } from 'lucide-react'
 import { getStudents, createStudent, getParents, linkParentToStudent, deleteStudent, archiveStudent, unarchiveStudent, getArchivedStudents } from '../services/studentService'
-import { getPendingResults, updateResultStatus, getAdminResultsHistory } from '../services/resultService'
+import { getPendingResults, updateResultStatus, getAdminResultsHistory, updateResult } from '../services/resultService'
 import { supabase } from '../services/supabaseClient'
 import { getAllProfiles, toggleUserStatus } from '../services/authService'
 import { getAdmissions, updateAdmissionStatus } from '../services/admissionService'
@@ -135,6 +135,21 @@ export default function AdminPanel() {
         }
       }
     })
+  }
+
+  // Let a Super Admin tweak a pending report's content (fix a sentence, add a
+  // note) without having to reject the whole thing back to the therapist.
+  const handleSaveResultEdit = async (id, updates) => {
+    try {
+      const updated = await updateResult(id, updates)
+      setPendingResults(prev => prev.map(r => r.id === id ? { ...r, ...updated } : r))
+      setViewingResult(prev => (prev && prev.id === id) ? { ...prev, ...updated } : prev)
+      toast.success('Report updated.')
+      return updated
+    } catch (err) {
+      toast.error('Failed to save changes.')
+      throw err
+    }
   }
 
   const handleAdmissionStatus = async (id, status) => {
@@ -1099,6 +1114,8 @@ export default function AdminPanel() {
       <ReportViewerModal
         result={viewingResult}
         onClose={() => setViewingResult(null)}
+        editable
+        onSave={handleSaveResultEdit}
       />
       <AdmissionViewerModal 
         admission={viewingAdmission}

@@ -137,6 +137,20 @@ export async function updateResultStatus(id, newStatus, adminId, rejectionMessag
   return updateResult(id, updates)
 }
 
+/** Resubmit a result the therapist has edited after rejection (or while still
+ * pending). Resets status to 'pending' and clears prior rejection/approval
+ * metadata so it re-enters the admin review queue as a fresh decision. */
+export async function resubmitResult(id, updates) {
+  const payload = {
+    ...updates,
+    status: 'pending',
+    rejection_message: null,
+    approved_by: null,
+    approved_at: null,
+  }
+  return updateResult(id, payload)
+}
+
 /** Delete a result. */
 export async function deleteResult(id) {
   const { error } = await supabase.from('results').delete().eq('id', id)
